@@ -11,6 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>  
 
     <!-- Google Fonts: Kantumruy Pro & Plus Jakarta Sans -->  
+    <link rel="preconnect" href="https://fonts.googleapis.com">  
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">  
 
@@ -37,6 +38,7 @@
                             900: '#064e3b',  
                         },  
                         gold: {  
+                            300: '#fef08a',  
                             400: '#facc15',  
                             500: '#eab308',  
                             600: '#ca8a04',  
@@ -54,7 +56,7 @@
 
     <style>  
         .glassmorphism {  
-            background: rgba(10, 15, 29, 0.85);  
+            background: rgba(10, 15, 29, 0.88);  
             backdrop-filter: blur(20px);  
             -webkit-backdrop-filter: blur(20px);  
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);  
@@ -73,16 +75,38 @@
                 linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
+
+        /* Bright Gold Aura Animation on Logo Brand Area */
+        .brand-glow-group:hover .brand-logo-img,
+        .brand-glow-group:active .brand-logo-img {
+            filter: drop-shadow(0 0 16px rgba(250, 204, 21, 0.9)) brightness(1.2);
+            transform: scale(1.08) rotate(-1deg);
+        }
+        .brand-glow-group:hover .brand-title,
+        .brand-glow-group:active .brand-title {
+            background: linear-gradient(135deg, #ffffff 0%, #fef08a 40%, #facc15 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 24px rgba(250, 204, 21, 0.6);
+        }
+        .brand-glow-group:hover .brand-glow-ring {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
         /* Active Menu State */
         .nav-item.active {
-            color: #34d399;
-            background-color: rgba(16, 185, 129, 0.12);
-            border-color: rgba(16, 185, 129, 0.35);
-            box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
+            color: #ffffff !important;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(5, 150, 105, 0.45) 100%) !important;
+            border-color: rgba(52, 211, 153, 0.8) !important;
+            box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.5) !important;
         }
         .nav-item.active i {
-            color: #10b981;
-            transform: scale(1.1);
+            color: #34d399 !important;
+            transform: scale(1.15);
+        }
+        .nav-item.active span {
+            font-weight: 700;
         }
     </style>  
 </head>  
@@ -104,39 +128,44 @@
 <header class="fixed top-0 left-0 right-0 z-40 glassmorphism transition-all duration-300">  
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
         <div class="flex items-center justify-between h-20">  
-            <!-- Logo -->  
-            <a href="#" class="flex items-center gap-3.5 group">  
-                <img src="logo.png" alt="Research Foundation Logo" class="w-11 h-11 object-contain rounded-xl group-hover:scale-105 transition-transform duration-200" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">  
+            
+            <!-- Brand / Logo Area with Bright Gold Aura Effect -->  
+            <a href="#" class="brand-glow-group flex items-center gap-3.5 group cursor-pointer transition-all duration-300 select-none">  
+                <div class="relative flex items-center justify-center">
+                    <!-- Dynamic Gold Aura Layer -->
+                    <div class="brand-glow-ring absolute w-12 h-12 rounded-2xl bg-amber-400/30 blur-lg opacity-0 transition-all duration-300 pointer-events-none"></div>
+                    <img src="logo.png" alt="Research Foundation Logo" class="brand-logo-img w-11 h-11 object-contain rounded-xl transition-all duration-300 ease-out shadow-md shadow-amber-500/10" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">  
+                </div>
                 <div class="leading-tight">  
-                    <span class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">  
+                    <span class="brand-title text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2 transition-all duration-300">  
                         មូលដ្ឋានស្រាវជ្រាវ
-                        <span class="text-[10px] uppercase font-en tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-semibold">Cambodia</span>
+                        <span class="text-[10px] uppercase font-en tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-semibold group-hover:border-amber-400/40 group-hover:text-amber-300 transition-colors">Cambodia</span>
                     </span>  
-                    <span class="block text-[11px] uppercase tracking-wider text-amber-400 font-semibold font-en">  
+                    <span class="block text-[11px] uppercase tracking-wider text-amber-400 font-semibold font-en group-hover:text-amber-300 transition-colors">  
                         Research Foundation • Kratié
                     </span>  
                 </div>  
             </a>
 
-            <!-- 5 Menus Desktop Navigation with Click Effects -->  
-            <nav id="desktopMenu" class="hidden lg:flex items-center gap-2 p-1.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 text-sm font-medium text-slate-300">  
-                <a href="#about" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+            <!-- 5 Menus Desktop Navigation with Click & Color Change Effects -->  
+            <nav id="desktopMenu" class="hidden lg:flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800/80 text-sm font-medium text-slate-300">  
+                <a href="#about" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="info" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>១. អំពីយើង</span>
                 </a>  
-                <a href="#books" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#books" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="book" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>២. សៀវភៅ</span>
                 </a>  
-                <a href="#software" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#software" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="laptop" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>៣. កម្មវិធី</span>
                 </a>  
-                <a href="#publications" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#publications" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="newspaper" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>៤. អត្ថបទបោះពុម្ព</span>
                 </a>  
-                <a href="#leadership" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#leadership" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="user" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>៥. ស្ថាបនិក</span>
                 </a>  
@@ -164,11 +193,11 @@
 
     <!-- Mobile Navigation Drawer -->  
     <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-navy-900/98 px-5 pt-4 pb-6 space-y-2">  
-        <a href="#about" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">១. អំពីយើង (About Foundation)</a>  
-        <a href="#books" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">២. សៀវភៅ (Books Store)</a>  
-        <a href="#software" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">៣. កម្មវិធី (Software & Licenses)</a>  
-        <a href="#publications" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
-        <a href="#leadership" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">៥. ស្ថាបនិក (Founder Profile)</a>  
+        <a href="#about" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">១. អំពីយើង (About Foundation)</a>  
+        <a href="#books" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">២. សៀវភៅ (Books Store)</a>  
+        <a href="#software" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៣. កម្មវិធី (Software & Licenses)</a>  
+        <a href="#publications" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
+        <a href="#leadership" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៥. ស្ថាបនិក (Founder Profile)</a>  
         <div class="pt-3">  
             <a href="https://t.me/insokra" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 active:scale-95 transition-transform text-white text-center font-semibold text-xs flex items-center justify-center gap-2">  
                 <i data-lucide="send" class="w-4 h-4"></i> ទំនាក់ទំនង Telegram (@insokra)  
@@ -699,7 +728,7 @@
     </div>  
 </footer>  
 
-<!-- Interactive Click Effects & Scrollspy Script -->  
+<!-- Interactive Click Effects & Dynamic Colors Script -->  
 <script>  
     // 1. Initialize Lucide Icons
     lucide.createIcons();  
@@ -719,29 +748,28 @@
         });  
     });  
 
-    // 3. Menu Click Ripple & Active State Switching
+    // 3. Dynamic Click Color Change & Ripple Effect for Menus
     const allNavLinks = document.querySelectorAll('.nav-item');
-    const sections = document.querySelectorAll('section[id]');
 
     allNavLinks.forEach(item => {
         item.addEventListener('click', function(e) {
-            // Click Ripple Effect
-            const circle = document.createElement('span');
-            circle.classList.add('absolute', 'inset-0', 'rounded-xl', 'bg-emerald-400/20', 'animate-ping', 'pointer-events-none');
-            this.appendChild(circle);
-            setTimeout(() => circle.remove(), 600);
+            // Ripple wave ring effect
+            const pingRing = document.createElement('span');
+            pingRing.classList.add('absolute', 'inset-0', 'rounded-xl', 'bg-emerald-400/30', 'animate-ping', 'pointer-events-none');
+            this.appendChild(pingRing);
+            setTimeout(() => pingRing.remove(), 500);
 
-            // Set Active Menu Style
+            // Change active color state
             allNavLinks.forEach(nav => nav.classList.remove('active'));
             const targetHref = this.getAttribute('href');
             document.querySelectorAll(`.nav-item[href="${targetHref}"]`).forEach(n => n.classList.add('active'));
         });
     });
 
-    // 4. Scrollspy using Intersection Observer (Auto-detecting current section)
+    // 4. Auto-detect Current Section while scrolling (Scrollspy)
     const observerOptions = {
         root: null,
-        rootMargin: '-20% 0px -70% 0px',
+        rootMargin: '-20% 0px -65% 0px',
         threshold: 0
     };
 
@@ -760,9 +788,9 @@
         });
     }, observerOptions);
 
-    sections.forEach(sec => sectionObserver.observe(sec));
+    document.querySelectorAll('section[id]').forEach(sec => sectionObserver.observe(sec));
 
-    // 5. Copy to Clipboard
+    // 5. Copy to Clipboard Helper
     function copyToClipboard(text, customMessage) {  
         const textarea = document.createElement('textarea');  
         textarea.value = text;  
@@ -780,7 +808,7 @@
         document.body.removeChild(textarea);  
     }  
 
-    // 6. Toast Notification
+    // 6. Toast Notification Handler
     function showToast(message) {  
         const toast = document.getElementById('toast');  
         const toastMsg = document.getElementById('toast-message');  
