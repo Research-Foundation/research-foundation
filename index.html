@@ -11,7 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>  
 
     <!-- Google Fonts: Kantumruy Pro & Plus Jakarta Sans -->  
-    <link rel="preconnect" href="https://fonts.googleapis.com">  
+    <link rel="preconnect" href="https://fonts.gstatic.com">  
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">  
 
@@ -94,19 +94,67 @@
             transform: scale(1.15);
         }
 
-        /* Active Menu State */
-        .nav-item.active {
+        /* ----------------------------------------------------
+           UNIQUE ACTIVE COLOR STYLES FOR EACH MENU
+        ---------------------------------------------------- */
+        /* Menu 1: About (Emerald Green) */
+        .nav-item[data-menu="about"].active {
             color: #ffffff !important;
             background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(5, 150, 105, 0.45) 100%) !important;
             border-color: rgba(52, 211, 153, 0.8) !important;
-            box-shadow: 0 0 20px -3px rgba(16, 185, 129, 0.5) !important;
+            box-shadow: 0 0 18px -2px rgba(16, 185, 129, 0.5) !important;
         }
-        .nav-item.active i {
+        .nav-item[data-menu="about"].active i {
             color: #34d399 !important;
             transform: scale(1.15);
         }
-        .nav-item.active span {
-            font-weight: 700;
+
+        /* Menu 2: Books (Amber / Gold) */
+        .nav-item[data-menu="books"].active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.45) 100%) !important;
+            border-color: rgba(251, 191, 36, 0.8) !important;
+            box-shadow: 0 0 18px -2px rgba(245, 158, 11, 0.5) !important;
+        }
+        .nav-item[data-menu="books"].active i {
+            color: #fbbf24 !important;
+            transform: scale(1.15);
+        }
+
+        /* Menu 3: Software (Cyan / Sky) */
+        .nav-item[data-menu="software"].active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.35) 0%, rgba(14, 116, 144, 0.45) 100%) !important;
+            border-color: rgba(34, 211, 238, 0.8) !important;
+            box-shadow: 0 0 18px -2px rgba(6, 182, 212, 0.5) !important;
+        }
+        .nav-item[data-menu="software"].active i {
+            color: #22d3ee !important;
+            transform: scale(1.15);
+        }
+
+        /* Menu 4: Publications (Violet / Indigo) */
+        .nav-item[data-menu="publications"].active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.35) 0%, rgba(109, 40, 217, 0.45) 100%) !important;
+            border-color: rgba(167, 139, 250, 0.8) !important;
+            box-shadow: 0 0 18px -2px rgba(139, 92, 246, 0.5) !important;
+        }
+        .nav-item[data-menu="publications"].active i {
+            color: #c084fc !important;
+            transform: scale(1.15);
+        }
+
+        /* Menu 5: Leadership / Founder (Rose / Coral) */
+        .nav-item[data-menu="leadership"].active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.35) 0%, rgba(190, 18, 60, 0.45) 100%) !important;
+            border-color: rgba(251, 113, 133, 0.8) !important;
+            box-shadow: 0 0 18px -2px rgba(244, 63, 94, 0.5) !important;
+        }
+        .nav-item[data-menu="leadership"].active i {
+            color: #fb7185 !important;
+            transform: scale(1.15);
         }
     </style>  
 </head>  
@@ -124,7 +172,7 @@
     <span id="toast-message">បានចម្លងដោយជោគជ័យ!</span>  
 </div>
 
-<!-- Navigation Bar (5 Menus with Interactive Click Effects) -->  
+<!-- Navigation Bar (5 Menus with Unique Distinct Colors) -->  
 <header class="fixed top-0 left-0 right-0 z-40 glassmorphism transition-all duration-300">  
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
         <div class="flex items-center justify-between h-20">  
@@ -132,7 +180,6 @@
             <!-- Brand / Logo Area with Bright Gold Aura Effect -->  
             <a href="#" class="brand-glow-group flex items-center gap-3.5 group cursor-pointer transition-all duration-300 select-none">  
                 <div class="relative flex items-center justify-center">
-                    <!-- Dynamic Gold Aura Layer -->
                     <div class="brand-glow-ring absolute w-12 h-12 rounded-2xl bg-amber-400/30 blur-lg opacity-0 transition-all duration-300 pointer-events-none"></div>
                     <img src="logo.png" alt="Research Foundation Logo" class="brand-logo-img w-11 h-11 object-contain rounded-xl transition-all duration-300 ease-out shadow-md shadow-amber-500/10" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">  
                 </div>
@@ -142,30 +189,35 @@
                         <span class="text-[10px] uppercase font-en tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded-full font-semibold group-hover:border-amber-400/40 group-hover:text-amber-300 transition-colors">Cambodia</span>
                     </span>  
                     <span class="block text-[11px] uppercase tracking-wider text-amber-400 font-semibold font-en group-hover:text-amber-300 transition-colors">  
-                        Research Foundation • Kratié
+                        Research Foundation • Kampong Cham
                     </span>  
                 </div>  
             </a>
 
-            <!-- 5 Menus Desktop Navigation with Click & Color Change Effects -->  
+            <!-- 5 Menus Desktop Navigation: Each with unique data-menu color -->  
             <nav id="desktopMenu" class="hidden lg:flex items-center gap-1.5 p-1.5 rounded-2xl bg-slate-900/80 border border-slate-800/80 text-sm font-medium text-slate-300">  
-                <a href="#about" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <!-- Menu 1: Emerald -->
+                <a href="#about" data-menu="about" data-color="emerald" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-emerald-500/30 hover:text-emerald-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="info" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>១. អំពីយើង</span>
                 </a>  
-                <a href="#books" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <!-- Menu 2: Amber -->
+                <a href="#books" data-menu="books" data-color="amber" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-amber-500/30 hover:text-amber-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="book" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>២. សៀវភៅ</span>
                 </a>  
-                <a href="#software" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <!-- Menu 3: Cyan -->
+                <a href="#software" data-menu="software" data-color="cyan" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-cyan-500/30 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="laptop" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>៣. កម្មវិធី</span>
                 </a>  
-                <a href="#publications" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <!-- Menu 4: Violet -->
+                <a href="#publications" data-menu="publications" data-color="violet" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-purple-500/30 hover:text-purple-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="newspaper" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>៤. អត្ថបទបោះពុម្ព</span>
                 </a>  
-                <a href="#leadership" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <!-- Menu 5: Rose -->
+                <a href="#leadership" data-menu="leadership" data-color="rose" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-rose-500/30 hover:text-rose-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="user" class="w-4 h-4 transition-transform duration-200"></i>
                     <span>៥. ស្ថាបនិក</span>
                 </a>  
@@ -193,11 +245,11 @@
 
     <!-- Mobile Navigation Drawer -->  
     <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-navy-900/98 px-5 pt-4 pb-6 space-y-2">  
-        <a href="#about" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">១. អំពីយើង (About Foundation)</a>  
-        <a href="#books" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">២. សៀវភៅ (Books Store)</a>  
-        <a href="#software" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៣. កម្មវិធី (Software & Licenses)</a>  
-        <a href="#publications" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
-        <a href="#leadership" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៥. ស្ថាបនិក (Founder Profile)</a>  
+        <a href="#about" data-menu="about" data-color="emerald" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">១. អំពីយើង (About Foundation)</a>  
+        <a href="#books" data-menu="books" data-color="amber" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">២. សៀវភៅ (Books Store)</a>  
+        <a href="#software" data-menu="software" data-color="cyan" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៣. កម្មវិធី (Software & Licenses)</a>  
+        <a href="#publications" data-menu="publications" data-color="violet" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
+        <a href="#leadership" data-menu="leadership" data-color="rose" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 border border-transparent font-medium text-sm transition-all active:scale-95">៥. ស្ថាបនិក (Founder Profile)</a>  
         <div class="pt-3">  
             <a href="https://t.me/insokra" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 active:scale-95 transition-transform text-white text-center font-semibold text-xs flex items-center justify-center gap-2">  
                 <i data-lucide="send" class="w-4 h-4"></i> ទំនាក់ទំនង Telegram (@insokra)  
@@ -224,15 +276,15 @@
         </p>  
 
         <div class="flex flex-wrap items-center justify-center gap-4 pt-2">  
-            <a href="#books" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-950/50 flex items-center gap-2">  
+            <a href="#books" class="px-6 py-3 rounded-xl bg-amber-600/90 hover:bg-amber-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-amber-950/50 flex items-center gap-2">  
                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>  
                 មើលសៀវភៅសម្រាប់លក់  
             </a>  
-            <a href="#software" class="px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-950/20 hover:bg-amber-950/40 active:scale-95 text-amber-300 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
+            <a href="#software" class="px-6 py-3 rounded-xl border border-cyan-500/40 bg-cyan-950/20 hover:bg-cyan-950/40 active:scale-95 text-cyan-300 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
                 <i data-lucide="cpu" class="w-4 h-4"></i>  
                 កម្មវិធី RF Analyzer v6.0  
             </a>  
-            <a href="#publications" class="px-6 py-3 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 active:scale-95 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
+            <a href="#publications" class="px-6 py-3 rounded-xl border border-purple-500/40 bg-purple-950/20 hover:bg-purple-950/40 active:scale-95 text-purple-300 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
                 <i data-lucide="newspaper" class="w-4 h-4"></i>  
                 ស្នាដៃបោះពុម្ពស្រាវជ្រាវ  
             </a>  
@@ -254,7 +306,7 @@
                         <strong class="text-white font-medium">មូលដ្ឋានស្រាវជ្រាវ (Research Foundation)</strong> គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។  
                     </p>  
                     <p>  
-                        យើងប្រតិបត្តិការស្រាវជ្រាវសំខាន់ៗនៅ <strong class="text-white">ខេត្តកំពង់ចាម</strong> (តំបន់កសិ-បរិស្ថានតាមដងទន្លេមេគង្គ) និងកិច្ចសហការស្រាវជ្រាវនៅ <strong class="text-white">រាជធានីភ្នំពេញ</strong> ដោយផ្តោតលើ៖  
+                        យើងប្រតិបត្តិការស្រាវជ្រាវសំខាន់ៗនៅ <strong class="text-white">ខេត្តក្រចេះ</strong> (តំបន់កសិ-បរិស្ថានតាមដងទន្លេមេគង្គ) និងកិច្ចសហការស្រាវជ្រាវនៅ <strong class="text-white">រាជធានីភ្នំពេញ</strong> ដោយផ្តោតលើ៖  
                     </p>  
                     <ul class="space-y-2 pl-4 border-l-2 border-emerald-500/40 text-xs sm:text-sm text-slate-300">  
                         <li>• <strong class="text-white">ជីវបច្ចេកវិទ្យាកសិកម្ម & ផ្អាប់ជីវសាស្រ្ត (Fermentation Technology)៖</strong> ការស្រាវជ្រាវមីក្រូសារពាង្គកាយដីមានប្រយោជន៍ (ដូចជា <em>Trichoderma spp.</em>, <em>Bacillus spp.</em>) ដើម្បីផលិតជាជីជីវសាស្រ្ត និងភ្នាក់ងារការពារដំណាំធម្មជាតិ (Biocontrol Agents)។</li>  
@@ -313,7 +365,7 @@
     <section id="books" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">  
             <div>  
-                <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
+                <div class="text-amber-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
                     <i data-lucide="book-open" class="w-4 h-4"></i> ២. សៀវភៅសម្រាប់លក់ (Publications & Books)  
                 </div>  
                 <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">សៀវភៅសិក្សាស្រាវជ្រាវ & ការវិភាគទិន្នន័យ</h2>  
@@ -351,7 +403,7 @@
             </div>  
 
             <!-- Book 2 -->  
-            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-emerald-500/50 transition-all">  
+            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-amber-500/50 transition-all">  
                 <div class="space-y-4">  
                     <div class="h-48 rounded-2xl bg-gradient-to-tr from-slate-900 to-emerald-950/30 border border-emerald-500/20 flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">  
                         <span class="absolute top-3 right-3 text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">Programming</span>  
@@ -377,7 +429,7 @@
             </div>  
 
             <!-- Book 3 -->  
-            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-cyan-500/50 transition-all">  
+            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-amber-500/50 transition-all">  
                 <div class="space-y-4">  
                     <div class="h-48 rounded-2xl bg-gradient-to-tr from-slate-900 to-cyan-950/30 border border-cyan-500/20 flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">  
                         <span class="absolute top-3 right-3 text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">IMRAD Guide</span>  
@@ -407,7 +459,7 @@
     <!-- ៣. កម្មវិធី (SOFTWARE STORE & LICENSES) -->  
     <section id="software" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">  
-            <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center justify-center gap-2">  
+            <div class="text-cyan-400 text-xs uppercase font-bold tracking-widest flex items-center justify-center gap-2">  
                 <i data-lucide="cpu" class="w-4 h-4"></i> ៣. កម្មវិធី និងអាជ្ញាប័ណ្ណ (Scientific Software)  
             </div>  
             <h2 class="text-3xl font-bold text-white">កម្មវិធីស្ថិតិ & ឧបករណ៍ស្រាវជ្រាវសម្រាប់លក់</h2>  
@@ -416,10 +468,10 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">  
             <!-- Main Featured: RF Analyzer v6.0 -->  
-            <div class="lg:col-span-8 p-8 sm:p-10 rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-slate-900 via-navy-900 to-emerald-950/40 card-glass flex flex-col justify-between space-y-6">  
+            <div class="lg:col-span-8 p-8 sm:p-10 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 via-navy-900 to-cyan-950/40 card-glass flex flex-col justify-between space-y-6">  
                 <div class="space-y-4">  
                     <div class="flex flex-wrap items-center justify-between gap-3">  
-                        <span class="px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">  
+                        <span class="px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">  
                             Flagship Software • Version 6.0 Stable  
                         </span>  
                         <span class="text-xs text-amber-400 font-semibold">ផ្ទៀងផ្ទាត់សុក្រឹតភាព ១០០% ធៀបនឹង SAS / SPSS</span>  
@@ -433,19 +485,19 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300 pt-2 font-mono">  
                         <div class="flex items-center gap-2">  
-                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>  
                             <span>មិនទាមទារ Internet (Offline Desktop App)</span>  
                         </div>  
                         <div class="flex items-center gap-2">  
-                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>  
                             <span>នាំចេញលទ្ធផលជា Excel & Word ស្អាតស្រាប់</span>  
                         </div>  
                         <div class="flex items-center gap-2">  
-                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>  
                             <span>បង្កើតអក្សរប្រៀបធៀប (Letters: a, b, ab)</span>  
                         </div>  
                         <div class="flex items-center gap-2">  
-                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>  
                             <span>គាំទ្រទាំងភាសាខ្មែរ និងអង់គ្លេស</span>  
                         </div>  
                     </div>  
@@ -454,10 +506,10 @@
                 <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">  
                     <div>  
                         <div class="text-xs text-slate-400">តម្លៃអាជ្ញាប័ណ្ណកម្មវិធី (License Key)</div>  
-                        <div class="text-xl sm:text-2xl font-bold text-emerald-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>  
+                        <div class="text-xl sm:text-2xl font-bold text-cyan-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>  
                     </div>  
                     <div class="flex items-center gap-3 w-full sm:w-auto">  
-                        <a href="https://t.me/insokra" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50">  
+                        <a href="https://t.me/insokra" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50">  
                             <i data-lucide="key" class="w-4 h-4"></i>  
                             ទិញអាជ្ញាប័ណ្ណ (Telegram)  
                         </a>  
@@ -506,12 +558,12 @@
     <section id="publications" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">  
             <div>  
-                <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
+                <div class="text-purple-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
                     <i data-lucide="newspaper" class="w-4 h-4"></i> ៤. អត្ថបទបោះពុម្ព (Publications & Scholar)  
                 </div>  
                 <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">ស្នាដៃសិក្សាស្រាវជ្រាវបោះពុម្ពផ្សាយ</h2>  
             </div>  
-            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 active:scale-95 text-emerald-400 hover:text-emerald-300 font-semibold text-xs flex items-center gap-2 transition-all">  
+            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 active:scale-95 text-purple-400 hover:text-purple-300 font-semibold text-xs flex items-center gap-2 transition-all">  
                 <i data-lucide="graduation-cap" class="w-4 h-4"></i>  
                 <span>មើលស្នាដៃទាំងអស់លើ Google Scholar</span>  
             </a>  
@@ -519,13 +571,13 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">  
             <!-- Paper 1 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all">  
                 <div class="space-y-3">  
                     <div class="flex items-center justify-between text-xs text-slate-400">  
                         <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold font-en">2026</span>  
                         <span class="font-mono text-[11px] text-slate-500">J. Cent. Eur. Agric.</span>  
                     </div>  
-                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-purple-300 transition-colors leading-snug">  
                         Effects of postharvest treatments and storage temperatures on shelf-life extension of Keo Romeat mango (Mangifera indica L.)  
                     </h3>  
                     <p class="text-xs text-slate-400 leading-relaxed font-light">  
@@ -534,20 +586,20 @@
                 </div>  
                 <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
                     <span class="text-slate-500 font-en text-[11px]">Vol. 27, No. 3</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-mono text-xs">  
                         Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
                     </a>  
                 </div>  
             </div>  
 
             <!-- Paper 2 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all">  
                 <div class="space-y-3">  
                     <div class="flex items-center justify-between text-xs text-slate-400">  
                         <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold font-en">2026</span>  
                         <span class="font-mono text-[11px] text-slate-500">J. Agric. & Tech.</span>  
                     </div>  
-                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-purple-300 transition-colors leading-snug">  
                         Factors affecting rice production: A systematic review  
                     </h3>  
                     <p class="text-xs text-slate-400 leading-relaxed font-light">  
@@ -556,20 +608,20 @@
                 </div>  
                 <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
                     <span class="text-slate-500 font-en text-[11px]">Vol. 2, No. 1</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-mono text-xs">  
                         Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
                     </a>  
                 </div>  
             </div>  
 
             <!-- Paper 3 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all">  
                 <div class="space-y-3">  
                     <div class="flex items-center justify-between text-xs text-slate-400">  
                         <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-semibold font-en">2025</span>  
                         <span class="font-mono text-[11px] text-slate-500">J. Agric. & Tech.</span>  
                     </div>  
-                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-amber-300 transition-colors leading-snug">  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-purple-300 transition-colors leading-snug">  
                         Different microorganisms used in fermentation for biofertilizer: A review  
                     </h3>  
                     <p class="text-xs text-slate-400 leading-relaxed font-light">  
@@ -578,20 +630,20 @@
                 </div>  
                 <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
                     <span class="text-slate-500 font-en text-[11px]">Vol. 1, No. 1</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-amber-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-mono text-xs">  
                         Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
                     </a>  
                 </div>  
             </div>  
 
             <!-- Paper 4 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all">  
                 <div class="space-y-3">  
                     <div class="flex items-center justify-between text-xs text-slate-400">  
                         <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold font-en">2025</span>  
                         <span class="font-mono text-[11px] text-slate-500">Int. J. Agric. Syst.</span>  
                     </div>  
-                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-purple-300 transition-colors leading-snug">  
                         Mechanisms and efficacy of Trichoderma spp. against major cashew (Anacardium occidentale) pathogens  
                     </h3>  
                     <p class="text-xs text-slate-400 leading-relaxed font-light">  
@@ -600,20 +652,20 @@
                 </div>  
                 <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
                     <span class="text-slate-500 font-en text-[11px]">Peer-Reviewed</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-mono text-xs">  
                         Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
                     </a>  
                 </div>  
             </div>  
 
             <!-- Paper 5 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all">  
                 <div class="space-y-3">  
                     <div class="flex items-center justify-between text-xs text-slate-400">  
                         <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-semibold font-en">2024</span>  
                         <span class="font-mono text-[11px] text-slate-500">Cambodian J. Edu. & STEM</span>  
                     </div>  
-                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-cyan-300 transition-colors leading-snug">  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-purple-300 transition-colors leading-snug">  
                         The efficacy of Bordeaux mixture and Trichoderma powder in preventing fungal diseases on cashew nut wounds after pruning  
                     </h3>  
                     <p class="text-xs text-slate-400 leading-relaxed font-light">  
@@ -622,14 +674,14 @@
                 </div>  
                 <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
                     <span class="text-slate-500 font-en text-[11px]">Vol. 2, No. 2</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-cyan-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-mono text-xs">  
                         Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
                     </a>  
                 </div>  
             </div>  
 
             <!-- Paper 6 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all">  
                 <div class="space-y-3">  
                     <div class="flex items-center justify-between text-xs text-slate-400">  
                         <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-semibold font-en">2020</span>  
@@ -655,7 +707,7 @@
     <!-- ៥. ស្ថាបនិក (FOUNDER PROFILE) -->  
     <section id="leadership" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">  
-            <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center justify-center gap-2">  
+            <div class="text-rose-400 text-xs uppercase font-bold tracking-widest flex items-center justify-center gap-2">  
                 <i data-lucide="user" class="w-4 h-4"></i> ៥. ស្ថាបនិក និងអ្នកដឹកនាំស្រាវជ្រាវ (Founder Profile)  
             </div>  
             <h2 class="text-3xl font-bold text-white">ស្ថាបនិកមូលដ្ឋានស្រាវជ្រាវ</h2>  
@@ -665,12 +717,12 @@
         <div class="max-w-3xl mx-auto">  
             <div class="p-8 sm:p-12 rounded-3xl border border-slate-800 card-glass text-center space-y-6">  
                 <div class="relative w-28 h-28 mx-auto">  
-                    <div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-400 via-emerald-500 to-teal-400 p-1 flex items-center justify-center shadow-xl">  
+                    <div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-teal-400 p-1 flex items-center justify-center shadow-xl">  
                         <div class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-white text-2xl font-bold font-en">  
                             IS  
                         </div>  
                     </div>  
-                    <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-navy-950 rounded-full" title="Active"></span>  
+                    <span class="absolute bottom-1 right-1 w-5 h-5 bg-rose-500 border-2 border-navy-950 rounded-full" title="Active"></span>  
                 </div>  
 
                 <div>  
@@ -716,10 +768,10 @@
 
         <div class="flex flex-wrap items-center gap-6 text-[11px]">  
             <a href="#about" class="hover:text-emerald-400 transition-colors">១. អំពីយើង</a>  
-            <a href="#books" class="hover:text-emerald-400 transition-colors">២. សៀវភៅ</a>  
-            <a href="#software" class="hover:text-emerald-400 transition-colors">៣. កម្មវិធី</a>  
-            <a href="#publications" class="hover:text-emerald-400 transition-colors">៤. អត្ថបទបោះពុម្ព</a>  
-            <a href="#leadership" class="hover:text-emerald-400 transition-colors">៥. ស្ថាបនិក</a>  
+            <a href="#books" class="hover:text-amber-400 transition-colors">២. សៀវភៅ</a>  
+            <a href="#software" class="hover:text-cyan-400 transition-colors">៣. កម្មវិធី</a>  
+            <a href="#publications" class="hover:text-purple-400 transition-colors">៤. អត្ថបទបោះពុម្ព</a>  
+            <a href="#leadership" class="hover:text-rose-400 transition-colors">៥. ស្ថាបនិក</a>  
         </div>  
 
         <p class="text-slate-500 font-en text-[11px]">  
@@ -748,21 +800,32 @@
         });  
     });  
 
+    // Color map for distinct dynamic ripple effects
+    const colorRings = {
+        emerald: 'bg-emerald-400/40',
+        amber: 'bg-amber-400/40',
+        cyan: 'bg-cyan-400/40',
+        violet: 'bg-purple-400/40',
+        rose: 'bg-rose-400/40'
+    };
+
     // 3. Dynamic Click Color Change & Ripple Effect for Menus
     const allNavLinks = document.querySelectorAll('.nav-item');
 
     allNavLinks.forEach(item => {
         item.addEventListener('click', function(e) {
-            // Ripple wave ring effect
+            const menuType = this.getAttribute('data-menu');
+            const colorKey = this.getAttribute('data-color') || 'emerald';
+
+            // Customized ripple wave based on menu color
             const pingRing = document.createElement('span');
-            pingRing.classList.add('absolute', 'inset-0', 'rounded-xl', 'bg-emerald-400/30', 'animate-ping', 'pointer-events-none');
+            pingRing.className = `absolute inset-0 rounded-xl ${colorRings[colorKey]} animate-ping pointer-events-none`;
             this.appendChild(pingRing);
             setTimeout(() => pingRing.remove(), 500);
 
             // Change active color state
             allNavLinks.forEach(nav => nav.classList.remove('active'));
-            const targetHref = this.getAttribute('href');
-            document.querySelectorAll(`.nav-item[href="${targetHref}"]`).forEach(n => n.classList.add('active'));
+            document.querySelectorAll(`.nav-item[data-menu="${menuType}"]`).forEach(n => n.classList.add('active'));
         });
     });
 
@@ -778,7 +841,7 @@
             if (entry.isIntersecting) {
                 const currentId = entry.target.getAttribute('id');
                 allNavLinks.forEach(link => {
-                    if (link.getAttribute('href') === `#${currentId}`) {
+                    if (link.getAttribute('data-menu') === currentId) {
                         link.classList.add('active');
                     } else {
                         link.classList.remove('active');
