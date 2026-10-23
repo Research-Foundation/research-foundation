@@ -11,7 +11,6 @@
     <script src="https://cdn.tailwindcss.com"></script>  
 
     <!-- Google Fonts: Kantumruy Pro & Plus Jakarta Sans -->  
-    <link rel="preconnect" href="https://fonts.googleapis.com">  
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">  
 
@@ -55,7 +54,7 @@
 
     <style>  
         .glassmorphism {  
-            background: rgba(10, 15, 29, 0.82);  
+            background: rgba(10, 15, 29, 0.85);  
             backdrop-filter: blur(20px);  
             -webkit-backdrop-filter: blur(20px);  
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);  
@@ -74,6 +73,17 @@
                 linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
+        /* Active Menu State */
+        .nav-item.active {
+            color: #34d399;
+            background-color: rgba(16, 185, 129, 0.12);
+            border-color: rgba(16, 185, 129, 0.35);
+            box-shadow: 0 0 15px -3px rgba(16, 185, 129, 0.25);
+        }
+        .nav-item.active i {
+            color: #10b981;
+            transform: scale(1.1);
+        }
     </style>  
 </head>  
 
@@ -90,7 +100,7 @@
     <span id="toast-message">បានចម្លងដោយជោគជ័យ!</span>  
 </div>
 
-<!-- Navigation Bar (5 Menus) -->  
+<!-- Navigation Bar (5 Menus with Interactive Click Effects) -->  
 <header class="fixed top-0 left-0 right-0 z-40 glassmorphism transition-all duration-300">  
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
         <div class="flex items-center justify-between h-20">  
@@ -108,13 +118,28 @@
                 </div>  
             </a>
 
-            <!-- 5 Menus Desktop Navigation -->  
-            <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">  
-                <a href="#about" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="info" class="w-4 h-4"></i>១. អំពីយើង</a>  
-                <a href="#books" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="book" class="w-4 h-4"></i>២. សៀវភៅ</a>  
-                <a href="#software" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="laptop" class="w-4 h-4"></i>៣. កម្មវិធី</a>  
-                <a href="#publications" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="newspaper" class="w-4 h-4"></i>៤. អត្ថបទបោះពុម្ព</a>  
-                <a href="#leadership" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="user" class="w-4 h-4"></i>៥. ស្ថាបនិក</a>  
+            <!-- 5 Menus Desktop Navigation with Click Effects -->  
+            <nav id="desktopMenu" class="hidden lg:flex items-center gap-2 p-1.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 text-sm font-medium text-slate-300">  
+                <a href="#about" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                    <i data-lucide="info" class="w-4 h-4 transition-transform duration-200"></i>
+                    <span>១. អំពីយើង</span>
+                </a>  
+                <a href="#books" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                    <i data-lucide="book" class="w-4 h-4 transition-transform duration-200"></i>
+                    <span>២. សៀវភៅ</span>
+                </a>  
+                <a href="#software" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                    <i data-lucide="laptop" class="w-4 h-4 transition-transform duration-200"></i>
+                    <span>៣. កម្មវិធី</span>
+                </a>  
+                <a href="#publications" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                    <i data-lucide="newspaper" class="w-4 h-4 transition-transform duration-200"></i>
+                    <span>៤. អត្ថបទបោះពុម្ព</span>
+                </a>  
+                <a href="#leadership" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-slate-700 hover:text-white transition-all duration-200 flex items-center gap-2 active:scale-95">
+                    <i data-lucide="user" class="w-4 h-4 transition-transform duration-200"></i>
+                    <span>៥. ស្ថាបនិក</span>
+                </a>  
             </nav>
 
             <!-- Quick Contacts -->  
@@ -125,27 +150,27 @@
                 <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="w-10 h-10 rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-emerald-600/20 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 flex items-center justify-center transition-all" title="Google Scholar">  
                     <i data-lucide="graduation-cap" class="w-4 h-4"></i>  
                 </a>  
-                <a href="https://t.me/insokra" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-semibold transition-all shadow-lg shadow-emerald-950/60">  
+                <a href="https://t.me/insokra" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 active:scale-95 text-white text-sm font-semibold transition-all shadow-lg shadow-emerald-950/60">  
                     បញ្ជាទិញ / កិច្ចសហការ  
                 </a>  
             </div>
 
             <!-- Mobile Menu Toggle Button -->  
-            <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white" aria-label="Menu">  
+            <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white active:scale-90 transition-transform" aria-label="Menu">  
                 <i data-lucide="menu" class="w-5 h-5"></i>  
             </button>  
         </div>  
     </div>
 
     <!-- Mobile Navigation Drawer -->  
-    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-navy-900/98 px-5 pt-4 pb-6 space-y-3">  
-        <a href="#about" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">១. អំពីយើង (About Foundation)</a>  
-        <a href="#books" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">២. សៀវភៅ (Books Store)</a>  
-        <a href="#software" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">៣. កម្មវិធី (Software & Licenses)</a>  
-        <a href="#publications" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
-        <a href="#leadership" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">៥. ស្ថាបនិក (Founder Profile)</a>  
-        <div class="pt-2">  
-            <a href="https://t.me/insokra" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white text-center font-semibold text-xs flex items-center justify-center gap-2">  
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-navy-900/98 px-5 pt-4 pb-6 space-y-2">  
+        <a href="#about" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">១. អំពីយើង (About Foundation)</a>  
+        <a href="#books" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">២. សៀវភៅ (Books Store)</a>  
+        <a href="#software" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">៣. កម្មវិធី (Software & Licenses)</a>  
+        <a href="#publications" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
+        <a href="#leadership" class="mobile-link nav-item block px-4 py-2.5 rounded-xl text-slate-300 hover:text-emerald-400 border border-transparent font-medium text-sm transition-all active:scale-95">៥. ស្ថាបនិក (Founder Profile)</a>  
+        <div class="pt-3">  
+            <a href="https://t.me/insokra" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 active:scale-95 transition-transform text-white text-center font-semibold text-xs flex items-center justify-center gap-2">  
                 <i data-lucide="send" class="w-4 h-4"></i> ទំនាក់ទំនង Telegram (@insokra)  
             </a>  
         </div>  
@@ -170,15 +195,15 @@
         </p>  
 
         <div class="flex flex-wrap items-center justify-center gap-4 pt-2">  
-            <a href="#books" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-950/50 flex items-center gap-2">  
+            <a href="#books" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-950/50 flex items-center gap-2">  
                 <i data-lucide="shopping-cart" class="w-4 h-4"></i>  
                 មើលសៀវភៅសម្រាប់លក់  
             </a>  
-            <a href="#software" class="px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-950/20 hover:bg-amber-950/40 text-amber-300 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
+            <a href="#software" class="px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-950/20 hover:bg-amber-950/40 active:scale-95 text-amber-300 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
                 <i data-lucide="cpu" class="w-4 h-4"></i>  
                 កម្មវិធី RF Analyzer v6.0  
             </a>  
-            <a href="#publications" class="px-6 py-3 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
+            <a href="#publications" class="px-6 py-3 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 active:scale-95 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
                 <i data-lucide="newspaper" class="w-4 h-4"></i>  
                 ស្នាដៃបោះពុម្ពស្រាវជ្រាវ  
             </a>  
@@ -290,7 +315,7 @@
                         <span class="text-xs text-slate-400 block">តម្លៃសៀវភៅ</span>  
                         <span class="text-lg font-bold text-amber-400 font-en">$10.00 / ក្បាល</span>  
                     </div>  
-                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500 hover:text-navy-950 text-amber-300 font-semibold text-xs transition-all flex items-center gap-1.5">  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500 hover:text-navy-950 text-amber-300 font-semibold text-xs transition-all flex items-center gap-1.5 active:scale-95">  
                         <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ  
                     </a>  
                 </div>  
@@ -316,7 +341,7 @@
                         <span class="text-xs text-slate-400 block">តម្លៃសៀវភៅ</span>  
                         <span class="text-lg font-bold text-emerald-400 font-en">$12.00 / ក្បាល</span>  
                     </div>  
-                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 hover:text-navy-950 text-emerald-300 font-semibold text-xs transition-all flex items-center gap-1.5">  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 hover:text-navy-950 text-emerald-300 font-semibold text-xs transition-all flex items-center gap-1.5 active:scale-95">  
                         <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ  
                     </a>  
                 </div>  
@@ -342,7 +367,7 @@
                         <span class="text-xs text-slate-400 block">តម្លៃសៀវភៅ</span>  
                         <span class="text-lg font-bold text-cyan-400 font-en">$10.00 / ក្បាល</span>  
                     </div>  
-                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 hover:bg-cyan-500 hover:text-navy-950 text-cyan-300 font-semibold text-xs transition-all flex items-center gap-1.5">  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 hover:bg-cyan-500 hover:text-navy-950 text-cyan-300 font-semibold text-xs transition-all flex items-center gap-1.5 active:scale-95">  
                         <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ  
                     </a>  
                 </div>  
@@ -403,7 +428,7 @@
                         <div class="text-xl sm:text-2xl font-bold text-emerald-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>  
                     </div>  
                     <div class="flex items-center gap-3 w-full sm:w-auto">  
-                        <a href="https://t.me/insokra" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50">  
+                        <a href="https://t.me/insokra" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50">  
                             <i data-lucide="key" class="w-4 h-4"></i>  
                             ទិញអាជ្ញាប័ណ្ណ (Telegram)  
                         </a>  
@@ -457,15 +482,13 @@
                 </div>  
                 <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">ស្នាដៃសិក្សាស្រាវជ្រាវបោះពុម្ពផ្សាយ</h2>  
             </div>  
-            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 font-semibold text-xs flex items-center gap-2 transition-all">  
+            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 active:scale-95 text-emerald-400 hover:text-emerald-300 font-semibold text-xs flex items-center gap-2 transition-all">  
                 <i data-lucide="graduation-cap" class="w-4 h-4"></i>  
                 <span>មើលស្នាដៃទាំងអស់លើ Google Scholar</span>  
             </a>  
         </div>  
 
-        <!-- Publication Cards Grid (from In Sokra - Google Scholar) -->  
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">  
-
             <!-- Paper 1 -->  
             <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
                 <div class="space-y-3">  
@@ -597,7 +620,6 @@
                     </a>  
                 </div>  
             </div>  
-
         </div>  
     </section>  
 
@@ -633,16 +655,16 @@
                 </p>  
 
                 <div class="flex flex-wrap items-center justify-center gap-3 pt-3">  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">  
                         <i data-lucide="graduation-cap" class="w-4 h-4"></i> Google Scholar  
                     </a>  
-                    <a href="https://orcid.org/0009-0002-8842-8070" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
+                    <a href="https://orcid.org/0009-0002-8842-8070" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">  
                         <i data-lucide="id-card" class="w-4 h-4 text-emerald-400"></i> ORCID  
                     </a>  
-                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600 border border-sky-500/40 text-sky-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600 border border-sky-500/40 text-sky-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">  
                         <i data-lucide="send" class="w-4 h-4"></i> Telegram (@insokra)  
                     </a>  
-                    <button onclick="copyToClipboard('insokra@gmail.com', 'បានចម្លងអ៊ីមែល insokra@gmail.com !')" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
+                    <button onclick="copyToClipboard('insokra@gmail.com', 'បានចម្លងអ៊ីមែល insokra@gmail.com !')" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">  
                         <i data-lucide="mail" class="w-4 h-4"></i> insokra@gmail.com  
                     </button>  
                 </div>  
@@ -677,10 +699,12 @@
     </div>  
 </footer>  
 
-<!-- Scripts -->  
+<!-- Interactive Click Effects & Scrollspy Script -->  
 <script>  
+    // 1. Initialize Lucide Icons
     lucide.createIcons();  
 
+    // 2. Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');  
     const mobileMenu = document.getElementById('mobileMenu');  
     const mobileLinks = document.querySelectorAll('.mobile-link');  
@@ -695,6 +719,50 @@
         });  
     });  
 
+    // 3. Menu Click Ripple & Active State Switching
+    const allNavLinks = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('section[id]');
+
+    allNavLinks.forEach(item => {
+        item.addEventListener('click', function(e) {
+            // Click Ripple Effect
+            const circle = document.createElement('span');
+            circle.classList.add('absolute', 'inset-0', 'rounded-xl', 'bg-emerald-400/20', 'animate-ping', 'pointer-events-none');
+            this.appendChild(circle);
+            setTimeout(() => circle.remove(), 600);
+
+            // Set Active Menu Style
+            allNavLinks.forEach(nav => nav.classList.remove('active'));
+            const targetHref = this.getAttribute('href');
+            document.querySelectorAll(`.nav-item[href="${targetHref}"]`).forEach(n => n.classList.add('active'));
+        });
+    });
+
+    // 4. Scrollspy using Intersection Observer (Auto-detecting current section)
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const currentId = entry.target.getAttribute('id');
+                allNavLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${currentId}`) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(sec => sectionObserver.observe(sec));
+
+    // 5. Copy to Clipboard
     function copyToClipboard(text, customMessage) {  
         const textarea = document.createElement('textarea');  
         textarea.value = text;  
@@ -712,6 +780,7 @@
         document.body.removeChild(textarea);  
     }  
 
+    // 6. Toast Notification
     function showToast(message) {  
         const toast = document.getElementById('toast');  
         const toastMsg = document.getElementById('toast-message');  
