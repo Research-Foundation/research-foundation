@@ -3,7 +3,7 @@
 <head>  
     <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    <title>មូលដ្ឋានស្រាវជ្រាវ | Research Foundation — In Sokra</title>  
+    <title>មូលដ្ឋានស្រាវជ្រាវ | Research Foundation — អិន សុខរ៉ា</title>  
     <!-- Favicon -->  
     <link rel="icon" type="image/png" href="logo.png">
 
@@ -55,10 +55,10 @@
 
     <style>  
         .glassmorphism {  
-            background: rgba(10, 15, 29, 0.78);  
+            background: rgba(10, 15, 29, 0.82);  
             backdrop-filter: blur(20px);  
             -webkit-backdrop-filter: blur(20px);  
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);  
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);  
         }  
         .card-glass {
             background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(10, 15, 29, 0.9) 100%);
@@ -79,26 +79,24 @@
 
 <body class="bg-navy-950 text-slate-200 font-sans antialiased selection:bg-brand-500 selection:text-white relative">
 
-<!-- Background Ambient Canvas Mesh -->
+<!-- Background Mesh -->
 <div class="fixed inset-0 grid-pattern pointer-events-none -z-20"></div>
-<div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-emerald-600/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
+<div class="fixed top-0 left-1/2 -translate-x-1/2 w-[850px] h-[500px] bg-emerald-600/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
 <div class="fixed bottom-1/4 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[180px] pointer-events-none -z-10"></div>
 
-<!-- Notification Toast -->  
+<!-- Toast -->  
 <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 border border-emerald-500/40 text-emerald-300 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-medium">  
     <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>  
     <span id="toast-message">បានចម្លងដោយជោគជ័យ!</span>  
 </div>
 
-<!-- Navigation Bar -->  
+<!-- Navigation Bar (5 Menus) -->  
 <header class="fixed top-0 left-0 right-0 z-40 glassmorphism transition-all duration-300">  
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">  
         <div class="flex items-center justify-between h-20">  
-            <!-- Brand / Logo -->  
+            <!-- Logo -->  
             <a href="#" class="flex items-center gap-3.5 group">  
-                <div class="relative">
-                    <img src="logo.png" alt="Research & Excellence Logo" class="w-11 h-11 object-contain rounded-xl group-hover:scale-105 transition-transform duration-200" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">  
-                </div>
+                <img src="logo.png" alt="Research Foundation Logo" class="w-11 h-11 object-contain rounded-xl group-hover:scale-105 transition-transform duration-200" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">  
                 <div class="leading-tight">  
                     <span class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2">  
                         មូលដ្ឋានស្រាវជ្រាវ
@@ -110,458 +108,531 @@
                 </div>  
             </a>
 
-            <!-- Desktop Navigation Menu -->  
+            <!-- 5 Menus Desktop Navigation -->  
             <nav class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">  
-                <a href="#about" class="hover:text-emerald-400 transition-colors">អំពីយើង</a>  
-                <a href="#divisions" class="hover:text-emerald-400 transition-colors">ផ្នែកស្រាវជ្រាវ</a>  
-                <a href="#software" class="hover:text-emerald-400 transition-colors">កម្មវិធី RF Analyzer</a>  
-                <a href="#publications" class="hover:text-emerald-400 transition-colors">ស្នាដៃបោះពុម្ព</a>  
-                <a href="#scholar" class="hover:text-emerald-400 transition-colors">Google Scholar</a>  
-                <a href="#leadership" class="hover:text-emerald-400 transition-colors">ស្ថាបនិក</a>  
+                <a href="#about" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="info" class="w-4 h-4"></i>១. អំពីយើង</a>  
+                <a href="#books" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="book" class="w-4 h-4"></i>២. សៀវភៅ</a>  
+                <a href="#software" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="laptop" class="w-4 h-4"></i>៣. កម្មវិធី</a>  
+                <a href="#publications" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="newspaper" class="w-4 h-4"></i>៤. អត្ថបទបោះពុម្ព</a>  
+                <a href="#leadership" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5"><i data-lucide="user" class="w-4 h-4"></i>៥. ស្ថាបនិក</a>  
             </nav>
 
-            <!-- Social & Action Button -->  
+            <!-- Quick Contacts -->  
             <div class="hidden md:flex items-center gap-3">  
-                <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="w-10 h-10 rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-emerald-600/20 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 flex items-center justify-center transition-all" title="Google Scholar Profile">  
-                    <i data-lucide="graduation-cap" class="w-4 h-4"></i>  
-                </a>  
                 <a href="https://t.me/insokra" target="_blank" class="w-10 h-10 rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-sky-500/20 hover:border-sky-500/50 text-slate-300 hover:text-sky-400 flex items-center justify-center transition-all" title="Telegram: @insokra">  
                     <i data-lucide="send" class="w-4 h-4"></i>  
                 </a>  
-                <a href="#contact" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-semibold transition-all shadow-lg shadow-emerald-950/60 hover:shadow-emerald-600/25">  
-                    ទំនាក់ទំនង
+                <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="w-10 h-10 rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-emerald-600/20 hover:border-emerald-500/50 text-slate-300 hover:text-emerald-400 flex items-center justify-center transition-all" title="Google Scholar">  
+                    <i data-lucide="graduation-cap" class="w-4 h-4"></i>  
+                </a>  
+                <a href="https://t.me/insokra" target="_blank" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-sm font-semibold transition-all shadow-lg shadow-emerald-950/60">  
+                    បញ្ជាទិញ / កិច្ចសហការ  
                 </a>  
             </div>
 
-            <!-- Mobile Menu Button -->  
-            <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white" aria-label="បើកម៉ឺនុយ">  
+            <!-- Mobile Menu Toggle Button -->  
+            <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white" aria-label="Menu">  
                 <i data-lucide="menu" class="w-5 h-5"></i>  
             </button>  
         </div>  
     </div>
 
-    <!-- Mobile Navigation Menu -->  
+    <!-- Mobile Navigation Drawer -->  
     <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-800 bg-navy-900/98 px-5 pt-4 pb-6 space-y-3">  
-        <a href="#about" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">អំពីមូលដ្ឋានស្រាវជ្រាវ</a>  
-        <a href="#divisions" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">ផ្នែកស្រាវជ្រាវស្នូល</a>  
-        <a href="#software" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">កម្មវិធីស្ថិតិ RF Analyzer v6.0</a>  
-        <a href="#publications" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">អត្ថបទស្រាវជ្រាវ & ស្នាដៃបោះពុម្ព</a>  
-        <a href="#scholar" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">Google Scholar Profile</a>  
-        <a href="#leadership" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">ស្ថាបនិក (អិន សុខរ៉ា)</a>  
-        <div class="flex items-center gap-3 pt-3">  
-            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="flex-1 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-slate-200 text-center text-xs font-semibold flex items-center justify-center gap-2">  
-                <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-400"></i> Google Scholar  
-            </a>  
-            <a href="https://t.me/insokra" target="_blank" class="flex-1 py-2.5 rounded-xl bg-sky-600/20 border border-sky-500/30 text-sky-300 text-center text-xs font-semibold flex items-center justify-center gap-2">  
-                <i data-lucide="send" class="w-4 h-4"></i> Telegram  
+        <a href="#about" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">១. អំពីយើង (About Foundation)</a>  
+        <a href="#books" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">២. សៀវភៅ (Books Store)</a>  
+        <a href="#software" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">៣. កម្មវិធី (Software & Licenses)</a>  
+        <a href="#publications" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">៤. អត្ថបទបោះពុម្ព (Publications)</a>  
+        <a href="#leadership" class="mobile-link block py-2 text-slate-300 hover:text-emerald-400 font-medium">៥. ស្ថាបនិក (Founder Profile)</a>  
+        <div class="pt-2">  
+            <a href="https://t.me/insokra" target="_blank" class="w-full py-2.5 rounded-xl bg-emerald-600 text-white text-center font-semibold text-xs flex items-center justify-center gap-2">  
+                <i data-lucide="send" class="w-4 h-4"></i> ទំនាក់ទំនង Telegram (@insokra)  
             </a>  
         </div>  
     </div>  
 </header>
 
-<main class="relative pt-28">  
+<main class="relative pt-24">  
+
     <!-- HERO SECTION -->  
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">  
-        <div class="max-w-4xl mx-auto text-center space-y-8">  
-            <!-- Institutional Badge -->  
-            <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-xs sm:text-sm font-semibold tracking-wide">  
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>  
-                <span>ជីវបច្ចេកវិទ្យាកសិកម្ម • ស្ថិតិវិភាគទិន្នន័យវិទ្យាសាស្ត្រ • បរិស្ថាន</span>  
-            </div>
-
-            <!-- Main Tagline -->  
-            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.3] sm:leading-[1.2]">  
-                លើកកម្ពស់របកគំហើញវិទ្យាសាស្ត្រ និង <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300">ការស្រាវជ្រាវជីវបច្ចេកវិទ្យាកម្ពុជា</span>  
-            </h1>
-
-            <!-- Motto -->  
-            <div class="inline-flex items-center justify-center gap-2 sm:gap-4 px-4 py-1 rounded-xl bg-slate-900/80 border border-slate-800 text-xs sm:text-sm font-semibold text-amber-400 font-en">  
-                <span>KNOWLEDGE</span>  
-                <span class="text-slate-600">•</span>  
-                <span>INNOVATION</span>  
-                <span class="text-slate-600">•</span>  
-                <span>IMPACT</span>  
-            </div>
-
-            <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-3xl mx-auto font-light">  
-                <strong class="text-white font-medium">មូលដ្ឋានស្រាវជ្រាវ (Research Foundation)</strong> ផ្តោតសំខាន់លើការស្រាវជ្រាវពិសោធន៍មីក្រូជីវសាស្រ្ត ការកែច្នៃកាកសំណល់កសិ-ឧស្សាហកម្មទៅជាជីកំប៉ុស និងសារធាតុជីវសាស្រ្តមានតម្លៃខ្ពស់ ព្រមទាំងការអភិវឌ្ឍកម្មវិធីស្ថិតិវិទ្យាសាស្ត្រសម្រាប់សហគមន៍ស្រាវជ្រាវកម្ពុជា។  
-            </p>
-
-            <!-- Hero Action Buttons -->  
-            <div class="flex flex-wrap items-center justify-center gap-4 pt-2">  
-                <a href="#publications" class="px-7 py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-all shadow-lg shadow-emerald-900/40 flex items-center gap-2">  
-                    <i data-lucide="book-open" class="w-4 h-4"></i>  
-                    ស្នាដៃបោះពុម្ពផ្សាយ  
-                </a>  
-                <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-7 py-3.5 rounded-xl border border-slate-700 bg-slate-900/90 hover:border-emerald-500/50 hover:bg-slate-800 text-slate-200 font-semibold text-sm transition-all flex items-center gap-2">  
-                    <i data-lucide="graduation-cap" class="w-4 h-4 text-emerald-400"></i>  
-                    Google Scholar Profile  
-                </a>  
-                <a href="#software" class="px-7 py-3.5 rounded-xl border border-amber-500/30 bg-amber-950/20 hover:bg-amber-950/40 text-amber-300 font-semibold text-sm transition-all flex items-center gap-2">  
-                    <i data-lucide="binary" class="w-4 h-4"></i>  
-                    RF Analyzer v6.0  
-                </a>  
-            </div>
-
-            <!-- Locations Strip -->  
-            <div class="flex flex-wrap items-center justify-center gap-8 pt-4 text-xs text-slate-400">  
-                <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-4 h-4 text-emerald-400"></i> មន្ទីរពិសោធន៍ & វាលពិសោធន៍៖ ខេត្តក្រចេះ</span>  
-                <span class="flex items-center gap-1.5"><i data-lucide="building" class="w-4 h-4 text-emerald-400"></i> ការិយាល័យស្រាវជ្រាវ៖ រាជធានីភ្នំពេញ</span>  
-                <span class="flex items-center gap-1.5"><i data-lucide="unlock" class="w-4 h-4 text-emerald-400"></i> ការស្រាវជ្រាវបើកទូលាយ (Open Science)</span>  
-            </div>  
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 text-center space-y-6">  
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-xs sm:text-sm font-semibold tracking-wide">  
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>  
+            <span>វេទិកាស្រាវជ្រាវវិទ្យាសាស្ត្រ សៀវភៅកម្រិតខ្ពស់ និងកម្មវិធីស្ថិតិកសិកម្មកម្ពុជា</span>  
         </div>  
-    </section>
 
-    <!-- HIGHLIGHT STATS -->  
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 border-y border-slate-800/80 bg-slate-900/30">  
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">  
-            <div>  
-                <div class="text-3xl lg:text-4xl font-extrabold text-white font-en">100%</div>  
-                <div class="text-xs uppercase font-medium text-emerald-400 mt-1">ទិន្នន័យបើកទូលាយ (Open Access)</div>  
-            </div>  
-            <div>  
-                <div class="text-3xl lg:text-4xl font-extrabold text-white font-en">v6.0</div>  
-                <div class="text-xs uppercase font-medium text-amber-400 mt-1">កម្មវិធីគណនាស្ថិតិវិទ្យាសាស្ត្រ</div>  
-            </div>  
-            <div>  
-                <div class="text-3xl lg:text-4xl font-extrabold text-white">មេគង្គ</div>  
-                <div class="text-xs uppercase font-medium text-emerald-400 mt-1">ប្រព័ន្ធកសិ-អេកូឡូស៊ី</div>  
-            </div>  
-            <div>  
-                <div class="text-3xl lg:text-4xl font-extrabold text-white font-en">Peer-Reviewed</div>  
-                <div class="text-xs uppercase font-medium text-amber-400 mt-1">ស្តង់ដារបោះពុម្ពអន្តរជាតិ</div>  
-            </div>  
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">  
+            មូលដ្ឋានស្រាវជ្រាវ <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-amber-300">Research Foundation Cambodia</span>  
+        </h1>  
+
+        <p class="text-slate-300 text-sm sm:text-base max-w-3xl mx-auto leading-relaxed font-light">  
+            មជ្ឈមណ្ឌលផ្ដួចផ្ដើមស្រាវជ្រាវឯករាជ្យ លើកកម្ពស់ជីវបច្ចេកវិទ្យាកសិកម្ម ការកែច្នៃកាកសំណល់អនុផលកសិ-ឧស្សាហកម្ម ការបោះពុម្ពសៀវភៅបច្ចេកទេស និងការអភិវឌ្ឍកម្មវិធីស្ថិតិវិភាគទិន្នន័យស្រាវជ្រាវ។  
+        </p>  
+
+        <div class="flex flex-wrap items-center justify-center gap-4 pt-2">  
+            <a href="#books" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition-all shadow-lg shadow-emerald-950/50 flex items-center gap-2">  
+                <i data-lucide="shopping-cart" class="w-4 h-4"></i>  
+                មើលសៀវភៅសម្រាប់លក់  
+            </a>  
+            <a href="#software" class="px-6 py-3 rounded-xl border border-amber-500/40 bg-amber-950/20 hover:bg-amber-950/40 text-amber-300 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
+                <i data-lucide="cpu" class="w-4 h-4"></i>  
+                កម្មវិធី RF Analyzer v6.0  
+            </a>  
+            <a href="#publications" class="px-6 py-3 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
+                <i data-lucide="newspaper" class="w-4 h-4"></i>  
+                ស្នាដៃបោះពុម្ពស្រាវជ្រាវ  
+            </a>  
         </div>  
-    </section>
+    </section>  
 
-    <!-- ABOUT SECTION -->  
-    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">  
+    <!-- ១. អំពីយើង (ABOUT US) -->  
+    <section id="about" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">  
             <div class="lg:col-span-7 space-y-6">  
                 <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
-                    <i data-lucide="microscope" class="w-4 h-4"></i> ទិសដៅយុទ្ធសាស្ត្រនៃការស្រាវជ្រាវ  
+                    <i data-lucide="info" class="w-4 h-4"></i> ១. អំពីយើង (About Research Foundation)  
                 </div>  
                 <h2 class="text-2xl sm:text-4xl font-bold text-white leading-snug">  
-                    ផ្សារភ្ជាប់ទ្រឹស្តីជីវបច្ចេកវិទ្យា ទៅកាន់ការដោះស្រាយបញ្ហាជាក់ស្តែងរបស់សហគមន៍កសិកម្ម។  
+                    អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)  
                 </h2>  
-                <p class="text-slate-300 leading-relaxed text-sm sm:text-base">  
-                    <strong class="text-white">មូលដ្ឋានស្រាវជ្រាវ (Research Foundation)</strong> បង្កើតឡើងដោយផ្តោតលើការស្រាវជ្រាវកម្រិតខ្ពស់លើផ្នែកមីក្រូជីវសាស្រ្តកសិកម្ម ជីវបច្ចេកវិទ្យាផ្អាប់ (Solid-State & Submerged Fermentation) និងការគ្រប់គ្រងជីវជាតិដីកសិកម្មតាមដងទន្លេមេគង្គ។  
-                </p>  
-                <p class="text-slate-400 leading-relaxed text-sm">  
-                    ទន្ទឹមនឹងការងារពិសោធន៍ក្នុងមន្ទីរពិសោធន៍ យើងបានបង្កើតឧបករណ៍ និងកម្មវិធីគណនាស្ថិតិកសិកម្ម (RF Analyzer) ដោយមិនគិតថ្លៃ ដើម្បីជួយសម្រួលដល់និស្សិត អ្នកស្រាវជ្រាវ និងសាស្ត្រាចារ្យកម្ពុជាក្នុងការវិភាគទិន្នន័យស្រាវជ្រាវឱ្យស្របតាមស្តង់ដារអន្តរជាតិ។  
-                </p>
+                <div class="space-y-4 text-slate-300 text-sm leading-relaxed font-light">  
+                    <p>  
+                        <strong class="text-white font-medium">មូលដ្ឋានស្រាវជ្រាវ (Research Foundation)</strong> គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។  
+                    </p>  
+                    <p>  
+                        យើងប្រតិបត្តិការស្រាវជ្រាវសំខាន់ៗនៅ <strong class="text-white">ខេត្តក្រចេះ</strong> (តំបន់កសិ-បរិស្ថានតាមដងទន្លេមេគង្គ) និងកិច្ចសហការស្រាវជ្រាវនៅ <strong class="text-white">រាជធានីភ្នំពេញ</strong> ដោយផ្តោតលើ៖  
+                    </p>  
+                    <ul class="space-y-2 pl-4 border-l-2 border-emerald-500/40 text-xs sm:text-sm text-slate-300">  
+                        <li>• <strong class="text-white">ជីវបច្ចេកវិទ្យាកសិកម្ម & ផ្អាប់ជីវសាស្រ្ត (Fermentation Technology)៖</strong> ការស្រាវជ្រាវមីក្រូសារពាង្គកាយដីមានប្រយោជន៍ (ដូចជា <em>Trichoderma spp.</em>, <em>Bacillus spp.</em>) ដើម្បីផលិតជាជីជីវសាស្រ្ត និងភ្នាក់ងារការពារដំណាំធម្មជាតិ (Biocontrol Agents)។</li>  
+                        <li>• <strong class="text-white">ការកែច្នៃកាកសំណល់អនុផលកសិ-ឧស្សាហកម្ម (Agro-Industrial Valorization)៖</strong> ការទាញយកតម្លៃបន្ថែមពីសំណល់សម្បកដំឡូងមី អង្កាម និងសំណល់ស្វាយចន្ទី ទៅជាជីកំប៉ុស និងអង់ស៊ីមសរីរាង្គ។</li>  
+                        <li>• <strong class="text-white">ស្ថិតិវិទ្យាសាស្ត្រ និងការអភិវឌ្ឍន៍សូហ្វវែរ (Biostatistics & Computation)៖</strong> ការផលិតសៀវភៅសិក្សាស្រាវជ្រាវ និងការអភិវឌ្ឍកម្មវិធីវិភាគទិន្នន័យស្ថិតិគំរូពិសោធន៍ស្របតាមស្តង់ដារបោះពុម្ពអន្តរជាតិ។</li>  
+                    </ul>  
+                </div>  
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">  
-                    <div class="p-5 rounded-2xl border border-slate-800 bg-slate-900/60">  
-                        <i data-lucide="dna" class="w-6 h-6 text-emerald-400 mb-2"></i>  
-                        <h3 class="font-bold text-white text-sm">ជីវបច្ចេកវិទ្យាកសិកម្ម</h3>  
-                        <p class="text-xs text-slate-400 mt-1">ការញែក និងសិក្សាពីអតិសុខុមប្រាណមានប្រយោជន៍ (Trichoderma, PGPR) សម្រាប់កាត់បន្ថយសារធាតុគីមី។</p>  
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">  
+                    <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 text-center">  
+                        <div class="text-amber-400 font-bold text-lg font-en">KNOWLEDGE</div>  
+                        <div class="text-xs text-slate-400 mt-1">ចំណេះដឹងវិទ្យាសាស្ត្រពិត</div>  
                     </div>  
-                    <div class="p-5 rounded-2xl border border-slate-800 bg-slate-900/60">  
-                        <i data-lucide="bar-chart-3" class="w-6 h-6 text-amber-400 mb-2"></i>  
-                        <h3 class="font-bold text-white text-sm">ជីវស្ថិតិ & កុំព្យូទ័រ</h3>  
-                        <p class="text-xs text-slate-400 mt-1">ការវិភាគស្ថិតិកម្រិតខ្ពស់ (ANOVA, Factorial RCBD, Split-Plot, RSM) តាមគំរូគណិតវិទ្យាសុក្រឹត។</p>  
+                    <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 text-center">  
+                        <div class="text-emerald-400 font-bold text-lg font-en">INNOVATION</div>  
+                        <div class="text-xs text-slate-400 mt-1">នវានុវត្តន៍ & សូហ្វវែរ</div>  
+                    </div>  
+                    <div class="p-4 rounded-xl border border-slate-800 bg-slate-900/60 text-center">  
+                        <div class="text-cyan-400 font-bold text-lg font-en">IMPACT</div>  
+                        <div class="text-xs text-slate-400 mt-1">ផលជះវិជ្ជមានសង្គម</div>  
                     </div>  
                 </div>  
-            </div>
+            </div>  
 
             <div class="lg:col-span-5">  
-                <div class="p-8 rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-navy-950 card-glass shadow-2xl space-y-6">  
-                    <div class="flex items-center justify-between pb-4 border-b border-slate-800">  
-                        <div>  
-                            <span class="text-xs uppercase text-slate-400 font-semibold tracking-wider font-en">Agenda & Goals</span>  
-                            <h3 class="text-base font-bold text-white mt-0.5">អាទិភាពស្រាវជ្រាវ</h3>  
+                <div class="p-8 rounded-3xl border border-slate-800 card-glass space-y-6">  
+                    <div class="flex items-center gap-3 pb-4 border-b border-slate-800">  
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">  
+                            <i data-lucide="target" class="w-5 h-5"></i>  
                         </div>  
-                        <span class="px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-en">2026–2030</span>  
+                        <div>  
+                            <h3 class="text-base font-bold text-white">ទស្សនវិស័យ & បេសកកម្ម</h3>  
+                            <p class="text-xs text-slate-400">Research Foundation Mission</p>  
+                        </div>  
                     </div>  
-
-                    <ul class="space-y-4 text-xs sm:text-sm text-slate-300">  
+                    <ul class="space-y-4 text-xs sm:text-sm text-slate-300 font-light">  
                         <li class="flex items-start gap-3">  
-                            <i data-lucide="check" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>  
-                            <span><strong>Valorization លើអនុផលកសិកម្ម៖</strong> កែច្នៃកាកដំឡូងមី អង្កាម និងសំណល់ស្វាយចន្ទី ទៅជាជី និងអង់ស៊ីមសរីរាង្គ។</span>  
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>  
+                            <span>បង្កើតដំណោះស្រាយកសិកម្មបៃតង កាត់បន្ថយការប្រើប្រាស់ជីគីមីដែលបំផ្លាញដី។</span>  
                         </li>  
                         <li class="flex items-start gap-3">  
-                            <i data-lucide="check" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>  
-                            <span><strong>ការអភិវឌ្ឍន៍ Biocontrol Agents៖</strong> ការគ្រប់គ្រងជំងឺរុក្ខជាតិដោយប្រើមីក្រូសារពាង្គកាយក្នុងស្រុកប្រកបដោយនិរន្តរភាព។</span>  
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>  
+                            <span>ជួយសម្រួលដល់និស្សិត និងអ្នកស្រាវជ្រាវកម្ពុជា ឱ្យមានលទ្ធភាពទទួលបានសៀវភៅ និងកម្មវិធីស្ថិតិងាយស្រួលប្រើប្រាស់។</span>  
                         </li>  
                         <li class="flex items-start gap-3">  
-                            <i data-lucide="check" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>  
-                            <span><strong>ការគាំទ្រអ្នកស្រាវជ្រាវជំនាន់ក្រោយ៖</strong> ផ្តល់ការបណ្តុះបណ្តាលលើការវិភាគទិន្នន័យស្ថិតិ និងការសរសេរអត្ថបទ IMRAD។</span>  
+                            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>  
+                            <span>លើកកម្ពស់ស្នាដៃស្រាវជ្រាវជាតិលើឆាកអន្តរជាតិតាមរយៈការបោះពុម្ពផ្សាយបែប Peer-Reviewed។</span>  
                         </li>  
                     </ul>  
                 </div>  
             </div>  
         </div>  
-    </section>
+    </section>  
 
-    <!-- RESEARCH DIVISIONS -->  
-    <section id="divisions" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 bg-slate-900/40 rounded-3xl border border-slate-800/80 my-8">  
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-3">  
-            <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest font-en">CORE RESEARCH DOMAINS</div>  
-            <h2 class="text-3xl font-bold text-white">ផ្នែកស្រាវជ្រាវជំនាញ</h2>  
-            <p class="text-slate-400 text-sm">ការធ្វើសមាហរណកម្មរវាងវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាល និងការគណនាស្ថិតិ។</p>  
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">  
-            <!-- Division 1 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/80 hover:border-emerald-500/50 hover:-translate-y-1 transition-all group">  
-                <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-5 group-hover:bg-emerald-500 group-hover:text-white transition-colors">  
-                    <i data-lucide="flask-conical" class="w-6 h-6"></i>  
-                </div>  
-                <h3 class="text-base font-bold text-white mb-2">ជីវបច្ចេកវិទ្យាមីក្រូសារពាង្គកាយ</h3>  
-                <p class="text-xs text-slate-400 leading-relaxed">  
-                    ការសិក្សាពូជផ្សិត Trichoderma និងបាក់តេរីជំរុញការលូតលាស់រុក្ខជាតិ (PGPR) សម្រាប់កែលម្អសុខភាពដី និងទប់ទល់ជំងឺរុក្ខជាតិ។  
-                </p>  
-            </div>
-
-            <!-- Division 2 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/80 hover:border-amber-500/50 hover:-translate-y-1 transition-all group">  
-                <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-5 group-hover:bg-amber-500 group-hover:text-white transition-colors">  
-                    <i data-lucide="recycle" class="w-6 h-6"></i>  
-                </div>  
-                <h3 class="text-base font-bold text-white mb-2">ការកែច្នៃអនុផលកសិកម្ម</h3>  
-                <p class="text-xs text-slate-400 leading-relaxed">  
-                    ការទាញយកសារធាតុសកម្ម និងសារធាតុចិញ្ចឹមតាមរយៈ Solid-State Fermentation លើកាកសំណល់ដំឡូងមី អង្កាម និងស្វាយចន្ទី។  
-                </p>  
-            </div>
-
-            <!-- Division 3 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/80 hover:border-teal-500/50 hover:-translate-y-1 transition-all group">  
-                <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center mb-5 group-hover:bg-teal-500 group-hover:text-white transition-colors">  
-                    <i data-lucide="binary" class="w-6 h-6"></i>  
-                </div>  
-                <h3 class="text-base font-bold text-white mb-2">ស្ថិតិវិទ្យាសាស្ត្រ & Biometrics</h3>  
-                <p class="text-xs text-slate-400 leading-relaxed">  
-                    ការរៀបចំគំរូពិសោធន៍កសិកម្ម (CRD, RCBD, Split-Plot), Response Surface Methodology (RSM) និងការអភិវឌ្ឍកម្មវិធីស្ថិតិ។  
-                </p>  
-            </div>
-
-            <!-- Division 4 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/80 hover:border-sky-500/50 hover:-translate-y-1 transition-all group">  
-                <div class="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-5 group-hover:bg-sky-500 group-hover:text-white transition-colors">  
-                    <i data-lucide="file-check-2" class="w-6 h-6"></i>  
-                </div>  
-                <h3 class="text-base font-bold text-white mb-2">ការត្រួតពិនិត្យ & បោះពុម្ពផ្សាយ</h3>  
-                <p class="text-xs text-slate-400 leading-relaxed">  
-                    ការគាំទ្រស្តង់ដារវិទ្យាសាស្ត្រ Peer-Review គំរូទិន្នន័យបើកចំហ (Open Data) និងការរៀបចំអត្ថបទស្រាវជ្រាវអន្តរជាតិ។  
-                </p>  
-            </div>  
-        </div>  
-    </section>
-
-    <!-- SCIENTIFIC SOFTWARE SECTION -->  
-    <section id="software" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">  
-        <div class="p-8 sm:p-12 rounded-3xl border border-emerald-500/20 bg-gradient-to-br from-slate-900 via-navy-900 to-emerald-950/30 card-glass">  
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">  
-                <div class="lg:col-span-7 space-y-6">  
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">  
-                        <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Version 6.0 Stable Release  
-                    </div>  
-                    <h2 class="text-2xl sm:text-4xl font-bold text-white tracking-tight">  
-                        Research Foundation Analyzer (RF Analyzer v6.0)  
-                    </h2>  
-                    <p class="text-slate-300 text-sm leading-relaxed">  
-                        កម្មវិធីគណនាស្ថិតិកសិកម្ម និងជីវវិទ្យា ដែលដំណើរការដោយ Python និង WebAssembly បង្កើតឡើងដើម្បីផ្តល់ភាពងាយស្រួលដល់អ្នកស្រាវជ្រាវកម្ពុជាក្នុងការគណនា ANOVA, Factorial RCBD, Split-Plot, ការប្រៀបធៀបមធ្យមភាគ (Tukey's HSD, Duncan) និង Regression ដោយសុក្រឹតភាព ១០០%។  
-                    </p>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300 font-medium">  
-                        <div class="flex items-center gap-2.5">  
-                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>  
-                            <span>CRD, RCBD, Latin Square & Split-Plot</span>  
-                        </div>  
-                        <div class="flex items-center gap-2.5">  
-                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>  
-                            <span>Post-Hoc Tests (Tukey HSD, LSD, Duncan)</span>  
-                        </div>  
-                        <div class="flex items-center gap-2.5">  
-                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>  
-                            <span>ផ្ទៀងផ្ទាត់លទ្ធផលត្រឹមត្រូវស្មើ SAS & Prism</span>  
-                        </div>  
-                        <div class="flex items-center gap-2.5">  
-                            <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400 shrink-0"></i>  
-                            <span>ដំណើរការបានទាំងលើ Web និង Offline</span>  
-                        </div>  
-                    </div>
-
-                    <div class="flex flex-wrap gap-4 pt-2">  
-                        <a href="https://t.me/insokra" target="_blank" class="px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-lg shadow-emerald-950/40">  
-                            <i data-lucide="download" class="w-4 h-4"></i>  
-                            ស្នើសុំប្រើប្រាស់កម្មវិធី (Telegram)  
-                        </a>  
-                        <a href="https://web.facebook.com/Research.Fo" target="_blank" class="px-6 py-3 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-200 font-semibold text-xs sm:text-sm transition-all flex items-center gap-2">  
-                            <i data-lucide="facebook" class="w-4 h-4 text-blue-400"></i>  
-                            ទំព័រ Facebook ផ្លូវការ  
-                        </a>  
-                    </div>  
-                </div>
-
-                <!-- Code Terminal Preview -->  
-                <div class="lg:col-span-5">  
-                    <div class="rounded-2xl border border-slate-800 bg-slate-950/90 p-5 shadow-2xl font-mono text-xs">  
-                        <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-500">  
-                            <div class="flex items-center gap-1.5">  
-                                <span class="w-3 h-3 rounded-full bg-rose-500/70"></span>  
-                                <span class="w-3 h-3 rounded-full bg-amber-500/70"></span>  
-                                <span class="w-3 h-3 rounded-full bg-emerald-500/70"></span>  
-                            </div>  
-                            <span class="text-[11px] text-slate-400">rf_analyzer_rcbd.py</span>  
-                        </div>  
-                        <div class="pt-4 space-y-1.5 text-slate-300 overflow-x-auto">  
-                            <p><span class="text-purple-400">from</span> rf_analyzer <span class="text-purple-400">import</span> BioStatistics</p>  
-                            <p><span class="text-slate-500"># វិភាគទិន្នន័យពិសោធន៍កសិកម្ម</span></p>  
-                            <p>model = BioStatistics.RCBD(data=<span class="text-emerald-400">"cassava_trial.csv"</span>)</p>  
-                            <p>results = model.run_anova(response=<span class="text-amber-300">"Yield"</span>)</p>  
-                            <p><span class="text-purple-400">print</span>(results.tukey_hsd())</p>  
-                            
-                            <div class="mt-3 p-3 rounded-xl bg-slate-900 border border-slate-800/80 text-[11px] text-emerald-400 space-y-0.5">  
-                                <div>ANOVA Model: RCBD (Completed)</div>  
-                                <div>Treatment: F = 28.45, p &lt; 0.001 ***</div>  
-                                <div>Block Effect: F = 1.12, p = 0.354 (ns)</div>  
-                                <div>CV(%) = 5.82% [Excellent Precision]</div>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
-    </section>
-
-    <!-- GOOGLE SCHOLAR BANNER SECTION -->  
-    <section id="scholar" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">  
-        <div class="p-8 rounded-3xl border border-slate-800 bg-gradient-to-r from-slate-900 via-navy-900 to-slate-900 flex flex-col md:flex-row items-center justify-between gap-6">  
-            <div class="flex items-center gap-4">  
-                <div class="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center shrink-0">  
-                    <i data-lucide="graduation-cap" class="w-7 h-7"></i>  
-                </div>  
-                <div>  
-                    <h3 class="text-lg font-bold text-white">Google Scholar Profile — អិន សុខរ៉ា (In Sokra)</h3>  
-                    <p class="text-xs text-slate-400 mt-0.5">តាមដានចំនួន Citation, h-index, និងបញ្ជីអត្ថបទស្រាវជ្រាវវិទ្យាសាស្ត្រពេញលេញនៅលើ Google Scholar។</p>  
-                </div>  
-            </div>  
-            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs sm:text-sm whitespace-nowrap transition-all flex items-center gap-2 shrink-0">  
-                <span>ចូលទៅកាន់ Google Scholar</span>  
-                <i data-lucide="external-link" class="w-4 h-4"></i>  
-            </a>  
-        </div>  
-    </section>
-
-    <!-- PUBLICATIONS SECTION -->  
-    <section id="publications" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">  
+    <!-- ២. សៀវភៅ (BOOKS FOR SALE) -->  
+    <section id="books" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">  
             <div>  
-                <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest font-en">SELECTED PEER-REVIEWED PUBLICATIONS</div>  
-                <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">ស្នាដៃសិក្សាស្រាវជ្រាវ & អត្ថបទបោះពុម្ព</h2>  
+                <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
+                    <i data-lucide="book-open" class="w-4 h-4"></i> ២. សៀវភៅសម្រាប់លក់ (Publications & Books)  
+                </div>  
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">សៀវភៅសិក្សាស្រាវជ្រាវ & ការវិភាគទិន្នន័យ</h2>  
             </div>  
-            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-xs text-emerald-400 hover:text-emerald-300 font-semibold flex items-center gap-1.5 transition-colors">  
-                <span>មើលស្នាដៃទាំងអស់លើ Google Scholar</span>  
-                <i data-lucide="arrow-up-right" class="w-4 h-4"></i>  
-            </a>  
-        </div>
+            <div class="text-xs text-slate-400">  
+                សៀវភៅបោះពុម្ពជាភាសាខ្មែរ រៀបចំតាមស្តង់ដារបច្ចេកទេស និងក្បួនវិទ្យាសាស្ត្រជាក់ស្តែង  
+            </div>  
+        </div>  
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">  
-            <!-- Paper 1 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/60 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
-                <div class="space-y-3">  
-                    <div class="flex items-center justify-between text-xs text-slate-400">  
-                        <span class="px-2.5 py-1 rounded-md bg-emerald-500/10 text-emerald-400 font-semibold">Postharvest & Food Science</span>  
-                        <span class="font-en">2026</span>  
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">  
+            <!-- Book 1 -->  
+            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-amber-500/50 transition-all">  
+                <div class="space-y-4">  
+                    <div class="h-48 rounded-2xl bg-gradient-to-tr from-slate-900 to-amber-950/30 border border-amber-500/20 flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">  
+                        <span class="absolute top-3 right-3 text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded-full font-semibold">សៀវភៅណែនាំ</span>  
+                        <i data-lucide="book" class="w-12 h-12 text-amber-400 mb-2 group-hover:scale-110 transition-transform"></i>  
+                        <div class="text-sm font-bold text-white leading-snug">សៀវភៅណែនាំពីការប្រើប្រាស់កម្មវិធី <br><span class="text-amber-300 font-en">Research Foundation Analyzer v6.0</span></div>  
                     </div>  
-                    <h3 class="text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
-                        Effects of postharvest treatments and storage temperatures on shelf-life extension of Keo Romeat mango (Mangifera indica L.)  
-                    </h3>  
-                    <p class="text-xs text-slate-400 leading-relaxed">  
-                        ការសិក្សាពីឥទ្ធិពលនៃសីតុណ្ហភាពស្តុកទុក និងសារធាតុប្រឆាំងអុកស៊ីតកម្មលើការពន្យារគុណភាព និងអាយុកាលស្វាយកែវរមៀត។  
-                    </p>  
+                    <div>  
+                        <h3 class="text-base font-bold text-white">Statistical Data Analysis for Research</h3>  
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">  
+                            សៀវភៅណែនាំក្បោះក្បាយពីការរៀបចំទិន្នន័យ ការដំណើរការកម្មវិធី RF Analyzer v6.0 ការអានលទ្ធផលតារាង ANOVA, Split-Plot, RCBD និងការបកស្រាយអក្សរប្រៀបធៀបមធ្យមភាគ (Post-Hoc Letters)។  
+                        </p>  
+                    </div>  
                 </div>  
-                <div class="pt-5 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs">  
-                    <span class="text-slate-500 font-mono text-[11px]">J. Cent. Eur. Agric.</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:text-emerald-300 flex items-center gap-1">  
-                        <span>អានអត្ថបទ</span>  
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>  
+                <div class="pt-6 border-t border-slate-800 mt-6 flex items-center justify-between">  
+                    <div>  
+                        <span class="text-xs text-slate-400 block">តម្លៃសៀវភៅ</span>  
+                        <span class="text-lg font-bold text-amber-400 font-en">$10.00 / ក្បាល</span>  
+                    </div>  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500 hover:text-navy-950 text-amber-300 font-semibold text-xs transition-all flex items-center gap-1.5">  
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ  
                     </a>  
                 </div>  
-            </div>
+            </div>  
 
-            <!-- Paper 2 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/60 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
-                <div class="space-y-3">  
-                    <div class="flex items-center justify-between text-xs text-slate-400">  
-                        <span class="px-2.5 py-1 rounded-md bg-teal-500/10 text-teal-400 font-semibold">Bioprocess & Fertilizer</span>  
-                        <span class="font-en">2026</span>  
+            <!-- Book 2 -->  
+            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-emerald-500/50 transition-all">  
+                <div class="space-y-4">  
+                    <div class="h-48 rounded-2xl bg-gradient-to-tr from-slate-900 to-emerald-950/30 border border-emerald-500/20 flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">  
+                        <span class="absolute top-3 right-3 text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-semibold">Programming</span>  
+                        <i data-lucide="code" class="w-12 h-12 text-emerald-400 mb-2 group-hover:scale-110 transition-transform"></i>  
+                        <div class="text-sm font-bold text-white leading-snug">Statistical Data Analysis in Agriculture <br><span class="text-emerald-300 font-en">Using Python Programming</span></div>  
                     </div>  
-                    <h3 class="text-base font-bold text-white hover:text-teal-300 transition-colors leading-snug">  
-                        Valorization of Agricultural By-Products into High-Value Biofertilizers and Biocontrol Agents: A Chemometric Study  
-                    </h3>  
-                    <p class="text-xs text-slate-400 leading-relaxed">  
-                        ការកែច្នៃកាកសំណល់កសិកម្មតាមរយៈប្រព័ន្ធជីវបច្ចេកវិទ្យារួមបញ្ចូលគ្នា ដើម្បីផលិតជីជីវសាស្រ្ត និងភ្នាក់ងារការពារជីវសាស្រ្ត។  
-                    </p>  
+                    <div>  
+                        <h3 class="text-base font-bold text-white">ការវិភាគទិន្នន័យស្ថិតិកសិកម្មតាម Python</h3>  
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">  
+                            មគ្គុទ្ទេសក៍ជាក់ស្តែងសម្រាប់ការសរសេរកូដ Python ក្នុងការរៀបចំទិន្នន័យកសិកម្ម គូរក្រាហ្វិក 3D Response Surface, PCA Biplot, Correlation Heatmap និងការវិភាគ ANOVA សម្រាប់និស្សិតកម្រិតឧត្តម។  
+                        </p>  
+                    </div>  
                 </div>  
-                <div class="pt-5 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs">  
-                    <span class="text-slate-500 font-mono text-[11px]">Peer-Reviewed</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-teal-400 hover:text-teal-300 flex items-center gap-1">  
-                        <span>អានអត្ថបទ</span>  
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>  
+                <div class="pt-6 border-t border-slate-800 mt-6 flex items-center justify-between">  
+                    <div>  
+                        <span class="text-xs text-slate-400 block">តម្លៃសៀវភៅ</span>  
+                        <span class="text-lg font-bold text-emerald-400 font-en">$12.00 / ក្បាល</span>  
+                    </div>  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 hover:bg-emerald-500 hover:text-navy-950 text-emerald-300 font-semibold text-xs transition-all flex items-center gap-1.5">  
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ  
                     </a>  
                 </div>  
-            </div>
+            </div>  
 
-            <!-- Paper 3 -->  
-            <div class="p-6 rounded-2xl border border-slate-800 bg-navy-900/60 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
-                <div class="space-y-3">  
-                    <div class="flex items-center justify-between text-xs text-slate-400">  
-                        <span class="px-2.5 py-1 rounded-md bg-amber-500/10 text-amber-400 font-semibold">Plant Pathology & Biocontrol</span>  
-                        <span class="font-en">2026</span>  
+            <!-- Book 3 -->  
+            <div class="p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-cyan-500/50 transition-all">  
+                <div class="space-y-4">  
+                    <div class="h-48 rounded-2xl bg-gradient-to-tr from-slate-900 to-cyan-950/30 border border-cyan-500/20 flex flex-col items-center justify-center text-center p-4 relative overflow-hidden">  
+                        <span class="absolute top-3 right-3 text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full font-semibold">IMRAD Guide</span>  
+                        <i data-lucide="file-text" class="w-12 h-12 text-cyan-400 mb-2 group-hover:scale-110 transition-transform"></i>  
+                        <div class="text-sm font-bold text-white leading-snug">មូលដ្ឋានសរសេរអត្ថបទស្រាវជ្រាវ <br><span class="text-cyan-300 font-en">(Scientific Research Writing)</span></div>  
                     </div>  
-                    <h3 class="text-base font-bold text-white hover:text-amber-300 transition-colors leading-snug">  
-                        Mechanisms and efficacy of Trichoderma spp. against major cashew (Anacardium occidentale) pathogens  
-                    </h3>  
-                    <p class="text-xs text-slate-400 leading-relaxed">  
-                        ការវាយតម្លៃយន្តការជីវសាស្ត្រ និងប្រសិទ្ធភាពនៃពូជផ្សិត Trichoderma ក្នុងការការពារជំងឺសំខាន់ៗលើដំណាំស្វាយចន្ទី។  
-                    </p>  
+                    <div>  
+                        <h3 class="text-base font-bold text-white">មូលដ្ឋានគ្រឹះសរសេរអត្ថបទ IMRAD</h3>  
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed">  
+                            មគ្គុទ្ទេសក៍ណែនាំជាជំហានៗក្នុងការសរសេរ Abstract, Introduction, Materials & Methods, Results & Discussion ព្រមទាំងការគ្រប់គ្រងឯកសារយោងស្របតាមស្តង់ដារទស្សនាវដ្តី Scopus/Web of Science។  
+                        </p>  
+                    </div>  
                 </div>  
-                <div class="pt-5 border-t border-slate-800/80 mt-6 flex items-center justify-between text-xs">  
-                    <span class="text-slate-500 font-mono text-[11px]">Int. J. Agric. Syst.</span>  
-                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-amber-400 hover:text-amber-300 flex items-center gap-1">  
-                        <span>អានអត្ថបទ</span>  
-                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>  
+                <div class="pt-6 border-t border-slate-800 mt-6 flex items-center justify-between">  
+                    <div>  
+                        <span class="text-xs text-slate-400 block">តម្លៃសៀវភៅ</span>  
+                        <span class="text-lg font-bold text-cyan-400 font-en">$10.00 / ក្បាល</span>  
+                    </div>  
+                    <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 hover:bg-cyan-500 hover:text-navy-950 text-cyan-300 font-semibold text-xs transition-all flex items-center gap-1.5">  
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ  
                     </a>  
                 </div>  
             </div>  
         </div>  
-    </section>
+    </section>  
 
-    <!-- FOUNDER & RESEARCH LEAD SECTION -->  
-    <section id="leadership" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/70">  
+    <!-- ៣. កម្មវិធី (SOFTWARE STORE & LICENSES) -->  
+    <section id="software" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
         <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">  
-            <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest font-en">RESEARCH LEADERSHIP</div>  
-            <h2 class="text-3xl font-bold text-white">ស្ថាបនិក & ប្រធានស្រាវជ្រាវ</h2>  
-            <p class="text-slate-400 text-sm">ដឹកនាំដោយអ្នកស្រាវជ្រាវជីវបច្ចេកវិទ្យា និងអ្នកជំនាញស្ថិតិវិទ្យាសាស្ត្រ។</p>  
-        </div>
+            <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center justify-center gap-2">  
+                <i data-lucide="cpu" class="w-4 h-4"></i> ៣. កម្មវិធី និងអាជ្ញាប័ណ្ណ (Scientific Software)  
+            </div>  
+            <h2 class="text-3xl font-bold text-white">កម្មវិធីស្ថិតិ & ឧបករណ៍ស្រាវជ្រាវសម្រាប់លក់</h2>  
+            <p class="text-slate-400 text-sm">កម្មវិធីដែលត្រូវបានបង្កើតឡើងយ៉ាងសម្រិតសម្រាំងសម្រាប់អ្នកស្រាវជ្រាវ និងស្ថាប័នកម្ពុជា</p>  
+        </div>  
 
-        <div class="max-w-2xl mx-auto">  
-            <div class="p-8 sm:p-10 rounded-3xl border border-slate-800 bg-gradient-to-b from-navy-900 to-slate-950 text-center space-y-6 card-glass shadow-2xl">  
-                <!-- Profile Avatar -->  
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">  
+            <!-- Main Featured: RF Analyzer v6.0 -->  
+            <div class="lg:col-span-8 p-8 sm:p-10 rounded-3xl border border-emerald-500/30 bg-gradient-to-br from-slate-900 via-navy-900 to-emerald-950/40 card-glass flex flex-col justify-between space-y-6">  
+                <div class="space-y-4">  
+                    <div class="flex flex-wrap items-center justify-between gap-3">  
+                        <span class="px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">  
+                            Flagship Software • Version 6.0 Stable  
+                        </span>  
+                        <span class="text-xs text-amber-400 font-semibold">ផ្ទៀងផ្ទាត់សុក្រឹតភាព ១០០% ធៀបនឹង SAS / SPSS</span>  
+                    </div>  
+                    <h3 class="text-2xl sm:text-3xl font-bold text-white leading-tight">  
+                        Research Foundation Analyzer v6.0 (RF Analyzer)  
+                    </h3>  
+                    <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-light">  
+                        កម្មវិធីគណនាស្ថិតិកសិកម្ម ជីវវិទ្យា និងវិទ្យាសាស្ត្រដី ដែលគាំទ្រការវិភាគទិន្នន័យយ៉ាងពេញលេញ៖ CRD, RCBD, Latin Square, Factorial Experiments, Split-Plot Design, Response Surface Methodology (RSM), Tukey's HSD, Duncan Multiple Range Test, និង Pearson Correlation Heatmaps។  
+                    </p>  
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300 pt-2 font-mono">  
+                        <div class="flex items-center gap-2">  
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <span>មិនទាមទារ Internet (Offline Desktop App)</span>  
+                        </div>  
+                        <div class="flex items-center gap-2">  
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <span>នាំចេញលទ្ធផលជា Excel & Word ស្អាតស្រាប់</span>  
+                        </div>  
+                        <div class="flex items-center gap-2">  
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <span>បង្កើតអក្សរប្រៀបធៀប (Letters: a, b, ab)</span>  
+                        </div>  
+                        <div class="flex items-center gap-2">  
+                            <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>  
+                            <span>គាំទ្រទាំងភាសាខ្មែរ និងអង់គ្លេស</span>  
+                        </div>  
+                    </div>  
+                </div>  
+
+                <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">  
+                    <div>  
+                        <div class="text-xs text-slate-400">តម្លៃអាជ្ញាប័ណ្ណកម្មវិធី (License Key)</div>  
+                        <div class="text-xl sm:text-2xl font-bold text-emerald-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>  
+                    </div>  
+                    <div class="flex items-center gap-3 w-full sm:w-auto">  
+                        <a href="https://t.me/insokra" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50">  
+                            <i data-lucide="key" class="w-4 h-4"></i>  
+                            ទិញអាជ្ញាប័ណ្ណ (Telegram)  
+                        </a>  
+                    </div>  
+                </div>  
+            </div>  
+
+            <!-- Other Software & Custom Tools -->  
+            <div class="lg:col-span-4 space-y-6 flex flex-col justify-between">  
+                <!-- Software 2 -->  
+                <div class="p-6 rounded-3xl border border-slate-800 card-glass space-y-4">  
+                    <div class="flex items-center justify-between">  
+                        <span class="text-xs text-amber-400 font-mono">Custom Scripts</span>  
+                        <i data-lucide="terminal" class="w-5 h-5 text-amber-400"></i>  
+                    </div>  
+                    <h4 class="text-base font-bold text-white">Biometrics Data Pipeline Script</h4>  
+                    <p class="text-xs text-slate-400 leading-relaxed">  
+                        កញ្ចប់កូដ Python ស្វ័យប្រវត្តសម្រាប់សម្អាតទិន្នន័យកសិកម្ម គណនាស្ថិតិពហុអថេរ (Multivariate PCA) និងគូរក្រាហ្វិកសម្រាប់ដាក់ក្នុងសារណាស្រាវជ្រាវ។  
+                    </p>  
+                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between">  
+                        <span class="text-xs font-en text-slate-300 font-semibold">$15 / Pack</span>  
+                        <a href="https://t.me/insokra" target="_blank" class="text-xs text-amber-400 hover:underline">បញ្ជាទិញ &rarr;</a>  
+                    </div>  
+                </div>  
+
+                <!-- Software 3 -->  
+                <div class="p-6 rounded-3xl border border-slate-800 card-glass space-y-4">  
+                    <div class="flex items-center justify-between">  
+                        <span class="text-xs text-cyan-400 font-mono">Automation Bot</span>  
+                        <i data-lucide="bot" class="w-5 h-5 text-cyan-400"></i>  
+                    </div>  
+                    <h4 class="text-base font-bold text-white">Research Data Auto-Bot</h4>  
+                    <p class="text-xs text-slate-400 leading-relaxed">  
+                        ប្រព័ន្ធ Telegram Bot ស្វ័យប្រវត្តិសម្រាប់ការទាញយកតារាងស្ថិតិ និងការគ្រប់គ្រងការចែករំលែកឯកសារស្រាវជ្រាវប្រកបដោយសុវត្ថិភាព។  
+                    </p>  
+                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between">  
+                        <span class="text-xs font-en text-slate-300 font-semibold">Custom Order</span>  
+                        <a href="https://t.me/insokra" target="_blank" class="text-xs text-cyan-400 hover:underline">សាកសួរព័ត៌មាន &rarr;</a>  
+                    </div>  
+                </div>  
+            </div>  
+        </div>  
+    </section>  
+
+    <!-- ៤. អត្ថបទបោះពុម្ព (PUBLICATIONS) -->  
+    <section id="publications" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">  
+            <div>  
+                <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">  
+                    <i data-lucide="newspaper" class="w-4 h-4"></i> ៤. អត្ថបទបោះពុម្ព (Publications & Scholar)  
+                </div>  
+                <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">ស្នាដៃសិក្សាស្រាវជ្រាវបោះពុម្ពផ្សាយ</h2>  
+            </div>  
+            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-5 py-2.5 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-emerald-400 hover:text-emerald-300 font-semibold text-xs flex items-center gap-2 transition-all">  
+                <i data-lucide="graduation-cap" class="w-4 h-4"></i>  
+                <span>មើលស្នាដៃទាំងអស់លើ Google Scholar</span>  
+            </a>  
+        </div>  
+
+        <!-- Publication Cards Grid (from In Sokra - Google Scholar) -->  
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">  
+
+            <!-- Paper 1 -->  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+                <div class="space-y-3">  
+                    <div class="flex items-center justify-between text-xs text-slate-400">  
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold font-en">2026</span>  
+                        <span class="font-mono text-[11px] text-slate-500">J. Cent. Eur. Agric.</span>  
+                    </div>  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
+                        Effects of postharvest treatments and storage temperatures on shelf-life extension of Keo Romeat mango (Mangifera indica L.)  
+                    </h3>  
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">  
+                        <strong>អ្នកនិពន្ធ៖</strong> I Sokra, S Somaly, H Sarun, C Molikoy, H Meta, D Wulandari  
+                    </p>  
+                </div>  
+                <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
+                    <span class="text-slate-500 font-en text-[11px]">Vol. 27, No. 3</span>  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                        Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
+                    </a>  
+                </div>  
+            </div>  
+
+            <!-- Paper 2 -->  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+                <div class="space-y-3">  
+                    <div class="flex items-center justify-between text-xs text-slate-400">  
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold font-en">2026</span>  
+                        <span class="font-mono text-[11px] text-slate-500">J. Agric. & Tech.</span>  
+                    </div>  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
+                        Factors affecting rice production: A systematic review  
+                    </h3>  
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">  
+                        <strong>អ្នកនិពន្ធ៖</strong> I Sokra, S Somaly, H Meta, H Sarun, C Molikoy  
+                    </p>  
+                </div>  
+                <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
+                    <span class="text-slate-500 font-en text-[11px]">Vol. 2, No. 1</span>  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                        Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
+                    </a>  
+                </div>  
+            </div>  
+
+            <!-- Paper 3 -->  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+                <div class="space-y-3">  
+                    <div class="flex items-center justify-between text-xs text-slate-400">  
+                        <span class="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 font-semibold font-en">2025</span>  
+                        <span class="font-mono text-[11px] text-slate-500">J. Agric. & Tech.</span>  
+                    </div>  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-amber-300 transition-colors leading-snug">  
+                        Different microorganisms used in fermentation for biofertilizer: A review  
+                    </h3>  
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">  
+                        <strong>អ្នកនិពន្ធ៖</strong> I Sokra, H Meta, R Chanra, H Linan, T Pang, H Sarun  
+                    </p>  
+                </div>  
+                <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
+                    <span class="text-slate-500 font-en text-[11px]">Vol. 1, No. 1</span>  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-amber-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                        Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
+                    </a>  
+                </div>  
+            </div>  
+
+            <!-- Paper 4 -->  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+                <div class="space-y-3">  
+                    <div class="flex items-center justify-between text-xs text-slate-400">  
+                        <span class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-semibold font-en">2025</span>  
+                        <span class="font-mono text-[11px] text-slate-500">Int. J. Agric. Syst.</span>  
+                    </div>  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-emerald-300 transition-colors leading-snug">  
+                        Mechanisms and efficacy of Trichoderma spp. against major cashew (Anacardium occidentale) pathogens  
+                    </h3>  
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">  
+                        <strong>អ្នកនិពន្ធ៖</strong> I Sokra, S Somaly, H Sarun, H Meta, D Wulandari, C Molikoy  
+                    </p>  
+                </div>  
+                <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
+                    <span class="text-slate-500 font-en text-[11px]">Peer-Reviewed</span>  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                        Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
+                    </a>  
+                </div>  
+            </div>  
+
+            <!-- Paper 5 -->  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+                <div class="space-y-3">  
+                    <div class="flex items-center justify-between text-xs text-slate-400">  
+                        <span class="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-semibold font-en">2024</span>  
+                        <span class="font-mono text-[11px] text-slate-500">Cambodian J. Edu. & STEM</span>  
+                    </div>  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-cyan-300 transition-colors leading-snug">  
+                        The efficacy of Bordeaux mixture and Trichoderma powder in preventing fungal diseases on cashew nut wounds after pruning  
+                    </h3>  
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">  
+                        <strong>អ្នកនិពន្ធ៖</strong> S Somaly, I Sokra  
+                    </p>  
+                </div>  
+                <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
+                    <span class="text-slate-500 font-en text-[11px]">Vol. 2, No. 2</span>  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-cyan-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                        Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
+                    </a>  
+                </div>  
+            </div>  
+
+            <!-- Paper 6 -->  
+            <div class="p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-emerald-500/40 transition-all">  
+                <div class="space-y-3">  
+                    <div class="flex items-center justify-between text-xs text-slate-400">  
+                        <span class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 font-semibold font-en">2020</span>  
+                        <span class="font-mono text-[11px] text-slate-500">Appl. Microbiol. Biotechnol.</span>  
+                    </div>  
+                    <h3 class="text-sm sm:text-base font-bold text-white hover:text-purple-300 transition-colors leading-snug">  
+                        Combining metabolic engineering and evolutionary adaptation in Klebsiella oxytoca to improve optically pure D-(−)-lactic acid  
+                    </h3>  
+                    <p class="text-xs text-slate-400 leading-relaxed font-light">  
+                        <strong>អ្នកនិពន្ធ៖</strong> S In, P Khunnonkwao, N Wong, C Phosiran, SS Jantama, K Jantama  
+                    </p>  
+                </div>  
+                <div class="pt-4 border-t border-slate-800/80 mt-5 flex items-center justify-between text-xs">  
+                    <span class="text-slate-500 font-en text-[11px]">Vol. 104, No. 22</span>  
+                    <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="text-purple-400 hover:underline flex items-center gap-1 font-mono text-xs">  
+                        Scholar Link <i data-lucide="external-link" class="w-3 h-3"></i>  
+                    </a>  
+                </div>  
+            </div>  
+
+        </div>  
+    </section>  
+
+    <!-- ៥. ស្ថាបនិក (FOUNDER PROFILE) -->  
+    <section id="leadership" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-slate-800/80">  
+        <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">  
+            <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center justify-center gap-2">  
+                <i data-lucide="user" class="w-4 h-4"></i> ៥. ស្ថាបនិក និងអ្នកដឹកនាំស្រាវជ្រាវ (Founder Profile)  
+            </div>  
+            <h2 class="text-3xl font-bold text-white">ស្ថាបនិកមូលដ្ឋានស្រាវជ្រាវ</h2>  
+            <p class="text-slate-400 text-sm">អ្នកជំនាញជីវបច្ចេកវិទ្យាកសិកម្ម ស្ថិតិវិទ្យាសាស្ត្រ និងការអភិវឌ្ឍន៍សូហ្វវែរ</p>  
+        </div>  
+
+        <div class="max-w-3xl mx-auto">  
+            <div class="p-8 sm:p-12 rounded-3xl border border-slate-800 card-glass text-center space-y-6">  
                 <div class="relative w-28 h-28 mx-auto">  
                     <div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-400 via-emerald-500 to-teal-400 p-1 flex items-center justify-center shadow-xl">  
                         <div class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-white text-2xl font-bold font-en">  
                             IS  
                         </div>  
                     </div>  
-                    <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-navy-950 rounded-full" title="Active Lead"></span>
+                    <span class="absolute bottom-1 right-1 w-5 h-5 bg-emerald-500 border-2 border-navy-950 rounded-full" title="Active"></span>  
                 </div>  
 
                 <div>  
                     <h3 class="text-2xl font-bold text-white">លោក អិន សុខរ៉ា (In Sokra)</h3>  
-                    <p class="text-xs text-amber-400 font-semibold mt-1 font-en">Founder & Principal Investigator (PI) • M.Sc. Biotechnology</p>  
-                    <p class="text-xs text-slate-400 mt-1">សាស្ត្រាចារ្យឧត្តមសិក្សា និងអ្នកស្រាវជ្រាវជីវបច្ចេកវិទ្យា ស្ថិតិកសិកម្ម និងបរិស្ថាន</p>  
+                    <p class="text-xs text-amber-400 font-semibold mt-1 font-en">Founder & Principal Investigator (PI) • M.Sc. in Biotechnology</p>  
+                    <p class="text-xs text-slate-400 mt-1">សាស្ត្រាចារ្យឧត្តមសិក្សា និងអ្នកស្រាវជ្រាវឯករាជ្យ</p>  
                 </div>  
 
                 <p class="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto font-light">  
-                    លោក អិន សុខរ៉ា បានបញ្ចប់បរិញ្ញាបត្រជាន់ខ្ពស់ផ្នែកជីវបច្ចេកវិទ្យា (Master of Science in Biotechnology)។ លោកផ្តោតលើការស្រាវជ្រាវមីក្រូជីវសាស្រ្តកសិកម្ម ការបង្កើតកម្មវិធីគណនាស្ថិតិវិទ្យាសាស្ត្រ (RF Analyzer) និងការបោះពុម្ពផ្សាយស្នាដៃស្រាវជ្រាវតាមដងទន្លេមេគង្គ ខេត្តក្រចេះ និងរាជធានីភ្នំពេញ។  
+                    លោក <strong class="text-white">អិន សុខរ៉ា</strong> ទទួលបានសញ្ញាបត្របរិញ្ញាបត្រជាន់ខ្ពស់ផ្នែកជីវបច្ចេកវិទ្យា (M.Sc. in Biotechnology) ពីសាកលវិទ្យាល័យបច្ចេកវិទ្យាសុរនារី (Suranaree University of Technology)។ លោកជាស្ថាបនិកនៃមូលដ្ឋានស្រាវជ្រាវ និងជាអ្នកអភិវឌ្ឍន៍កម្មវិធី <strong class="text-white">Research Foundation Analyzer (RF Analyzer)</strong>។ លោកបានបោះពុម្ពផ្សាយ និងចូលរួមនិពន្ធអត្ថបទស្រាវជ្រាវវិទ្យាសាស្ត្រជាច្រើនលើទស្សនាវដ្តីជាតិ និងអន្តរជាតិលើផ្នែកមីក្រូជីវសាស្រ្ត ការផ្អាប់កាកសំណល់កសិកម្ម និងជីវស្ថិតិ។  
                 </p>  
 
-                <!-- Action & Social Links -->  
-                <div class="flex flex-wrap items-center justify-center gap-3 pt-2">  
+                <div class="flex flex-wrap items-center justify-center gap-3 pt-3">  
                     <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600 border border-emerald-500/40 text-emerald-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
                         <i data-lucide="graduation-cap" class="w-4 h-4"></i> Google Scholar  
                     </a>  
@@ -569,98 +640,17 @@
                         <i data-lucide="id-card" class="w-4 h-4 text-emerald-400"></i> ORCID  
                     </a>  
                     <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600 border border-sky-500/40 text-sky-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
-                        <i data-lucide="send" class="w-4 h-4"></i> Telegram  
+                        <i data-lucide="send" class="w-4 h-4"></i> Telegram (@insokra)  
                     </a>  
-                    <button onclick="copyToClipboard('insokra@gmail.com', 'បានចម្លងអ៊ីមែល insokra@gmail.com !')" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2" title="ចម្លងអ៊ីមែល">  
+                    <button onclick="copyToClipboard('insokra@gmail.com', 'បានចម្លងអ៊ីមែល insokra@gmail.com !')" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2">  
                         <i data-lucide="mail" class="w-4 h-4"></i> insokra@gmail.com  
                     </button>  
                 </div>  
             </div>  
         </div>  
-    </section>
-
-    <!-- CONTACT SECTION -->  
-    <section id="contact" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">  
-        <div class="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-navy-950 p-8 sm:p-12 card-glass">  
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">  
-                <div class="space-y-6">  
-                    <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest font-en">COLLABORATION & INQUIRY</div>  
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white">កិច្ចសហការស្រាវជ្រាវ និងការបណ្តុះបណ្តាល</h2>  
-                    <p class="text-slate-300 text-sm leading-relaxed">  
-                        យើងស្វាគមន៍រាល់កិច្ចសហប្រតិបត្តិការស្រាវជ្រាវរួមគ្នា ការសាកល្បងអនុវត្តលើទីវាលកសិកម្ម ការចែករំលែកទិន្នន័យវិទ្យាសាស្ត្រ និងការប្រឹក្សាយោបល់លើការវិភាគស្ថិតិកសិកម្ម។  
-                    </p>
-
-                    <div class="space-y-4 pt-2 text-sm">  
-                        <div class="flex items-start gap-4">  
-                            <div class="w-10 h-10 rounded-xl bg-blue-600/10 border border-blue-500/20 text-blue-400 flex items-center justify-center shrink-0">  
-                                <i data-lucide="facebook" class="w-5 h-5"></i>  
-                            </div>  
-                            <div>  
-                                <h4 class="font-semibold text-white">ទំព័រហ្វេសប៊ុកផ្លូវការ (Facebook Page)</h4>  
-                                <a href="https://web.facebook.com/Research.Fo" target="_blank" class="text-xs text-blue-400 hover:underline font-en">  
-                                    web.facebook.com/Research.Fo  
-                                </a>  
-                            </div>  
-                        </div>
-
-                        <div class="flex items-start gap-4">  
-                            <div class="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">  
-                                <i data-lucide="send" class="w-5 h-5"></i>  
-                            </div>  
-                            <div>  
-                                <h4 class="font-semibold text-white">តេឡេក្រាមផ្ទាល់ (Telegram Message)</h4>  
-                                <a href="https://t.me/insokra" target="_blank" class="text-xs text-emerald-400 hover:underline font-en">  
-                                    t.me/insokra  
-                                </a>  
-                            </div>  
-                        </div>
-
-                        <div class="flex items-start gap-4">  
-                            <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">  
-                                <i data-lucide="mail" class="w-5 h-5"></i>  
-                            </div>  
-                            <div>  
-                                <h4 class="font-semibold text-white">សារអេឡិចត្រូនិក (Email)</h4>  
-                                <a href="mailto:insokra@gmail.com" class="text-xs text-amber-400 hover:underline font-en">  
-                                    insokra@gmail.com  
-                                </a>  
-                            </div>  
-                        </div>  
-                    </div>  
-                </div>
-
-                <!-- Action Card -->  
-                <div class="p-6 sm:p-8 rounded-2xl border border-slate-800 bg-navy-900/90 flex flex-col justify-between space-y-6">  
-                    <div class="space-y-4">  
-                        <h3 class="text-base font-bold text-white">ផ្ញើសារទាក់ទងដោយផ្ទាល់</h3>  
-                        <p class="text-xs text-slate-400">  
-                            សូមចុចប៊ូតុងខាងក្រោមដើម្បីផ្ញើសារមកកាន់យើងខ្ញុំភ្លាមៗតាម Telegram ឬចូលរួមជាមួយសហគមន៍ស្រាវជ្រាវ។  
-                        </p>
-                        
-                        <a href="https://t.me/insokra" target="_blank" class="w-full py-3.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-sky-950/40">  
-                            <i data-lucide="send" class="w-4 h-4"></i>  
-                            ផ្ញើសារតាម Telegram (@insokra)  
-                        </a>
-
-                        <a href="https://web.facebook.com/Research.Fo" target="_blank" class="w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-950/40">  
-                            <i data-lucide="facebook" class="w-4 h-4"></i>  
-                            ផ្ញើសារតាម Facebook (Research.Fo)  
-                        </a>
-
-                        <button onclick="copyToClipboard(window.location.href, 'បានចម្លងអាសយដ្ឋានគេហទំព័រ!')" class="w-full py-3 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-all flex items-center justify-center gap-2">  
-                            <i data-lucide="link" class="w-4 h-4"></i>  
-                            ចម្លងអាសយដ្ឋានគេហទំព័រ  
-                        </button>  
-                    </div>
-
-                    <div class="pt-4 border-t border-slate-800 text-center">  
-                        <span class="text-[11px] text-slate-500">ការឆ្លើយតបនឹងធ្វើឡើងយ៉ាងឆាប់រហ័សក្នុងរយៈពេល ២៤ ម៉ោង។</span>  
-                    </div>  
-                </div>  
-            </div>  
-        </div>  
     </section>  
-</main>
+
+</main>  
 
 <!-- FOOTER -->  
 <footer class="border-t border-slate-800/80 bg-navy-950 py-10 text-slate-400 text-xs">  
@@ -671,43 +661,40 @@
                 <span class="font-bold text-white text-xs">មូលដ្ឋានស្រាវជ្រាវ (Research Foundation)</span>  
                 <p class="text-[10px] text-amber-400 font-en">Knowledge • Innovation • Impact</p>  
             </div>  
-        </div>
+        </div>  
 
         <div class="flex flex-wrap items-center gap-6 text-[11px]">  
-            <a href="#about" class="hover:text-emerald-400 transition-colors">អំពីយើង</a>  
-            <a href="#divisions" class="hover:text-emerald-400 transition-colors">ផ្នែកស្រាវជ្រាវ</a>  
-            <a href="#software" class="hover:text-emerald-400 transition-colors">កម្មវិធីស្ថិតិ</a>  
-            <a href="#publications" class="hover:text-emerald-400 transition-colors">ស្នាដៃបោះពុម្ព</a>  
-            <a href="https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en" target="_blank" class="hover:text-emerald-400 transition-colors">Google Scholar</a>  
-        </div>
+            <a href="#about" class="hover:text-emerald-400 transition-colors">១. អំពីយើង</a>  
+            <a href="#books" class="hover:text-emerald-400 transition-colors">២. សៀវភៅ</a>  
+            <a href="#software" class="hover:text-emerald-400 transition-colors">៣. កម្មវិធី</a>  
+            <a href="#publications" class="hover:text-emerald-400 transition-colors">៤. អត្ថបទបោះពុម្ព</a>  
+            <a href="#leadership" class="hover:text-emerald-400 transition-colors">៥. ស្ថាបនិក</a>  
+        </div>  
 
         <p class="text-slate-500 font-en text-[11px]">  
-            &copy; 2026 Research Foundation Cambodia. All rights reserved.  
+            &copy; 2026 Research Foundation Cambodia • អិន សុខរ៉ា  
         </p>  
     </div>  
-</footer>
+</footer>  
 
-<!-- Interactive Scripts -->  
+<!-- Scripts -->  
 <script>  
-    // Initialize Lucide Icons  
-    lucide.createIcons();
+    lucide.createIcons();  
 
-    // Mobile Menu Toggle  
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');  
     const mobileMenu = document.getElementById('mobileMenu');  
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const mobileLinks = document.querySelectorAll('.mobile-link');  
 
     mobileMenuBtn.addEventListener('click', () => {  
         mobileMenu.classList.toggle('hidden');  
-    });
+    });  
 
     mobileLinks.forEach(link => {  
         link.addEventListener('click', () => {  
             mobileMenu.classList.add('hidden');  
         });  
-    });
+    });  
 
-    // Copy to clipboard helper  
     function copyToClipboard(text, customMessage) {  
         const textarea = document.createElement('textarea');  
         textarea.value = text;  
@@ -715,8 +702,7 @@
         textarea.style.position = 'absolute';  
         textarea.style.left = '-9999px';  
         document.body.appendChild(textarea);  
-        textarea.select();
-        
+        textarea.select();  
         try {  
             document.execCommand('copy');  
             showToast(customMessage || 'បានចម្លងទៅកាន់ក្ដារតម្បៀតខ្ទាស់!');  
@@ -724,17 +710,14 @@
             console.error('Copy fallback failed', err);  
         }  
         document.body.removeChild(textarea);  
-    }
+    }  
 
-    // Toast display handler  
     function showToast(message) {  
         const toast = document.getElementById('toast');  
         const toastMsg = document.getElementById('toast-message');  
-        toastMsg.textContent = message;
-        
+        toastMsg.textContent = message;  
         toast.classList.remove('translate-y-20', 'opacity-0');  
-        toast.classList.add('translate-y-0', 'opacity-100');
-        
+        toast.classList.add('translate-y-0', 'opacity-100');  
         setTimeout(() => {  
             toast.classList.add('translate-y-20', 'opacity-0');  
             toast.classList.remove('translate-y-0', 'opacity-100');  
