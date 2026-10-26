@@ -187,6 +187,9 @@
     </div>
 </div>
 
+<!-- Hidden File Input for Direct On-Card Book Uploads -->
+<input type="file" id="directBookFileInput" class="hidden" accept="image/*" onchange="handleDirectBookCoverUpload(event)">
+
 <!-- Toast Alert Notification -->
 <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 border border-emerald-500/40 text-emerald-300 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-medium">
     <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
@@ -228,11 +231,11 @@
                     <i data-lucide="laptop" class="w-4 h-4"></i>
                     <span>កម្មវិធី</span>
                 </a>
-                <a href="#publications" data-menu="publications" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-purple-500/30 hover:text-purple-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#publications" data-menu="publications" class="nav-item relative px-3.5 py-2 rounded-xl border border-purple-500/30 hover:text-purple-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="newspaper" class="w-4 h-4"></i>
                     <span>អត្ថបទបោះពុម្ព</span>
                 </a>
-                <a href="#leadership" data-menu="leadership" class="nav-item relative px-3.5 py-2 rounded-xl border border-transparent hover:border-rose-500/30 hover:text-rose-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#leadership" data-menu="leadership" class="nav-item relative px-3.5 py-2 rounded-xl border border-rose-500/30 hover:text-rose-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="user" class="w-4 h-4"></i>
                     <span>ស្ថាបនិក</span>
                 </a>
@@ -433,7 +436,7 @@
         </div>
 
         <!-- Books Dynamic Grid -->
-        <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
             <!-- Dynamically populated from appData.books -->
         </div>
     </section>
@@ -779,7 +782,7 @@
                 subtitle: "Statistical Data Analysis for Research",
                 desc: "សៀវភៅណែនាំក្បោះក្បាយពីការរៀបចំទិន្នន័យ ការដំណើរការកម្មវិធី RF Analyzer v6.0 ការអានលទ្ធផលតារាង ANOVA, Split-Plot, RCBD និងការបកស្រាយអក្សរប្រៀបធៀបមធ្យមភាគ (Post-Hoc Letters)។",
                 price: "$10.00 / ក្បាល",
-                image: "https://placehold.co/400x500/1e293b/f59e0b?text=RF+Analyzer+Guide",
+                image: "https://placehold.co/400x560/0a2540/38bdf8?text=RF+Analyzer+v6.0+Guide",
                 telegramMsg: "សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅណែនាំ RF Analyzer v6.0 ($10)"
             },
             {
@@ -790,7 +793,7 @@
                 subtitle: "Using Python Programming",
                 desc: "មគ្គុទ្ទេសក៍ជាក់ស្តែងសម្រាប់ការសរសេរកូដ Python ក្នុងការរៀបចំទិន្នន័យកសិកម្ម គូរក្រាហ្វិក 3D Response Surface, PCA Biplot, Correlation Heatmap និងការវិភាគ ANOVA សម្រាប់និស្សិតកម្រិតឧត្តម។",
                 price: "$12.00 / ក្បាល",
-                image: "https://placehold.co/400x500/064e3b/34d399?text=Python+Agriculture",
+                image: "https://placehold.co/400x560/064e3b/34d399?text=Python+Agriculture",
                 telegramMsg: "សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ Python កសិកម្ម ($12)"
             },
             {
@@ -801,7 +804,7 @@
                 subtitle: "មូលដ្ឋានគ្រឹះសរសេរអត្ថបទ IMRAD",
                 desc: "មគ្គុទ្ទេសក៍ណែនាំជាជំហានៗក្នុងការសរសេរ Abstract, Introduction, Materials & Methods, Results & Discussion ព្រមទាំងការគ្រប់គ្រងឯកសារយោងស្របតាមស្តង់ដារទស្សនាវដ្តី Scopus/Web of Science។",
                 price: "$10.00 / ក្បាល",
-                image: "https://placehold.co/400x500/164e63/22d3ee?text=IMRAD+Scientific+Writing",
+                image: "https://placehold.co/400x560/164e63/22d3ee?text=IMRAD+Scientific+Writing",
                 telegramMsg: "សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ IMRAD ($10)"
             }
         ],
@@ -911,6 +914,7 @@
     let isAdminLoggedIn = false;
     let isEditMode = false;
     let currentModalAction = null;
+    let activeUploadBookIndex = null;
 
     // Load admin password & persistent data
     function getAdminPassword() {
@@ -1054,7 +1058,7 @@
             statusText.textContent = "ទស្សនាគេហទំព័រធម្មតា។";
         }
 
-        // Toggle edit-only buttons on the page
+        // Toggle edit-only elements on the page
         const editElements = document.querySelectorAll('.edit-only');
         editElements.forEach(el => {
             if (isAdminLoggedIn && isEditMode) {
@@ -1124,6 +1128,38 @@
         `;
     }
 
+    // ---------------------------------------------
+    // DIRECT ON-CARD BOOK UPLOAD (Mirroring Software upload)
+    // ---------------------------------------------
+    function triggerDirectBookUpload(index) {
+        if (!isAdminLoggedIn) return;
+        activeUploadBookIndex = index;
+        const fileInput = document.getElementById('directBookFileInput');
+        fileInput.value = '';
+        fileInput.click();
+    }
+
+    function handleDirectBookCoverUpload(event) {
+        if (activeUploadBookIndex === null || !isAdminLoggedIn) return;
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            appData.books[activeUploadBookIndex].image = e.target.result;
+            saveAppState();
+            renderBooksSection();
+            showToast('បានប្តូររូបក្របសៀវភៅរួចរាល់!');
+            activeUploadBookIndex = null;
+        };
+        reader.readAsDataURL(file);
+    }
+
     function renderBooksSection() {
         const grid = document.getElementById('booksGrid');
         grid.innerHTML = '';
@@ -1149,21 +1185,19 @@
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Book Cover Display with File Upload Trigger -->
-                    <div class="h-56 rounded-2xl bg-slate-900 border border-amber-500/20 flex flex-col items-center justify-center text-center p-3 relative overflow-hidden group/cover">
-                        <span class="absolute top-3 left-3 text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-semibold z-10">
+                    <!-- Book Cover Display (Engineered just like Software Screenshot Container) -->
+                    <div class="rounded-2xl overflow-hidden border border-amber-500/20 bg-slate-950/80 h-72 flex items-center justify-center p-2 relative group/cover">
+                        <span class="absolute top-3 left-3 text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-semibold z-10 backdrop-blur-md">
                             ${book.badge || 'សៀវភៅ'}
                         </span>
                         
-                        <img src="${book.image}" alt="${book.titleKh}" class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x500/1e293b/f59e0b?text=Book+Cover';">
+                        <img src="${book.image}" alt="${book.titleKh}" class="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover/cover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x560/0a2540/38bdf8?text=Book+Cover';">
                         
-                        <!-- Overlay in edit mode -->
-                        <div class="edit-only ${showEditClass} absolute inset-0 bg-navy-950/80 flex flex-col items-center justify-center gap-1 opacity-0 group-hover/cover:opacity-100 transition-opacity">
-                            <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500 text-navy-950 font-bold text-xs flex items-center gap-1 shadow-lg">
-                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូរក្របសៀវភៅ
-                                <input type="file" accept="image/*" class="hidden" onchange="uploadBookCover(event, ${index})">
-                            </label>
-                        </div>
+                        <!-- Overlay in edit mode: exactly like Software block upload button -->
+                        <button class="edit-only ${showEditClass} absolute inset-0 bg-slate-950/80 text-amber-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/cover:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectBookUpload(${index})">
+                            <i data-lucide="upload" class="w-5 h-5 text-amber-400"></i>
+                            <span>ប្តូររូបក្របសៀវភៅ (Upload Cover)</span>
+                        </button>
                     </div>
 
                     <div>
@@ -1377,11 +1411,30 @@
         });
     }
 
-    // Modal: Edit Book
+    // Modal: Edit Book (With Direct Upload + URL Input + Live Preview)
     function openEditBookModal(index) {
         const b = appData.books[index];
         const html = `
-            <div class="space-y-3">
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-slate-950 border border-amber-500/30 flex items-center gap-4">
+                    <img id="editBookPreviewImg" src="${b.image}" alt="Preview" class="w-16 h-20 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
+                    <div class="space-y-1.5 flex-1">
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពក្របសៀវភៅ (Book Cover Image)</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="document.getElementById('modalBookFileInput').click()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5 shadow">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបភាព (Upload File)
+                            </button>
+                            <input type="file" id="modalBookFileInput" class="hidden" accept="image/*" onchange="previewModalBookImage(event)">
+                        </div>
+                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន (PNG, JPG) ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់រូបភាពក្រប (Image URL)</label>
+                    <input id="editBookImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${b.image || ''}" oninput="document.getElementById('editBookPreviewImg').src = this.value">
+                </div>
+
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-slate-400 mb-1">ផ្លាកសម្គាល់ (Badge)</label>
@@ -1412,10 +1465,6 @@
                     <label class="block text-slate-400 mb-1">សារកុម្ម៉ង់ Telegram</label>
                     <input id="editBookTgMsg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${b.telegramMsg || ''}">
                 </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">រូបភាពក្រប (URL)</label>
-                    <input id="editBookImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${b.image || ''}">
-                </div>
             </div>
         `;
         openModal('<i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i> កែសម្រួលព័ត៌មានសៀវភៅ', html, () => {
@@ -1432,9 +1481,44 @@
         });
     }
 
+    function previewModalBookImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('editBookPreviewImg').src = e.target.result;
+            document.getElementById('editBookImage').value = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+
     function openNewBookModal() {
+        const defaultCover = 'https://placehold.co/400x560/0a2540/38bdf8?text=New+Book+Cover';
         const html = `
-            <div class="space-y-3">
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-slate-950 border border-amber-500/30 flex items-center gap-4">
+                    <img id="newBookPreviewImg" src="${defaultCover}" alt="Preview" class="w-16 h-20 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
+                    <div class="space-y-1.5 flex-1">
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពក្របសៀវភៅ (Book Cover Image)</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="document.getElementById('newModalBookFileInput').click()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5 shadow">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ផ្ទុកឡើងរូបភាព (Upload File)
+                            </button>
+                            <input type="file" id="newModalBookFileInput" class="hidden" accept="image/*" onchange="previewNewModalBookImage(event)">
+                        </div>
+                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់រូបភាពក្រប (Image URL)</label>
+                    <input id="newBookImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${defaultCover}" oninput="document.getElementById('newBookPreviewImg').src = this.value">
+                </div>
+
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-slate-400 mb-1">ផ្លាកសម្គាល់</label>
@@ -1457,10 +1541,6 @@
                     <label class="block text-slate-400 mb-1">ការពិពណ៌នា</label>
                     <textarea id="newBookDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="សេចក្តីសង្ខេបខ្លីៗពីសៀវភៅ..."></textarea>
                 </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">រូបភាពក្រប (URL)</label>
-                    <input id="newBookImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="https://...">
-                </div>
             </div>
         `;
         openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-amber-400"></i> បន្ថែមសៀវភៅថ្មី', html, () => {
@@ -1473,13 +1553,28 @@
                 titleEn: document.getElementById('newBookTitleEn').value || '',
                 subtitle: '',
                 desc: document.getElementById('newBookDesc').value || '',
-                image: document.getElementById('newBookImage').value || 'https://placehold.co/400x500/1e293b/f59e0b?text=Book+Cover',
+                image: document.getElementById('newBookImage').value || defaultCover,
                 telegramMsg: `សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ ${khTitle}`
             };
             appData.books.push(newB);
             saveAppState();
             renderBooksSection();
         });
+    }
+
+    function previewNewModalBookImage(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('newBookPreviewImg').src = e.target.result;
+            document.getElementById('newBookImage').value = e.target.result;
+        };
+        reader.readAsDataURL(file);
     }
 
     function deleteBook(index) {
@@ -1738,30 +1833,15 @@
     // ---------------------------------------------
     // IMAGE UPLOAD HANDLERS (Base64 FileReader)
     // ---------------------------------------------
-    function uploadBookCover(event, index) {
-        if (!isAdminLoggedIn) return;
-        const file = event.target.files[0];
-        if (!file) return;
-
-        if (file.size > 2 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 2MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            appData.books[index].image = e.target.result;
-            saveAppState();
-            renderBooksSection();
-            showToast('បានប្តូររូបក្របសៀវភៅរួចរាល់!');
-        };
-        reader.readAsDataURL(file);
-    }
-
     function uploadMainSoftwareImage(event) {
         if (!isAdminLoggedIn) return;
         const file = event.target.files[0];
         if (!file) return;
+
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
 
         const reader = new FileReader();
         reader.onload = function(e) {
@@ -1777,6 +1857,11 @@
         if (!isAdminLoggedIn) return;
         const file = event.target.files[0];
         if (!file) return;
+
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
 
         const reader = new FileReader();
         reader.onload = function(e) {
