@@ -822,7 +822,8 @@
      APPLICATION CORE SCRIPTS & SECURE GITHUB CMS
 ============================================== -->
 <script>
-    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V6';
+    // ប្តូរ Key ទៅ V7 ដើម្បីជម្រះ LocalStorage ចាស់ចោលស្វ័យប្រវត្តលើ Phone & PC
+    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V7';
     const DEFAULT_PASS_HASH = "ecf04b48bd9afc208bc94fa4d1910e2f399c1eef51fe6fb26f51d32497871006";
 
     const DEFAULT_DATA = {
@@ -980,7 +981,6 @@
     let activeUploadBookIndex = null;
     let activeUploadSubSoftwareIndex = null;
 
-    // Cryptographic SHA-256 helper
     async function sha256(message) {
         const msgBuffer = new TextEncoder().encode(message);
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -1005,15 +1005,15 @@
         };
     }
 
-    // Load data: ផ្តល់អាទិភាពខ្ពស់បំផុតដល់ GitHub data.json ជានិច្ច
+    // Load data from GitHub API / Raw directly (Single Source of Truth)
     async function loadDataFromGitHubOrLocal() {
         const config = getGitHubConfig();
         let loadedFromGitHub = false;
 
-        // ១. ព្យាយាមទាញយកទិន្នន័យស្រស់ៗពី GitHub ជាមុនសិន
         if (config.owner && config.repo) {
             try {
-                const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
+                // ទាញយកតាមរយៈ Timestamp Bypass cache 100%
+                const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?nocache=${Date.now()}`;
                 const response = await fetch(url, {
                     cache: 'no-store',
                     headers: {
@@ -1024,19 +1024,17 @@
 
                 if (response.ok) {
                     const remoteJson = await response.json();
-                    if (remoteJson && remoteJson.books) {
+                    if (remoteJson && (remoteJson.books || remoteJson.subSoftware)) {
                         appData = remoteJson;
-                        // រក្សាទុកចូល LocalStorage លើកុំព្យូទ័រដើម្បីធ្វើបច្ចុប្បន្នភាព
                         localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
                         loadedFromGitHub = true;
                     }
                 }
             } catch (err) {
-                console.warn('មិនអាចទាញយកពី GitHub បានទេ កំពុងប្រើទិន្នន័យក្នុងម៉ាស៊ីន (Offline/Local)...');
+                console.warn('GitHub fetch bypassed, falling back to local storage.');
             }
         }
 
-        // ២. បើគ្មានអ៊ីនធឺណិត ឬទាញយកពី GitHub មិនបាន ទើបប្រើ LocalStorage
         if (!loadedFromGitHub) {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
@@ -1054,7 +1052,7 @@
             appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
         }
 
-        // រក្សាស្ថានភាព Admin Login ពេល Refresh
+        // Keep admin logged in across page refreshes
         if (localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
             isEditMode = (localStorage.getItem('RF_ADMIN_EDIT_MODE') !== 'false');
@@ -1075,6 +1073,8 @@
         const config = getGitHubConfig();
         if (config.token && config.owner && config.repo) {
             await commitDataToGitHub();
+        } else {
+            alert("⚠️ ការព្រមាន៖ លោកគ្រូមិនទាន់បានកំណត់ GitHub PAT Token ទេ។ ការកែប្រែនេះនឹងបង្ហាញតែលើ PC នេះប៉ុណ្ណោះ! សូមចុចប៊ូតុង 'GitHub Sync' ខាងលើ រួចបញ្ចូល Token ដើម្បីឱ្យទូរសព្ទអាច update ដូចគ្នា។");
         }
     }
 
@@ -1119,10 +1119,10 @@
             });
 
             if (commitResponse.ok) {
-                showToast('✓ បាន Commit ទៅ GitHub ជោគជ័យ! អ្នកទស្សនាទាំងអស់នឹងឃើញភ្លាមៗ');
+                showToast('✓ បាន Commit ទៅ GitHub ជោគជ័យ! ទូរសព្ទទាំងអស់នឹង update ដូចគ្នាភ្លាមៗ');
             } else {
                 const errData = await commitResponse.json();
-                showToast('បរាជ័យក្នុងការ Commit: ' + (errData.message || 'Error'));
+                alert('បរាជ័យក្នុងការ Sync ទៅ GitHub៖ ' + (errData.message || 'Token មិនត្រឹមត្រូវ ឬគ្មានសិទ្ធិ'));
             }
         } catch (err) {
             console.error(err);
