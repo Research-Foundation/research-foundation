@@ -145,26 +145,45 @@
 <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[850px] h-[500px] bg-emerald-600/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
 <div class="fixed bottom-1/4 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[180px] pointer-events-none -z-10"></div>
 
-<!-- Top Edit Bar Indicator & Admin Controls -->
-<div id="adminTopBar" class="bg-slate-900/90 border-b border-amber-500/30 text-amber-300 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 sticky top-0 z-50 backdrop-blur-md">
+<!-- Top Admin Authentication & Control Bar -->
+<div id="adminTopBar" class="bg-slate-900/95 border-b border-slate-800 text-slate-300 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 sticky top-0 z-50 backdrop-blur-md transition-colors">
+    <!-- Status indicator -->
     <div class="flex items-center gap-2">
-        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/30 font-medium">
-            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
-            <span>ផ្ទាំងគ្រប់គ្រងទិន្នន័យ (CMS Storage Mode)</span>
-        </span>
-        <span id="editModeStatus" class="hidden sm:inline text-slate-400">អ្នកអាចកែសម្រួលរូបភាព តម្លៃ និងព័ត៌មានដោយផ្ទាល់។</span>
+        <div id="adminBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium">
+            <i data-lucide="shield" class="w-3.5 h-3.5 text-slate-400"></i>
+            <span id="adminBadgeText">របៀបទូទៅ (Public View)</span>
+        </div>
+        <span id="adminStatusText" class="hidden sm:inline text-slate-400">ទស្សនាគេហទំព័រធម្មតា។</span>
     </div>
+
+    <!-- Actions: Login / Logout & CMS Tools -->
     <div class="flex items-center gap-2">
-        <button id="toggleEditBtn" onclick="toggleEditMode()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-navy-950 border border-amber-500/40 text-amber-300 font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95">
-            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-            <span id="toggleEditText">បើករបៀបកែសម្រួល (Edit Mode)</span>
+        <!-- Visitor Login Button (shown when logged out) -->
+        <button id="adminLoginBtn" onclick="openLoginModal()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95 shadow-sm">
+            <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+            <span>ចូលគ្រប់គ្រង (Admin Login)</span>
         </button>
-        <button onclick="exportDataJson()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ទាញយកទិន្នន័យជាឯកសារ JSON">
-            <i data-lucide="download" class="w-3.5 h-3.5"></i> Export
-        </button>
-        <button onclick="resetToDefaultData()" class="px-2.5 py-1 rounded-lg bg-rose-950/40 hover:bg-rose-900 border border-rose-500/30 text-rose-300 text-xs transition-all flex items-center gap-1" title="កំណត់ទិន្នន័យដើមឡើងវិញ">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset
-        </button>
+
+        <!-- Admin Controls (shown ONLY when authenticated as admin) -->
+        <div id="adminControlsGroup" class="hidden items-center gap-2">
+            <button id="toggleEditBtn" onclick="toggleEditMode()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-navy-950 border border-amber-500/40 text-amber-300 font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95">
+                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+                <span id="toggleEditText">បើករបៀបកែសម្រួល</span>
+            </button>
+            <button onclick="openChangePasswordModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ប្តូរពាក្យសម្ងាត់ Admin">
+                <i data-lucide="key" class="w-3.5 h-3.5"></i>
+                <span class="hidden md:inline">ប្តូរលេខកូដ</span>
+            </button>
+            <button onclick="exportDataJson()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ទាញយកទិន្នន័យ JSON">
+                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export
+            </button>
+            <button onclick="resetToDefaultData()" class="px-2.5 py-1 rounded-lg bg-rose-950/40 hover:bg-rose-900 border border-rose-500/30 text-rose-300 text-xs transition-all flex items-center gap-1" title="កំណត់ទិន្នន័យដើមឡើងវិញ">
+                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset
+            </button>
+            <button onclick="adminLogout()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 text-xs transition-all flex items-center gap-1" title="ចាកចេញ">
+                <i data-lucide="log-out" class="w-3.5 h-3.5"></i> ចាកចេញ
+            </button>
+        </div>
     </div>
 </div>
 
@@ -219,16 +238,16 @@
                 </a>
             </nav>
 
-            <!-- Telegram & Direct Links -->
+            <!-- Telegram & Personal Direct Links -->
             <div class="hidden xl:flex items-center gap-2.5">
                 <a href="https://t.me/researchfound" target="_blank" class="px-3 py-1.5 rounded-xl border border-sky-500/30 bg-sky-950/20 hover:bg-sky-500/20 text-sky-300 text-xs font-medium flex items-center gap-1.5 transition-all" title="Telegram Channel">
                     <i data-lucide="megaphone" class="w-3.5 h-3.5 text-sky-400"></i> Channel
                 </a>
-                <a href="https://t.me/researchfounda" target="_blank" class="px-3 py-1.5 rounded-xl border border-teal-500/30 bg-teal-950/20 hover:bg-teal-500/20 text-teal-300 text-xs font-medium flex items-center gap-1.5 transition-all" title="Telegram Group Discussion">
+                <a href="https://t.me/researchfounda" target="_blank" class="px-3 py-1.5 rounded-xl border border-teal-500/30 bg-teal-950/20 hover:bg-teal-500/20 text-teal-300 text-xs font-medium flex items-center gap-1.5 transition-all" title="Telegram Group">
                     <i data-lucide="users" class="w-3.5 h-3.5 text-teal-400"></i> Group
                 </a>
-                <a href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold transition-all shadow-lg shadow-emerald-950/60 flex items-center gap-2 active:scale-95">
-                    <i data-lucide="send" class="w-3.5 h-3.5"></i> ទាក់ទង @insokra25
+                <a href="https://t.me/Sokra25" target="_blank" class="px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-semibold transition-all shadow-lg shadow-emerald-950/60 flex items-center gap-2 active:scale-95">
+                    <i data-lucide="send" class="w-3.5 h-3.5"></i> ទាក់ទង @Sokra25
                 </a>
             </div>
 
@@ -253,8 +272,8 @@
             <a href="https://t.me/researchfounda" target="_blank" class="py-2 rounded-xl bg-teal-950 border border-teal-500/30 text-teal-300 text-center font-medium text-xs flex items-center justify-center gap-1.5">
                 <i data-lucide="users" class="w-3.5 h-3.5"></i> Group
             </a>
-            <a href="https://t.me/insokra" target="_blank" class="col-span-2 py-2.5 rounded-xl bg-emerald-600 text-white text-center font-semibold text-xs flex items-center justify-center gap-2">
-                <i data-lucide="send" class="w-4 h-4"></i> ផ្ញើសារផ្ទាល់ Telegram (@insokra)
+            <a href="https://t.me/Sokra25" target="_blank" class="col-span-2 py-2.5 rounded-xl bg-emerald-600 text-white text-center font-semibold text-xs flex items-center justify-center gap-2">
+                <i data-lucide="send" class="w-4 h-4"></i> ផ្ញើសារផ្ទាល់ Telegram (@Sokra25)
             </a>
         </div>
     </div>
@@ -287,6 +306,10 @@
                 <i data-lucide="message-square" class="w-4 h-4 text-teal-400"></i>
                 <span>Telegram Group: <strong>@researchfounda</strong></span>
             </a>
+            <a href="https://t.me/Sokra25" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/40 transition-colors text-xs font-medium">
+                <i data-lucide="user-check" class="w-4 h-4 text-emerald-400"></i>
+                <span>ផ្ទាល់ខ្លួន: <strong>@Sokra25</strong></span>
+            </a>
         </div>
 
         <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
@@ -310,7 +333,7 @@
                     <div class="text-emerald-400 text-xs uppercase font-bold tracking-widest flex items-center gap-2">
                         <i data-lucide="info" class="w-4 h-4"></i> ១. អំពីយើង (About Research Foundation)
                     </div>
-                    <button class="edit-only hidden px-2.5 py-1 text-xs rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500 hover:text-navy-950" onclick="openEditAboutModal()">
+                    <button class="edit-only hidden px-2.5 py-1 text-xs rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500 hover:text-navy-950 transition-all" onclick="openEditAboutModal()">
                         <i data-lucide="pencil" class="w-3.5 h-3.5 inline mr-1"></i> កែសម្រួលអំពីយើង
                     </button>
                 </div>
@@ -411,7 +434,7 @@
 
         <!-- Books Dynamic Grid -->
         <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Generated by JavaScript -->
+            <!-- Dynamically populated from appData.books -->
         </div>
     </section>
 
@@ -490,8 +513,8 @@
                         <div id="mainSoftwarePrice" class="text-xl sm:text-2xl font-bold text-cyan-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>
                     </div>
                     <div class="flex items-center gap-3 w-full sm:w-auto">
-                        <a id="mainSoftwareOrderBtn" href="https://t.me/insokra?text=សួស្តីលោកគ្រូ%20ខ្ញុំចាប់អារម្មណ៍អាជ្ញាប័ណ្ណកម្មវិធី%20RF%20Analyzer%20v6.0" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50">
-                            <i data-lucide="key" class="w-4 h-4"></i> ទិញអាជ្ញាប័ណ្ណ (Telegram)
+                        <a id="mainSoftwareOrderBtn" href="https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចាប់អារម្មណ៍អាជ្ញាប័ណ្ណកម្មវិធី%20RF%20Analyzer%20v6.0" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50">
+                            <i data-lucide="key" class="w-4 h-4"></i> ទិញអាជ្ញាប័ណ្ណ (@Sokra25)
                         </a>
                     </div>
                 </div>
@@ -499,7 +522,7 @@
 
             <!-- Other Sub-software / Custom Pipeline -->
             <div id="subSoftwareContainer" class="lg:col-span-4 space-y-6 flex flex-col justify-between">
-                <!-- Injected via JavaScript -->
+                <!-- Dynamically populated from appData.subSoftware -->
             </div>
         </div>
     </section>
@@ -526,7 +549,7 @@
         </div>
 
         <div id="publicationsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Dynamically populated from publicationsData -->
+            <!-- Dynamically populated from appData.publications -->
         </div>
     </section>
 
@@ -578,8 +601,8 @@
                     <a id="linkOrcid" href="https://orcid.org/0009-0002-8842-8070" target="_blank" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">
                         <i data-lucide="id-card" class="w-4 h-4 text-emerald-400"></i> ORCID
                     </a>
-                    <a id="linkTelegram" href="https://t.me/insokra" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600 border border-sky-500/40 text-sky-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">
-                        <i data-lucide="send" class="w-4 h-4"></i> Telegram (@insokra)
+                    <a id="linkTelegram" href="https://t.me/Sokra25" target="_blank" class="px-4 py-2 rounded-xl bg-sky-600/20 hover:bg-sky-600 border border-sky-500/40 text-sky-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">
+                        <i data-lucide="send" class="w-4 h-4"></i> Telegram (@Sokra25)
                     </a>
                     <button id="linkEmailBtn" onclick="copyToClipboard('insokra@gmail.com', 'បានចម្លងអ៊ីមែល insokra@gmail.com !')" class="px-4 py-2 rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white transition-all text-xs font-semibold flex items-center gap-2 active:scale-95">
                         <i data-lucide="mail" class="w-4 h-4"></i> <span id="linkEmailText">insokra@gmail.com</span>
@@ -603,7 +626,7 @@
                 </div>
             </div>
 
-            <!-- Telegram community hub in footer -->
+            <!-- Telegram community hub & personal link in footer -->
             <div class="flex flex-wrap items-center gap-3">
                 <a href="https://t.me/researchfound" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-sky-500/30 text-sky-300 hover:text-white text-xs flex items-center gap-1.5">
                     <i data-lucide="megaphone" class="w-3.5 h-3.5 text-sky-400"></i> Channel (@researchfound)
@@ -611,8 +634,8 @@
                 <a href="https://t.me/researchfounda" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-teal-500/30 text-teal-300 hover:text-white text-xs flex items-center gap-1.5">
                     <i data-lucide="users" class="w-3.5 h-3.5 text-teal-400"></i> Group (@researchfounda)
                 </a>
-                <a href="https://t.me/insokra" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/30 text-emerald-300 hover:text-white text-xs flex items-center gap-1.5">
-                    <i data-lucide="send" class="w-3.5 h-3.5 text-emerald-400"></i> @insokra
+                <a href="https://t.me/Sokra25" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-emerald-500/30 text-emerald-300 hover:text-white text-xs flex items-center gap-1.5">
+                    <i data-lucide="send" class="w-3.5 h-3.5 text-emerald-400"></i> @Sokra25
                 </a>
             </div>
         </div>
@@ -634,7 +657,75 @@
 </footer>
 
 <!-- ==========================================
-     REUSABLE EDIT MODAL CONTAINER (CMS DIALOG)
+     ADMIN LOGIN MODAL
+============================================== -->
+<div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-navy-900 border border-slate-700 w-full max-w-sm rounded-3xl p-6 space-y-4 card-glass shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="lock" class="w-5 h-5 text-emerald-400"></i> ផ្ទាំងចូលគ្រប់គ្រង (Admin Login)
+            </h3>
+            <button onclick="closeLoginModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="space-y-3">
+            <p class="text-xs text-slate-300">សូមបញ្ចូលលេខកូដសម្ងាត់ Admin ដើម្បីបើកសិទ្ធិកែសម្រួលគេហទំព័រ (លេខកូដដើម៖ <code class="text-amber-400">sokra2026</code>)៖</p>
+            <div>
+                <input id="adminPasswordInput" type="password" placeholder="បញ្ចូលលេខកូដសម្ងាត់..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-500" onkeydown="if(event.key === 'Enter') checkAdminLogin()">
+            </div>
+            <p id="loginErrorMsg" class="text-xs text-rose-400 hidden flex items-center gap-1">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> លេខកូដសម្ងាត់មិនត្រឹមត្រូវទេ!
+            </p>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+            <button onclick="closeLoginModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium">បោះបង់</button>
+            <button onclick="checkAdminLogin()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-md">
+                <i data-lucide="log-in" class="w-4 h-4"></i> ផ្ទៀងផ្ទាត់
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     CHANGE PASSWORD MODAL
+============================================== -->
+<div id="changePasswordModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-navy-900 border border-slate-700 w-full max-w-sm rounded-3xl p-6 space-y-4 card-glass shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="key" class="w-5 h-5 text-amber-400"></i> ប្តូរលេខកូដសម្ងាត់ Admin
+            </h3>
+            <button onclick="closeChangePasswordModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="space-y-3 text-xs">
+            <div>
+                <label class="block text-slate-400 mb-1">លេខកូដចាស់</label>
+                <input id="oldPassInput" type="password" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+                <label class="block text-slate-400 mb-1">លេខកូដថ្មី</label>
+                <input id="newPassInput" type="password" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+                <label class="block text-slate-400 mb-1">ផ្ទៀងផ្ទាត់លេខកូដថ្មី</label>
+                <input id="confirmPassInput" type="password" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <p id="changePassError" class="text-rose-400 hidden"></p>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+            <button onclick="closeChangePasswordModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs">បោះបង់</button>
+            <button onclick="saveNewPassword()" class="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold flex items-center gap-1">
+                <i data-lucide="check" class="w-4 h-4"></i> រក្សាទុក
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
+     REUSABLE CMS EDIT MODAL CONTAINER
 ============================================== -->
 <div id="editModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-navy-900 border border-slate-700 w-full max-w-xl rounded-3xl p-6 sm:p-8 space-y-5 max-h-[90vh] overflow-y-auto card-glass shadow-2xl">
@@ -648,7 +739,7 @@
         </div>
 
         <div id="modalBody" class="space-y-4 text-xs sm:text-sm">
-            <!-- Injected form fields dynamically -->
+            <!-- Dynamically injected form fields -->
         </div>
 
         <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
@@ -663,12 +754,13 @@
 </div>
 
 <!-- ==========================================
-     APP SCRIPTS & STATE MANAGEMENT (LocalStorage)
+     APPLICATION CORE SCRIPTS & CMS ENGINE
 ============================================== -->
 <script>
     // ---------------------------------------------
-    // DEFAULT DATA INITIALIZATION
+    // DEFAULT DATA & SECURITY CONSTANTS
     // ---------------------------------------------
+    const DEFAULT_PASS = "sokra2026";
     const DEFAULT_DATA = {
         about: {
             title: "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
@@ -728,7 +820,7 @@
                 title: "Biometrics Data Pipeline Script",
                 desc: "កញ្ចប់កូដ Python ស្វ័យប្រវត្តសម្រាប់សម្អាតទិន្នន័យកសិកម្ម គណនាស្ថិតិពហុអថេរ (Multivariate PCA) និងគូរក្រាហ្វិកសម្រាប់ដាក់ក្នុងសារណាស្រាវជ្រាវ។",
                 price: "$15 / Pack",
-                telegramLink: "https://t.me/insokra?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់ទិញកញ្ចប់%20Biometrics%20Data%20Pipeline"
+                telegramLink: "https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់ទិញកញ្ចប់%20Biometrics%20Data%20Pipeline"
             },
             {
                 id: "s2",
@@ -736,7 +828,7 @@
                 title: "Research Data Auto-Bot",
                 desc: "ប្រព័ន្ធ Telegram Bot ស្វ័យប្រវត្តិសម្រាប់ការទាញយកតារាងស្ថិតិ និងការគ្រប់គ្រងការចែករំលែកឯកសារស្រាវជ្រាវប្រកបដោយសុវត្ថិភាព។",
                 price: "Custom Order",
-                telegramLink: "https://t.me/insokra?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់សាកសួរពីសេវាកម្ម%20Telegram%20Research%20Bot"
+                telegramLink: "https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់សាកសួរពីសេវាកម្ម%20Telegram%20Research%20Bot"
             }
         ],
         publications: [
@@ -809,34 +901,48 @@
             photo: "https://placehold.co/300x300/0a0f1d/eab308?text=In+Sokra",
             scholar: "https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en",
             orcid: "https://orcid.org/0009-0002-8842-8070",
-            telegram: "https://t.me/insokra",
+            telegram: "https://t.me/Sokra25",
             email: "insokra@gmail.com"
         }
     };
 
-    // Global application state
+    // App state
     let appData = {};
+    let isAdminLoggedIn = false;
     let isEditMode = false;
     let currentModalAction = null;
 
-    // Load from LocalStorage or default
+    // Load admin password & persistent data
+    function getAdminPassword() {
+        return localStorage.getItem('RF_ADMIN_PASSWORD_V1') || DEFAULT_PASS;
+    }
+
+    function setAdminPassword(newPass) {
+        localStorage.setItem('RF_ADMIN_PASSWORD_V1', newPass);
+    }
+
     function loadAppState() {
         try {
-            const saved = localStorage.getItem('RF_APP_DATA_STORAGE_V1');
+            const saved = localStorage.getItem('RF_APP_DATA_STORAGE_V2');
             if (saved) {
                 appData = JSON.parse(saved);
             } else {
                 appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
             }
         } catch (e) {
-            console.error('Failed reading localStorage, using defaults', e);
+            console.error('Error reading localStorage', e);
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        }
+
+        // Check active admin session in sessionStorage
+        if (sessionStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
+            isAdminLoggedIn = true;
         }
     }
 
     function saveAppState() {
         try {
-            localStorage.setItem('RF_APP_DATA_STORAGE_V1', JSON.stringify(appData));
+            localStorage.setItem('RF_APP_DATA_STORAGE_V2', JSON.stringify(appData));
             showToast('បានរក្សាទុកទិន្នន័យដោយជោគជ័យ!');
         } catch (e) {
             console.error('Storage full or error', e);
@@ -845,15 +951,17 @@
     }
 
     function resetToDefaultData() {
+        if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់កំណត់ទិន្នន័យដើមឡើងវិញទាំងអស់មែនទេ?")) {
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-            localStorage.removeItem('RF_APP_DATA_STORAGE_V1');
+            localStorage.removeItem('RF_APP_DATA_STORAGE_V2');
             renderAllSections();
             showToast('បានកំណត់ទិន្នន័យដើមឡើងវិញ!');
         }
     }
 
     function exportDataJson() {
+        if (!isAdminLoggedIn) return;
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
         const downloadAnchor = document.createElement('a');
         downloadAnchor.setAttribute("href", dataStr);
@@ -864,24 +972,139 @@
         showToast('បានទាញយកឯកសារ JSON រួចរាល់!');
     }
 
-    // Toggle Edit Mode UI
-    function toggleEditMode() {
-        isEditMode = !isEditMode;
-        const btnText = document.getElementById('toggleEditText');
-        const editElements = document.querySelectorAll('.edit-only');
+    // ---------------------------------------------
+    // ADMIN AUTHENTICATION
+    // ---------------------------------------------
+    function openLoginModal() {
+        document.getElementById('adminPasswordInput').value = '';
+        document.getElementById('loginErrorMsg').classList.add('hidden');
+        document.getElementById('loginModal').classList.remove('hidden');
+        document.getElementById('adminPasswordInput').focus();
+    }
 
-        if (isEditMode) {
-            btnText.textContent = "បិទរបៀបកែសម្រួល (Exit Edit)";
-            document.getElementById('adminTopBar').classList.add('bg-amber-950/80', 'border-amber-400');
-            editElements.forEach(el => el.classList.remove('hidden'));
-            showToast('បានបើករបៀបកែសម្រួល CMS!');
+    function closeLoginModal() {
+        document.getElementById('loginModal').classList.add('hidden');
+    }
+
+    function checkAdminLogin() {
+        const input = document.getElementById('adminPasswordInput').value;
+        const currentPass = getAdminPassword();
+
+        if (input === currentPass) {
+            isAdminLoggedIn = true;
+            isEditMode = true; // Auto-activate edit mode upon valid admin login
+            sessionStorage.setItem('RF_ADMIN_LOGGED_IN', 'true');
+            closeLoginModal();
+            updateAdminUI();
+            renderAllSections();
+            showToast('ស្វាគមន៍លោក អិន សុខរ៉ា (Admin ត្រូវបានផ្ទៀងផ្ទាត់)');
         } else {
-            btnText.textContent = "បើករបៀបកែសម្រួល (Edit Mode)";
-            document.getElementById('adminTopBar').classList.remove('bg-amber-950/80', 'border-amber-400');
-            editElements.forEach(el => el.classList.add('hidden'));
-            showToast('បានបិទរបៀបកែសម្រួល!');
+            document.getElementById('loginErrorMsg').classList.remove('hidden');
         }
+    }
+
+    function adminLogout() {
+        isAdminLoggedIn = false;
+        isEditMode = false;
+        sessionStorage.removeItem('RF_ADMIN_LOGGED_IN');
+        updateAdminUI();
+        renderAllSections();
+        showToast('បានចាកចេញពីគណនី Admin!');
+    }
+
+    function toggleEditMode() {
+        if (!isAdminLoggedIn) return;
+        isEditMode = !isEditMode;
+        updateAdminUI();
+        renderAllSections();
+        showToast(isEditMode ? 'បានបើករបៀបកែសម្រួល!' : 'បានបិទរបៀបកែសម្រួល!');
+    }
+
+    function updateAdminUI() {
+        const adminBar = document.getElementById('adminTopBar');
+        const loginBtn = document.getElementById('adminLoginBtn');
+        const controlsGroup = document.getElementById('adminControlsGroup');
+        const badge = document.getElementById('adminBadge');
+        const badgeText = document.getElementById('adminBadgeText');
+        const statusText = document.getElementById('adminStatusText');
+        const toggleEditText = document.getElementById('toggleEditText');
+
+        if (isAdminLoggedIn) {
+            loginBtn.classList.add('hidden');
+            controlsGroup.classList.remove('hidden');
+            controlsGroup.classList.add('flex');
+
+            adminBar.classList.remove('bg-slate-900/95', 'border-slate-800');
+            adminBar.classList.add('bg-slate-900', 'border-amber-500/40');
+
+            badge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-semibold";
+            badgeText.textContent = "Admin Mode (អិន សុខរ៉ា)";
+            statusText.textContent = isEditMode ? "របៀបកែសម្រួលកំពុងបើក៖ អ្នកអាចកែសម្រួលទិន្នន័យបាន។" : "របៀបកែសម្រួលត្រូវបានបិទបណ្ដោះអាសន្ន។";
+            toggleEditText.textContent = isEditMode ? "បិទរបៀបកែសម្រួល" : "បើករបៀបកែសម្រួល";
+        } else {
+            loginBtn.classList.remove('hidden');
+            controlsGroup.classList.add('hidden');
+            controlsGroup.classList.remove('flex');
+
+            adminBar.classList.add('bg-slate-900/95', 'border-slate-800');
+            adminBar.classList.remove('bg-slate-900', 'border-amber-500/40');
+
+            badge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium";
+            badgeText.textContent = "របៀបទូទៅ (Public View)";
+            statusText.textContent = "ទស្សនាគេហទំព័រធម្មតា។";
+        }
+
+        // Toggle edit-only buttons on the page
+        const editElements = document.querySelectorAll('.edit-only');
+        editElements.forEach(el => {
+            if (isAdminLoggedIn && isEditMode) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        });
         lucide.createIcons();
+    }
+
+    // Password change dialog
+    function openChangePasswordModal() {
+        if (!isAdminLoggedIn) return;
+        document.getElementById('oldPassInput').value = '';
+        document.getElementById('newPassInput').value = '';
+        document.getElementById('confirmPassInput').value = '';
+        document.getElementById('changePassError').classList.add('hidden');
+        document.getElementById('changePasswordModal').classList.remove('hidden');
+    }
+
+    function closeChangePasswordModal() {
+        document.getElementById('changePasswordModal').classList.add('hidden');
+    }
+
+    function saveNewPassword() {
+        const oldP = document.getElementById('oldPassInput').value;
+        const newP = document.getElementById('newPassInput').value;
+        const confP = document.getElementById('confirmPassInput').value;
+        const errEl = document.getElementById('changePassError');
+
+        if (oldP !== getAdminPassword()) {
+            errEl.textContent = "លេខកូដចាស់មិនត្រឹមត្រូវទេ!";
+            errEl.classList.remove('hidden');
+            return;
+        }
+        if (!newP || newP.length < 4) {
+            errEl.textContent = "លេខកូដថ្មីត្រូវមានយ៉ាងតិច ៤ តួអក្សរ!";
+            errEl.classList.remove('hidden');
+            return;
+        }
+        if (newP !== confP) {
+            errEl.textContent = "ការផ្ទៀងផ្ទាត់លេខកូដថ្មីមិនត្រូវគ្នាទេ!";
+            errEl.classList.remove('hidden');
+            return;
+        }
+
+        setAdminPassword(newP);
+        closeChangePasswordModal();
+        showToast('បានប្តូរលេខកូដសម្ងាត់ដោយជោគជ័យ!');
     }
 
     // ---------------------------------------------
@@ -910,15 +1133,17 @@
             card.className = "p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-amber-500/50 transition-all relative";
 
             const safeTgMsg = encodeURIComponent(book.telegramMsg || `សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ ${book.titleKh}`);
-            const tgOrderUrl = `https://t.me/insokra?text=${safeTgMsg}`;
+            const tgOrderUrl = `https://t.me/Sokra25?text=${safeTgMsg}`;
+
+            const showEditClass = (isAdminLoggedIn && isEditMode) ? '' : 'hidden';
 
             card.innerHTML = `
-                <!-- Admin Edit Buttons on Card -->
-                <div class="edit-only ${isEditMode ? '' : 'hidden'} absolute top-3 right-3 z-20 flex items-center gap-1">
-                    <button onclick="openEditBookModal(${index})" class="p-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-navy-950 transition-colors" title="កែសម្រួល">
+                <!-- Admin Edit Controls on Card -->
+                <div class="edit-only ${showEditClass} absolute top-3 right-3 z-20 flex items-center gap-1">
+                    <button onclick="openEditBookModal(${index})" class="p-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500 hover:text-navy-950 transition-colors shadow" title="កែសម្រួល">
                         <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
                     </button>
-                    <button onclick="deleteBook(${index})" class="p-1.5 rounded-lg bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-colors" title="លុប">
+                    <button onclick="deleteBook(${index})" class="p-1.5 rounded-lg bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-colors shadow" title="លុប">
                         <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                     </button>
                 </div>
@@ -933,8 +1158,8 @@
                         <img src="${book.image}" alt="${book.titleKh}" class="w-full h-full object-cover rounded-xl transition-transform duration-300 group-hover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x500/1e293b/f59e0b?text=Book+Cover';">
                         
                         <!-- Overlay in edit mode -->
-                        <div class="edit-only ${isEditMode ? '' : 'hidden'} absolute inset-0 bg-navy-950/80 flex flex-col items-center justify-center gap-1 opacity-0 group-hover/cover:opacity-100 transition-opacity">
-                            <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500 text-navy-950 font-bold text-xs flex items-center gap-1">
+                        <div class="edit-only ${showEditClass} absolute inset-0 bg-navy-950/80 flex flex-col items-center justify-center gap-1 opacity-0 group-hover/cover:opacity-100 transition-opacity">
+                            <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500 text-navy-950 font-bold text-xs flex items-center gap-1 shadow-lg">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូរក្របសៀវភៅ
                                 <input type="file" accept="image/*" class="hidden" onchange="uploadBookCover(event, ${index})">
                             </label>
@@ -945,7 +1170,7 @@
                         <div class="text-[11px] font-mono text-amber-400 font-semibold uppercase tracking-wider">${book.subtitle || ''}</div>
                         <h3 class="text-base font-bold text-white mt-0.5 leading-snug">${book.titleKh}</h3>
                         <div class="text-xs text-slate-300 font-en font-medium text-emerald-400 mt-0.5">${book.titleEn || ''}</div>
-                        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed">
+                        <p class="text-xs text-slate-400 mt-2.5 leading-relaxed font-light">
                             ${book.desc}
                         </p>
                     </div>
@@ -957,7 +1182,7 @@
                         <span class="text-base sm:text-lg font-bold text-amber-400 font-en">${book.price}</span>
                     </div>
                     <a href="${tgOrderUrl}" target="_blank" class="px-4 py-2 rounded-xl bg-amber-500/20 border border-amber-500/40 hover:bg-amber-500 hover:text-navy-950 text-amber-300 font-semibold text-xs transition-all flex items-center gap-1.5 active:scale-95 shadow-md">
-                        <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ (Telegram)
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ (@Sokra25)
                     </a>
                 </div>
             `;
@@ -974,17 +1199,19 @@
         document.getElementById('mainSoftwareDesc').textContent = ms.desc;
         document.getElementById('mainSoftwarePrice').textContent = ms.price;
         document.getElementById('mainSoftwareImg').src = ms.image || 'https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0';
-        document.getElementById('mainSoftwareOrderBtn').href = `https://t.me/insokra?text=${encodeURIComponent("សួស្តីលោកគ្រូ ខ្ញុំចាប់អារម្មណ៍ទិញអាជ្ញាប័ណ្ណ " + ms.title)}`;
+        document.getElementById('mainSoftwareOrderBtn').href = `https://t.me/Sokra25?text=${encodeURIComponent("សួស្តីលោកគ្រូ ខ្ញុំចាប់អារម្មណ៍ទិញអាជ្ញាប័ណ្ណ " + ms.title)}`;
 
         // Render sub-software scripts
         const subContainer = document.getElementById('subSoftwareContainer');
         subContainer.innerHTML = '';
 
+        const showEditClass = (isAdminLoggedIn && isEditMode) ? '' : 'hidden';
+
         appData.subSoftware.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = "p-6 rounded-3xl border border-slate-800 card-glass space-y-4 relative";
             card.innerHTML = `
-                <div class="edit-only ${isEditMode ? '' : 'hidden'} absolute top-3 right-3 flex items-center gap-1">
+                <div class="edit-only ${showEditClass} absolute top-3 right-3 flex items-center gap-1">
                     <button onclick="openEditSubSoftwareModal(${index})" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 transition-colors">
                         <i data-lucide="pencil" class="w-3 h-3"></i>
                     </button>
@@ -994,11 +1221,11 @@
                     <i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i>
                 </div>
                 <h4 class="text-base font-bold text-white">${item.title}</h4>
-                <p class="text-xs text-slate-400 leading-relaxed">${item.desc}</p>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">${item.desc}</p>
                 <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
                     <span class="text-xs font-en text-slate-300 font-semibold">${item.price}</span>
-                    <a href="${item.telegramLink}" target="_blank" class="text-xs text-cyan-400 hover:underline flex items-center gap-1">
-                        បញ្ជាទិញ Telegram &rarr;
+                    <a href="${item.telegramLink || 'https://t.me/Sokra25'}" target="_blank" class="text-xs text-cyan-400 hover:underline flex items-center gap-1 font-medium">
+                        បញ្ជាទិញ (@Sokra25) &rarr;
                     </a>
                 </div>
             `;
@@ -1011,14 +1238,16 @@
         const grid = document.getElementById('publicationsGrid');
         grid.innerHTML = '';
 
+        const showEditClass = (isAdminLoggedIn && isEditMode) ? '' : 'hidden';
+
         appData.publications.forEach((pub, index) => {
             const card = document.createElement('div');
             card.className = "p-6 rounded-2xl border border-slate-800 card-glass flex flex-col justify-between hover:border-purple-500/40 transition-all relative";
 
-            const doiLink = pub.doi ? `<a href="${pub.doi}" target="_blank" class="text-emerald-400 hover:underline flex items-center gap-1 font-mono text-[11px]"><i data-lucide="link" class="w-3 h-3"></i> DOI</a>` : '';
+            const doiLink = pub.doi ? `<a href="${pub.doi}" target="_blank" class="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 hover:underline flex items-center gap-1 font-mono text-[11px]"><i data-lucide="link" class="w-3 h-3"></i> DOI</a>` : '';
 
             card.innerHTML = `
-                <div class="edit-only ${isEditMode ? '' : 'hidden'} absolute top-3 right-3 z-10 flex items-center gap-1">
+                <div class="edit-only ${showEditClass} absolute top-3 right-3 z-10 flex items-center gap-1">
                     <button onclick="openEditPubModal(${index})" class="p-1.5 rounded-lg bg-purple-500/20 text-purple-300 hover:bg-purple-500 hover:text-navy-950 transition-colors" title="កែសម្រួល">
                         <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
                     </button>
@@ -1065,7 +1294,7 @@
         
         document.getElementById('linkScholar').href = f.scholar;
         document.getElementById('linkOrcid').href = f.orcid;
-        document.getElementById('linkTelegram').href = f.telegram;
+        document.getElementById('linkTelegram').href = f.telegram || "https://t.me/Sokra25";
         document.getElementById('linkEmailText').textContent = f.email;
         document.getElementById('linkEmailBtn').setAttribute('onclick', `copyToClipboard('${f.email}', 'បានចម្លងអ៊ីមែល ${f.email} !')`);
     }
@@ -1076,6 +1305,7 @@
         renderSoftwareSection();
         renderPublicationsSection();
         renderFounderSection();
+        updateAdminUI();
     }
 
     // ---------------------------------------------
@@ -1086,6 +1316,10 @@
     const modalBody = document.getElementById('modalBody');
 
     function openModal(title, htmlContent, onSaveCallback) {
+        if (!isAdminLoggedIn) {
+            openLoginModal();
+            return;
+        }
         modalTitle.innerHTML = title;
         modalBody.innerHTML = htmlContent;
         currentModalAction = onSaveCallback;
@@ -1143,7 +1377,7 @@
         });
     }
 
-    // Modal: Edit / Add Book
+    // Modal: Edit Book
     function openEditBookModal(index) {
         const b = appData.books[index];
         const html = `
@@ -1175,7 +1409,11 @@
                     <textarea id="editBookDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">${b.desc}</textarea>
                 </div>
                 <div>
-                    <label class="block text-slate-400 mb-1">តំណរូបភាពក្រប (URL ឬផ្ទុកឡើងដោយផ្ទាល់)</label>
+                    <label class="block text-slate-400 mb-1">សារកុម្ម៉ង់ Telegram</label>
+                    <input id="editBookTgMsg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${b.telegramMsg || ''}">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">រូបភាពក្រប (URL)</label>
                     <input id="editBookImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${b.image || ''}">
                 </div>
             </div>
@@ -1187,6 +1425,7 @@
             appData.books[index].titleEn = document.getElementById('editBookTitleEn').value;
             appData.books[index].subtitle = document.getElementById('editBookSubtitle').value;
             appData.books[index].desc = document.getElementById('editBookDesc').value;
+            appData.books[index].telegramMsg = document.getElementById('editBookTgMsg').value;
             appData.books[index].image = document.getElementById('editBookImage').value;
             saveAppState();
             renderBooksSection();
@@ -1225,16 +1464,17 @@
             </div>
         `;
         openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-amber-400"></i> បន្ថែមសៀវភៅថ្មី', html, () => {
+            const khTitle = document.getElementById('newBookTitleKh').value || 'សៀវភៅស្រាវជ្រាវ';
             const newB = {
                 id: 'b_' + Date.now(),
                 badge: document.getElementById('newBookBadge').value || 'សៀវភៅថ្មី',
                 price: document.getElementById('newBookPrice').value || '$10.00 / ក្បាល',
-                titleKh: document.getElementById('newBookTitleKh').value || 'សៀវភៅស្រាវជ្រាវ',
+                titleKh: khTitle,
                 titleEn: document.getElementById('newBookTitleEn').value || '',
                 subtitle: '',
                 desc: document.getElementById('newBookDesc').value || '',
                 image: document.getElementById('newBookImage').value || 'https://placehold.co/400x500/1e293b/f59e0b?text=Book+Cover',
-                telegramMsg: `សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ ${document.getElementById('newBookTitleKh').value}`
+                telegramMsg: `សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ ${khTitle}`
             };
             appData.books.push(newB);
             saveAppState();
@@ -1243,6 +1483,7 @@
     }
 
     function deleteBook(index) {
+        if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់លុបសៀវភៅនេះមែនទេ?")) {
             appData.books.splice(index, 1);
             saveAppState();
@@ -1275,6 +1516,10 @@
                     <label class="block text-slate-400 mb-1">តម្លៃអាជ្ញាប័ណ្ណ</label>
                     <input id="editSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.price}">
                 </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">រូបភាព Screenshot (URL)</label>
+                    <input id="editSoftImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.image || ''}">
+                </div>
             </div>
         `;
         openModal('<i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលកម្មវិធី RF Analyzer v6.0', html, () => {
@@ -1283,6 +1528,7 @@
             appData.mainSoftware.title = document.getElementById('editSoftTitle').value;
             appData.mainSoftware.desc = document.getElementById('editSoftDesc').value;
             appData.mainSoftware.price = document.getElementById('editSoftPrice').value;
+            appData.mainSoftware.image = document.getElementById('editSoftImage').value;
             saveAppState();
             renderSoftwareSection();
         });
@@ -1350,10 +1596,10 @@
                 </div>
                 <div>
                     <label class="block text-slate-400 mb-1">តំណ DOI (ឧ. https://doi.org/...)</label>
-                    <input id="editPubDoi" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${p.doi || ''}">
+                    <input id="editPubDoi" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${p.doi || ''}" placeholder="https://doi.org/10.xxxx/...">
                 </div>
                 <div>
-                    <label class="block text-slate-400 mb-1">Scholar Link</label>
+                    <label class="block text-slate-400 mb-1">Google Scholar Link</label>
                     <input id="editPubScholar" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${p.scholarUrl || ''}">
                 </div>
             </div>
@@ -1424,6 +1670,7 @@
     }
 
     function deletePublication(index) {
+        if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់លុបអត្ថបទនេះមែនទេ?")) {
             appData.publications.splice(index, 1);
             saveAppState();
@@ -1465,7 +1712,7 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-slate-400 mb-1">Telegram Profile Link</label>
-                        <input id="editFounderTg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${f.telegram}">
+                        <input id="editFounderTg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${f.telegram || 'https://t.me/Sokra25'}">
                     </div>
                     <div>
                         <label class="block text-slate-400 mb-1">Email</label>
@@ -1492,6 +1739,7 @@
     // IMAGE UPLOAD HANDLERS (Base64 FileReader)
     // ---------------------------------------------
     function uploadBookCover(event, index) {
+        if (!isAdminLoggedIn) return;
         const file = event.target.files[0];
         if (!file) return;
 
@@ -1511,6 +1759,7 @@
     }
 
     function uploadMainSoftwareImage(event) {
+        if (!isAdminLoggedIn) return;
         const file = event.target.files[0];
         if (!file) return;
 
@@ -1525,6 +1774,7 @@
     }
 
     function uploadFounderPhoto(event) {
+        if (!isAdminLoggedIn) return;
         const file = event.target.files[0];
         if (!file) return;
 
