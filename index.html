@@ -91,7 +91,7 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Enhanced Interactive Navbar Menus with Light Reflections */
+        /* Enhanced Interactive Navbar Menus */
         .nav-item {
             position: relative;
             overflow: hidden;
@@ -190,7 +190,6 @@
 
 <!-- Top Admin Authentication & Control Bar -->
 <div id="adminTopBar" class="bg-slate-900/95 border-b border-slate-800 text-slate-300 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 sticky top-0 z-50 backdrop-blur-md transition-colors">
-    <!-- Status indicator -->
     <div class="flex items-center gap-2">
         <div id="adminBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium">
             <i data-lucide="shield" class="w-3.5 h-3.5 text-slate-400"></i>
@@ -199,15 +198,12 @@
         <span id="adminStatusText" class="hidden sm:inline text-slate-400">ទស្សនាគេហទំព័រធម្មតា។</span>
     </div>
 
-    <!-- Actions: Login / Logout & CMS Tools -->
     <div class="flex items-center gap-2">
-        <!-- Visitor Login Button (shown when logged out) -->
         <button id="adminLoginBtn" onclick="openLoginModal()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95 shadow-sm">
             <i data-lucide="lock" class="w-3.5 h-3.5"></i>
             <span>ចូលគ្រប់គ្រង (Admin Login)</span>
         </button>
 
-        <!-- Admin Controls (shown ONLY when authenticated as admin) -->
         <div id="adminControlsGroup" class="hidden items-center gap-2">
             <button id="toggleEditBtn" onclick="toggleEditMode()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-navy-950 border border-amber-500/40 text-amber-300 font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95">
                 <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
@@ -277,7 +273,7 @@
                     <i data-lucide="laptop" class="w-4 h-4"></i>
                     <span>កម្មវិធី</span>
                 </a>
-                <a href="#publications" data-menu="publications" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-purple-500/30 hover:text-purple-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#publications" data-menu="publications" class="nav-item relative px-4 py-2 rounded-xl border border-purple-500/30 hover:text-purple-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="newspaper" class="w-4 h-4"></i>
                     <span>អត្ថបទបោះពុម្ព</span>
                 </a>
@@ -475,7 +471,7 @@
                 </p>
             </div>
             <div class="flex items-center gap-2">
-                <button class="edit-only hidden px-3 py-2 rounded-xl bg-amber-500/20 border border-amber-500/50 text-amber-300 hover:bg-amber-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 shadow-md" onclick="openNewBookModal()">
+                <button class="edit-only hidden px-3.5 py-2 rounded-xl bg-amber-500/20 border border-amber-500/50 text-amber-300 hover:bg-amber-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 shadow-md" onclick="openNewBookModal()">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i> បន្ថែមសៀវភៅថ្មី
                 </button>
             </div>
@@ -497,84 +493,91 @@
                 <h2 class="text-2xl sm:text-4xl font-bold text-white mt-1">កម្មវិធីស្ថិតិ & ឧបករណ៍ស្រាវជ្រាវសម្រាប់លក់</h2>
                 <p class="text-slate-400 text-sm mt-1">កម្មវិធីដែលត្រូវបានបង្កើតឡើងយ៉ាងសម្រិតសម្រាំងសម្រាប់អ្នកស្រាវជ្រាវ និងស្ថាប័នកម្ពុជា</p>
             </div>
-            <div class="flex items-center gap-2">
-                <button class="edit-only hidden px-3 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 shadow-md" onclick="openEditMainSoftwareModal()">
+            <div class="flex flex-wrap items-center gap-2">
+                <!-- Add New Software Button (Admin Only) -->
+                <button class="edit-only hidden px-3.5 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 shadow-md" onclick="openNewSoftwareModal()">
+                    <i data-lucide="plus-circle" class="w-4 h-4"></i> បន្ថែមកម្មវិធីថ្មី
+                </button>
+                <button class="edit-only hidden px-3 py-2 rounded-xl bg-slate-800 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 shadow-md" onclick="openEditMainSoftwareModal()">
                     <i data-lucide="edit-3" class="w-4 h-4"></i> កែសម្រួល RF Analyzer v6.0
                 </button>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-            <!-- Main Featured Software: RF Analyzer v6.0 -->
-            <div class="lg:col-span-8 p-8 sm:p-10 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 via-navy-900 to-cyan-950/40 card-glass flex flex-col justify-between space-y-6 relative overflow-hidden">
-                <div class="space-y-4">
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <span id="mainSoftwareTag" class="px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
-                            Flagship Software • Version 6.0 Stable
-                        </span>
-                        <span id="mainSoftwareSubtitle" class="text-xs text-amber-400 font-semibold">
-                            ផ្ទៀងផ្ទាត់សុក្រឹតភាព ១០០% ធៀបនឹង SAS / SPSS
-                        </span>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <!-- Software Image with on-card upload like books -->
-                        <div id="mainSoftwareImgContainer" class="md:col-span-5 rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-950/80 h-52 flex items-center justify-center p-2 relative group/soft">
-                            <img id="mainSoftwareImg" src="https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0" alt="RF Analyzer Screenshot" class="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover/soft:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0';">
-                            
-                            <!-- Hover upload button (Admin only, hidden when logged out) -->
-                            <button class="edit-only hidden absolute inset-0 bg-slate-950/85 text-cyan-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/soft:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectMainSoftwareUpload()">
-                                <i data-lucide="upload" class="w-5 h-5 text-cyan-400"></i>
-                                <span>ប្តូររូបភាពកម្មវិធី (Upload Image)</span>
-                            </button>
-                        </div>
-
-                        <div class="md:col-span-7 space-y-2">
-                            <h3 id="mainSoftwareTitle" class="text-2xl sm:text-3xl font-bold text-white leading-tight">
-                                Research Foundation Analyzer v6.0 (RF Analyzer)
-                            </h3>
-                            <p id="mainSoftwareDesc" class="text-slate-300 text-xs sm:text-sm leading-relaxed font-light">
-                                កម្មវិធីគណនាស្ថិតិកសិកម្ម ជីវវិទ្យា និងវិទ្យាសាស្ត្រដី ដែលគាំទ្រការវិភាគទិន្នន័យយ៉ាងពេញលេញ៖ CRD, RCBD, Latin Square, Factorial Experiments, Split-Plot Design, Response Surface Methodology (RSM), Tukey's HSD, Duncan Multiple Range Test, និង Pearson Correlation Heatmaps។
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Feature bullets -->
-                    <div id="mainSoftwareFeatures" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300 pt-3 font-mono">
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
-                            <span>មិនទាមទារ Internet (Offline Desktop App)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
-                            <span>នាំចេញលទ្ធផលជា Excel & Word ស្អាតស្រាប់</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
-                            <span>បង្កើតអក្សរប្រៀបធៀប (Letters: a, b, ab)</span>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
-                            <span>គាំទ្រទាំងភាសាខ្មែរ និងអង់គ្លេស</span>
-                        </div>
-                    </div>
+        <!-- Main Featured Software: RF Analyzer v6.0 -->
+        <div class="p-8 sm:p-10 rounded-3xl border border-cyan-500/30 bg-gradient-to-br from-slate-900 via-navy-900 to-cyan-950/40 card-glass flex flex-col justify-between space-y-6 relative overflow-hidden mb-10">
+            <div class="space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-3">
+                    <span id="mainSoftwareTag" class="px-3 py-1 rounded-md bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono">
+                        Flagship Software • Version 6.0 Stable
+                    </span>
+                    <span id="mainSoftwareSubtitle" class="text-xs text-amber-400 font-semibold">
+                        ផ្ទៀងផ្ទាត់សុក្រឹតភាព ១០០% ធៀបនឹង SAS / SPSS
+                    </span>
                 </div>
 
-                <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
-                    <div>
-                        <div class="text-xs text-slate-400">តម្លៃអាជ្ញាប័ណ្ណកម្មវិធី (License Key)</div>
-                        <div id="mainSoftwarePrice" class="text-xl sm:text-2xl font-bold text-cyan-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                    <div id="mainSoftwareImgContainer" class="md:col-span-4 rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-950/80 h-56 flex items-center justify-center p-2 relative group/soft">
+                        <img id="mainSoftwareImg" src="https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0" alt="RF Analyzer Screenshot" class="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover/soft:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0';">
+                        
+                        <button class="edit-only hidden absolute inset-0 bg-slate-950/85 text-cyan-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/soft:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectMainSoftwareUpload()">
+                            <i data-lucide="upload" class="w-5 h-5 text-cyan-400"></i>
+                            <span>ប្តូររូបភាពកម្មវិធី (Upload Image)</span>
+                        </button>
                     </div>
-                    <div class="flex items-center gap-3 w-full sm:w-auto">
-                        <a id="mainSoftwareOrderBtn" href="https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចាប់អារម្មណ៍អាជ្ញាប័ណ្ណកម្មវិធី%20RF%20Analyzer%20v6.0" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50">
-                            <i data-lucide="key" class="w-4 h-4"></i> ទិញអាជ្ញាប័ណ្ណ (@Sokra25)
-                        </a>
+
+                    <div class="md:col-span-8 space-y-3">
+                        <h3 id="mainSoftwareTitle" class="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                            Research Foundation Analyzer v6.0 (RF Analyzer)
+                        </h3>
+                        <p id="mainSoftwareDesc" class="text-slate-300 text-xs sm:text-sm leading-relaxed font-light">
+                            កម្មវិធីគណនាស្ថិតិកសិកម្ម ជីវវិទ្យា និងវិទ្យាសាស្ត្រដី ដែលគាំទ្រការវិភាគទិន្នន័យយ៉ាងពេញលេញ៖ CRD, RCBD, Latin Square, Factorial Experiments, Split-Plot Design, Response Surface Methodology (RSM), Tukey's HSD, Duncan Multiple Range Test, និង Pearson Correlation Heatmaps។
+                        </p>
+
+                        <div id="mainSoftwareFeatures" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300 pt-2 font-mono">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                                <span>មិនទាមទារ Internet (Offline Desktop App)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                                <span>នាំចេញលទ្ធផលជា Excel & Word ស្អាតស្រាប់</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                                <span>បង្កើតអក្សរប្រៀបធៀប (Letters: a, b, ab)</span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-cyan-400"></i>
+                                <span>គាំទ្រទាំងភាសាខ្មែរ និងអង់គ្លេស</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Other Sub-software / Custom Pipeline -->
-            <div id="subSoftwareContainer" class="lg:col-span-4 space-y-6 flex flex-col justify-between">
+            <div class="pt-6 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <div class="text-xs text-slate-400">តម្លៃអាជ្ញាប័ណ្ណកម្មវិធី (License Key)</div>
+                    <div id="mainSoftwarePrice" class="text-xl sm:text-2xl font-bold text-cyan-400 font-en">ទាក់ទងតម្លៃពិសេសសម្រាប់និស្សិត / សាកលវិទ្យាល័យ</div>
+                </div>
+                <div class="flex items-center gap-3 w-full sm:w-auto">
+                    <a id="mainSoftwareOrderBtn" href="https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចាប់អារម្មណ៍អាជ្ញាប័ណ្ណកម្មវិធី%20RF%20Analyzer%20v6.0" target="_blank" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-white font-semibold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50">
+                        <i data-lucide="key" class="w-4 h-4"></i> ទិញអាជ្ញាប័ណ្ណ (@Sokra25)
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Sub-software / Custom Tools Grid (Expands as more tools are added) -->
+        <div>
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i> កញ្ចប់កូដ & ឧបករណ៍ជំនួយស្រាវជ្រាវ (Research Tools & Scripts)
+                </h3>
+                <span class="text-xs text-slate-400 font-mono" id="subSoftwareCount"></span>
+            </div>
+            <div id="subSoftwareContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
                 <!-- Dynamically populated from appData.subSoftware -->
             </div>
         </div>
@@ -619,19 +622,16 @@
         <div class="max-w-3xl mx-auto">
             <div class="p-8 sm:p-12 rounded-3xl border border-slate-800 card-glass text-center space-y-6 relative">
                 
-                <!-- Quick Edit Button for Founder -->
                 <button class="edit-only hidden absolute top-6 right-6 px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 shadow" onclick="openEditFounderModal()">
                     <i data-lucide="pencil" class="w-3.5 h-3.5"></i> កែសម្រួលព័ត៌មានស្ថាបនិក
                 </button>
 
-                <!-- Avatar with image upload following books pattern -->
                 <div class="relative w-36 h-36 mx-auto group/founder">
                     <div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-teal-400 p-1 flex items-center justify-center shadow-xl overflow-hidden bg-slate-900">
                         <img id="founderPhoto" src="https://placehold.co/300x300/0a0f1d/eab308?text=In+Sokra" alt="In Sokra" class="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover/founder:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/300x300/0a0f1d/eab308?text=IS';">
                     </div>
                     <span class="absolute bottom-1 right-2 w-5 h-5 bg-rose-500 border-2 border-navy-950 rounded-full z-10" title="Active"></span>
 
-                    <!-- Direct on-avatar hover upload overlay (Admin only, hidden when logged out) -->
                     <button class="edit-only hidden absolute inset-0 rounded-full bg-navy-950/85 text-amber-300 text-xs font-medium flex flex-col items-center justify-center gap-1 opacity-0 group-hover/founder:opacity-100 transition-opacity backdrop-blur-sm shadow-xl" onclick="triggerDirectFounderUpload()">
                         <i data-lucide="camera" class="w-5 h-5 text-amber-400"></i>
                         <span class="text-[11px]">ប្តូររូបថត</span>
@@ -680,7 +680,6 @@
                 </div>
             </div>
 
-            <!-- Telegram community hub & personal link in footer -->
             <div class="flex flex-wrap items-center gap-3">
                 <a href="https://t.me/researchfound" target="_blank" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-sky-500/30 text-sky-300 hover:text-white text-xs flex items-center gap-1.5">
                     <i data-lucide="megaphone" class="w-3.5 h-3.5 text-sky-400"></i> Channel (@researchfound)
@@ -812,8 +811,9 @@
 ============================================== -->
 <script>
     // ---------------------------------------------
-    // DEFAULT DATA & SECURITY CONSTANTS
+    // DEFAULT DATA & SECURITY CONSTANTS (STORAGE KEY V4 TO AVOID CACHED OVERWRITES)
     // ---------------------------------------------
+    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V4';
     const DEFAULT_PASS = "sokra2026";
     const DEFAULT_DATA = {
         about: {
@@ -970,7 +970,6 @@
     let activeUploadBookIndex = null;
     let activeUploadSubSoftwareIndex = null;
 
-    // Load admin password & persistent data
     function getAdminPassword() {
         return localStorage.getItem('RF_ADMIN_PASSWORD_V1') || DEFAULT_PASS;
     }
@@ -981,9 +980,13 @@
 
     function loadAppState() {
         try {
-            const saved = localStorage.getItem('RF_APP_DATA_STORAGE_V2');
+            const saved = localStorage.getItem(STORAGE_KEY);
             if (saved) {
                 appData = JSON.parse(saved);
+                // Ensure subSoftware is an array if migrating
+                if (!Array.isArray(appData.subSoftware)) {
+                    appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
+                }
             } else {
                 appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
             }
@@ -999,7 +1002,7 @@
 
     function saveAppState() {
         try {
-            localStorage.setItem('RF_APP_DATA_STORAGE_V2', JSON.stringify(appData));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
             showToast('បានរក្សាទុកទិន្នន័យដោយជោគជ័យ!');
         } catch (e) {
             console.error('Storage full or error', e);
@@ -1011,7 +1014,7 @@
         if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់កំណត់ទិន្នន័យដើមឡើងវិញទាំងអស់មែនទេ?")) {
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-            localStorage.removeItem('RF_APP_DATA_STORAGE_V2');
+            localStorage.removeItem(STORAGE_KEY);
             renderAllSections();
             showToast('បានកំណត់ទិន្នន័យដើមឡើងវិញ!');
         }
@@ -1360,7 +1363,7 @@
     }
 
     // ---------------------------------------------
-    // RENDER: SOFTWARE SECTION
+    // RENDER: SOFTWARE SECTION (Main + Sub-software)
     // ---------------------------------------------
     function renderSoftwareSection() {
         const ms = appData.mainSoftware;
@@ -1376,35 +1379,57 @@
         subContainer.innerHTML = '';
         const showEditClass = (isAdminLoggedIn && isEditMode) ? '' : 'hidden';
 
+        document.getElementById('subSoftwareCount').textContent = `សរុប៖ ${appData.subSoftware.length} ឧបករណ៍`;
+
         appData.subSoftware.forEach((item, index) => {
             const card = document.createElement('div');
-            card.className = "p-6 rounded-3xl border border-slate-800 card-glass space-y-4 relative group/subsoft";
+            card.className = "p-6 rounded-3xl border border-slate-800 card-glass flex flex-col justify-between group hover:border-cyan-500/50 transition-all relative";
+
+            const defaultTgLink = item.telegramLink || `https://t.me/Sokra25?text=${encodeURIComponent("សួស្តីលោកគ្រូ ខ្ញុំចង់ទិញ " + item.title)}`;
+
             card.innerHTML = `
-                <div class="edit-only ${showEditClass} absolute top-3 right-3 z-10 flex items-center gap-1">
-                    <button onclick="openEditSubSoftwareModal(${index})" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 transition-colors shadow">
-                        <i data-lucide="pencil" class="w-3 h-3"></i>
+                <!-- Admin Edit Controls on Software Card -->
+                <div class="edit-only ${showEditClass} absolute top-3 right-3 z-20 flex items-center gap-1">
+                    <button onclick="openEditSubSoftwareModal(${index})" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 transition-colors shadow" title="កែសម្រួល">
+                        <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
+                    </button>
+                    <button onclick="deleteSubSoftware(${index})" class="p-1.5 rounded-lg bg-rose-500/20 text-rose-300 hover:bg-rose-500 hover:text-white transition-colors shadow" title="លុប">
+                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
                     </button>
                 </div>
 
-                <div class="rounded-xl overflow-hidden border border-cyan-500/20 bg-slate-950/70 h-28 flex items-center justify-center p-2 relative group/subcover">
-                    <img src="${item.image || 'https://placehold.co/400x260/0f172a/38bdf8?text=' + encodeURIComponent(item.title)}" alt="${item.title}" class="w-full h-full object-contain rounded-lg transition-transform duration-300 group-hover/subcover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x260/0f172a/38bdf8?text=Script';">
-                    
-                    <button class="edit-only ${showEditClass} absolute inset-0 bg-slate-950/85 text-cyan-300 text-[11px] font-medium flex flex-col items-center justify-center gap-1 opacity-0 group-hover/subcover:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectSubSoftwareUpload(${index})">
-                        <i data-lucide="upload" class="w-4 h-4 text-cyan-400"></i>
-                        <span>ប្តូររូបភាព</span>
-                    </button>
+                <div class="space-y-4">
+                    <!-- Software Image with on-card upload like Books -->
+                    <div class="rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-950/80 h-44 flex items-center justify-center p-2 relative group/softcover">
+                        <span class="absolute top-3 left-3 text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2.5 py-0.5 rounded-full font-semibold z-10 backdrop-blur-md">
+                            ${item.type || 'Software Tool'}
+                        </span>
+                        
+                        <img src="${item.image || 'https://placehold.co/400x260/0f172a/38bdf8?text=' + encodeURIComponent(item.title)}" alt="${item.title}" class="w-full h-full object-contain rounded-xl transition-transform duration-300 group-hover/softcover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x260/0f172a/38bdf8?text=Tool';">
+                        
+                        <button class="edit-only ${showEditClass} absolute inset-0 bg-slate-950/85 text-cyan-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/softcover:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectSubSoftwareUpload(${index})">
+                            <i data-lucide="upload" class="w-5 h-5 text-cyan-400"></i>
+                            <span>ប្តូររូបភាព (Upload Image)</span>
+                        </button>
+                    </div>
+
+                    <div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-amber-400 font-mono">${item.type}</span>
+                            <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
+                        </div>
+                        <h4 class="text-base font-bold text-white mt-1 leading-snug">${item.title}</h4>
+                        <p class="text-xs text-slate-400 mt-2 leading-relaxed font-light">${item.desc}</p>
+                    </div>
                 </div>
 
-                <div class="flex items-center justify-between">
-                    <span class="text-xs text-amber-400 font-mono">${item.type}</span>
-                    <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
-                </div>
-                <h4 class="text-base font-bold text-white">${item.title}</h4>
-                <p class="text-xs text-slate-400 leading-relaxed font-light">${item.desc}</p>
-                <div class="pt-3 border-t border-slate-800 flex items-center justify-between">
-                    <span class="text-xs font-en text-slate-300 font-semibold">${item.price}</span>
-                    <a href="${item.telegramLink || 'https://t.me/Sokra25'}" target="_blank" class="text-xs text-cyan-400 hover:underline flex items-center gap-1 font-medium">
-                        បញ្ជាទិញ (@Sokra25) &rarr;
+                <div class="pt-4 border-t border-slate-800 mt-5 flex items-center justify-between">
+                    <div>
+                        <span class="text-[11px] text-slate-400 block">តម្លៃកម្មវិធី</span>
+                        <span class="text-sm sm:text-base font-bold text-cyan-400 font-en">${item.price}</span>
+                    </div>
+                    <a href="${defaultTgLink}" target="_blank" class="px-3.5 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/40 hover:bg-cyan-500 hover:text-navy-950 text-cyan-300 font-semibold text-xs transition-all flex items-center gap-1.5 active:scale-95 shadow-md">
+                        <i data-lucide="send" class="w-3.5 h-3.5"></i> បញ្ជាទិញ (@Sokra25)
                     </a>
                 </div>
             `;
@@ -1506,7 +1531,6 @@
             return;
         }
 
-        // Clean up DOI input (strip url prefixes if present)
         rawDoi = rawDoi.replace(/^https?:\/\/(dx\.)?doi\.org\//i, '').trim();
 
         if (statusEl) {
@@ -1523,12 +1547,10 @@
             const data = await response.json();
             const item = data.message;
 
-            // 1. Title
             if (item.title && item.title.length > 0) {
                 document.getElementById(prefixId + 'PubTitle').value = item.title[0];
             }
 
-            // 2. Authors
             if (item.author && Array.isArray(item.author)) {
                 const authorsFormatted = item.author.map(a => {
                     const givenInitial = a.given ? a.given.split(' ').map(n => n[0]).join('') : '';
@@ -1537,14 +1559,12 @@
                 document.getElementById(prefixId + 'PubAuthors').value = authorsFormatted;
             }
 
-            // 3. Journal Name
             if (item['container-title'] && item['container-title'].length > 0) {
                 document.getElementById(prefixId + 'PubJournal').value = item['container-title'][0];
             } else if (item.publisher) {
                 document.getElementById(prefixId + 'PubJournal').value = item.publisher;
             }
 
-            // 4. Year
             let pubYear = '';
             if (item['published-print'] && item['published-print']['date-parts']) {
                 pubYear = item['published-print']['date-parts'][0][0];
@@ -1557,7 +1577,6 @@
                 document.getElementById(prefixId + 'PubYear').value = pubYear;
             }
 
-            // 5. Volume / Issue / Pages
             let volStr = '';
             if (item.volume) volStr += `Vol. ${item.volume}`;
             if (item.issue) volStr += `${volStr ? ', ' : ''}No. ${item.issue}`;
@@ -1565,7 +1584,6 @@
             if (!volStr) volStr = 'Peer-Reviewed';
             document.getElementById(prefixId + 'PubVol').value = volStr;
 
-            // Standardize DOI Link format
             doiInput.value = `https://doi.org/${rawDoi}`;
 
             if (statusEl) {
@@ -1884,33 +1902,113 @@
 
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-slate-400 mb-1">ប្រភេទ</label>
+                        <label class="block text-slate-400 mb-1">ប្រភេទ / Badge</label>
                         <input id="editSubSoftType" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.type}">
                     </div>
                     <div>
-                        <label class="block text-slate-400 mb-1">តម្លៃ</label>
+                        <label class="block text-slate-400 mb-1">តម្លៃ ($)</label>
                         <input id="editSubSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.price}">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-slate-400 mb-1">ឈ្មោះឧបករណ៍</label>
+                    <label class="block text-slate-400 mb-1">ឈ្មោះឧបករណ៍ / កម្មវិធី</label>
                     <input id="editSubSoftTitle" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.title}">
                 </div>
                 <div>
                     <label class="block text-slate-400 mb-1">ការពិពណ៌នា</label>
                     <textarea id="editSubSoftDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">${item.desc}</textarea>
                 </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់បញ្ជាទិញ Telegram (Link)</label>
+                    <input id="editSubSoftTg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${item.telegramLink || 'https://t.me/Sokra25'}">
+                </div>
             </div>
         `;
-        openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ', html, () => {
+        openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ (Edit Tool)', html, () => {
             appData.subSoftware[index].type = document.getElementById('editSubSoftType').value;
             appData.subSoftware[index].title = document.getElementById('editSubSoftTitle').value;
             appData.subSoftware[index].desc = document.getElementById('editSubSoftDesc').value;
             appData.subSoftware[index].price = document.getElementById('editSubSoftPrice').value;
             appData.subSoftware[index].image = document.getElementById('editSubSoftImage').value;
+            appData.subSoftware[index].telegramLink = document.getElementById('editSubSoftTg').value;
             saveAppState();
             renderSoftwareSection();
         });
+    }
+
+    // Modal: Add New Software/Tool (NEW DYNAMIC FEATURE)
+    function openNewSoftwareModal() {
+        const defaultThumb = 'https://placehold.co/400x260/0f172a/38bdf8?text=New+Software+Tool';
+        const html = `
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-slate-950 border border-cyan-500/30 flex items-center gap-4">
+                    <img id="newSoftwarePreviewImg" src="${defaultThumb}" alt="Preview" class="w-20 h-14 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
+                    <div class="space-y-1.5 flex-1">
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពកម្មវិធី / ឧបករណ៍ (Tool Image)</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="document.getElementById('newModalSoftwareFileInput').click()" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ផ្ទុកឡើងរូបភាព (Upload File)
+                            </button>
+                            <input type="file" id="newModalSoftwareFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'newSoftwarePreviewImg', 'newSoftImage')">
+                        </div>
+                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់រូបភាព (Image URL)</label>
+                    <input id="newSoftImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${defaultThumb}" oninput="document.getElementById('newSoftwarePreviewImg').src = this.value">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-400 mb-1">ប្រភេទ / Badge</label>
+                        <input id="newSoftType" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. Python Script, Web App, Bot">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">តម្លៃ ($ / License)</label>
+                        <input id="newSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. $15 / Pack ឬ Custom Order">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">ឈ្មោះកម្មវិធី / ឧបករណ៍</label>
+                    <input id="newSoftTitle" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. Agriculture Biometrics Tool">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">ការពិពណ៌នា</label>
+                    <textarea id="newSoftDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="សេចក្តីសង្ខេបពីមុខងារ និងអត្ថប្រយោជន៍របស់កម្មវិធី..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">សារកុម្ម៉ង់ Telegram (@Sokra25)</label>
+                    <input id="newSoftTgMsg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-xs" placeholder="សួស្តីលោកគ្រូ ខ្ញុំចង់ទិញកម្មវិធី...">
+                </div>
+            </div>
+        `;
+        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-cyan-400"></i> បន្ថែមកម្មវិធី / ឧបករណ៍ថ្មី (Add New Software)', html, () => {
+            const title = document.getElementById('newSoftTitle').value.trim() || 'Software Tool';
+            const userTgMsg = document.getElementById('newSoftTgMsg').value.trim() || `សួស្តីលោកគ្រូ ខ្ញុំចង់ទិញ ${title}`;
+            const newTool = {
+                id: 's_' + Date.now(),
+                type: document.getElementById('newSoftType').value.trim() || 'Custom Script',
+                title: title,
+                desc: document.getElementById('newSoftDesc').value.trim() || '',
+                price: document.getElementById('newSoftPrice').value.trim() || '$10 / Pack',
+                image: document.getElementById('newSoftImage').value.trim() || defaultThumb,
+                telegramLink: `https://t.me/Sokra25?text=${encodeURIComponent(userTgMsg)}`
+            };
+            appData.subSoftware.push(newTool);
+            saveAppState();
+            renderSoftwareSection();
+        });
+    }
+
+    function deleteSubSoftware(index) {
+        if (!isAdminLoggedIn) return;
+        if (window.confirm("តើអ្នកពិតជាចង់លុបកម្មវិធី/ឧបករណ៍នេះមែនទេ?")) {
+            appData.subSoftware.splice(index, 1);
+            saveAppState();
+            renderSoftwareSection();
+        }
     }
 
     // Modal: Edit Publication (WITH AUTO DOI METADATA FETCHER)
@@ -1918,7 +2016,6 @@
         const p = appData.publications[index];
         const html = `
             <div class="space-y-3.5">
-                <!-- DOI Auto Fetch Box -->
                 <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/40">
                     <label class="block text-purple-300 font-semibold text-xs mb-1">តំណភ្ជាប់ DOI (Auto-Fill Metadata)</label>
                     <div class="flex items-center gap-2">
@@ -1976,7 +2073,6 @@
     function openNewPubModal() {
         const html = `
             <div class="space-y-3.5">
-                <!-- DOI Auto Fetch Box -->
                 <div class="p-3.5 rounded-2xl bg-purple-950/30 border border-purple-500/40">
                     <label class="block text-purple-300 font-semibold text-xs mb-1">តំណភ្ជាប់ DOI (Auto-Fill Metadata)</label>
                     <div class="flex items-center gap-2">
@@ -2177,7 +2273,6 @@
         loadAppState();
         renderAllSections();
 
-        // Mobile menu toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileLinks = document.querySelectorAll('.mobile-link');
@@ -2192,7 +2287,6 @@
             });
         });
 
-        // Dynamic Nav Click active state with smooth scroll
         const allNavLinks = document.querySelectorAll('.nav-item');
         allNavLinks.forEach(item => {
             item.addEventListener('click', function() {
@@ -2202,7 +2296,6 @@
             });
         });
 
-        // IntersectionObserver for auto scrollspy
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
