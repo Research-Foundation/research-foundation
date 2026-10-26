@@ -1,0 +1,104 @@
+// ==========================================
+// GITHUB AUTO-COMMIT INTEGRATION
+// ==========================================
+
+// Retrieve GitHub configuration from your private browser storage
+function getGitHubConfig() {
+    return {
+        owner: localStorage.getItem('GH_OWNER') || '',       // Your GitHub username
+        repo: localStorage.getItem('GH_REPO') || '',         // Your repository name
+        branch: localStorage.getItem('GH_BRANCH') || 'main', // Branch name (main or master)
+        token: localStorage.getItem('GH_TOKEN') || '',       // Your Personal Access Token
+        path: 'data.json'
+    };
+}
+
+// 1. Fetch data.json from GitHub on page load
+async function loadDataFromGitHub() {
+    const config = getGitHubConfig();
+    if (!config.owner || !config.repo) {
+        // Fallback to local default if GitHub is not configured yet
+        loadAppState();
+        renderAllSections();
+        return;
+    }
+
+    try {
+        // Fetch raw data.json directly from your repository
+        const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
+        const response = await fetch(url);
+        if (response.ok) {
+            appData = await response.json();
+            // Cache locally as backup
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+        } else {
+            loadAppState();
+        }
+    } catch (err) {
+        console.warn('Could not load data.json from GitHub, using local cache:', err);
+        loadAppState();
+    }
+    renderAllSections();
+}
+
+// 2. Commit updated data.json to GitHub using GitHub REST API
+async function commitDataToGitHub() {
+    const config = getGitHubConfig();
+    if (!config.token || !config.owner || !config.repo) {
+        // If not set up, just save locally
+        saveAppState();
+        return;
+    }
+
+    showToast('កំពុង Commit ទៅកាន់ GitHub...');
+
+    try {
+        const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
+        
+        // Step A: Get current file SHA (required by GitHub to update an existing file)
+        let fileSha = null;
+        const getFile = await fetch(apiUrl, {
+            headers: {
+                'Authorization': `Bearer ${config.token}`,
+                'Accept': 'application/vnd.github.v3+json'
+            }
+        });
+
+        if (getFile.ok) {
+            const fileInfo = await getFile.json();
+            fileSha = fileInfo.sha;
+        }
+
+        // Step B: Encode data to Base64 (Unicode safe)
+        const jsonString = JSON.stringify(appData, null, 2);
+        const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+        // Step C: PUT request to commit changes
+        const commitResponse = await fetch(apiUrl, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `Bearer ${config.token}`,
+                'Accept': 'application/vnd.github.v3+json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                message: `Auto-update site data [${new Date().toLocaleString()}]`,
+                content: encodedContent,
+                sha: fileSha,
+                branch: config.branch
+            })
+        });
+
+        if (commitResponse.ok) {
+            saveAppState(); // Also update local storage
+            showToast('✓ បាន Commit ទៅ GitHub រួចរាល់! (Pages នឹង Update ក្នុង 30 វិនាទី)');
+        } else {
+            const errData = await commitResponse.json();
+            throw new Error(errData.message || 'Commit failed');
+        }
+    } catch (err) {
+        console.error('GitHub Sync Error:', err);
+        showToast('បរាជ័យក្នុងការ Commit ទៅ GitHub: ' + err.message);
+        saveAppState(); // Fallback to local save
+    }
+}
