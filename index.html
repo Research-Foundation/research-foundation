@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>មូលដ្ឋានស្រាវជ្រាវ | Research Foundation — អិន សុខរ៉ា</title>
     
-    <!-- Favicon placeholder fallback -->
-    <link rel="icon" type="image/png" href="https://placehold.co/64x64/0f172a/eab308?text=RF">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -80,7 +80,6 @@
                 linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
 
-        /* Bright Gold Aura Animation on Logo Brand Area */
         .brand-glow-group:hover .brand-logo-img {
             filter: drop-shadow(0 0 18px rgba(250, 204, 21, 0.95)) brightness(1.2);
             transform: scale(1.08) rotate(-1deg);
@@ -91,7 +90,6 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* Enhanced Interactive Navbar Menus */
         .nav-item {
             position: relative;
             overflow: hidden;
@@ -114,7 +112,6 @@
             opacity: 0.6;
         }
 
-        /* Menu 1: About (Emerald) */
         .nav-item[data-menu="about"]::after { background-color: #34d399; }
         .nav-item[data-menu="about"].active {
             color: #ffffff !important;
@@ -124,7 +121,6 @@
         }
         .nav-item[data-menu="about"].active::after { width: 60%; opacity: 1; }
 
-        /* Menu 2: Books (Amber) */
         .nav-item[data-menu="books"]::after { background-color: #fbbf24; }
         .nav-item[data-menu="books"].active {
             color: #ffffff !important;
@@ -134,7 +130,6 @@
         }
         .nav-item[data-menu="books"].active::after { width: 60%; opacity: 1; }
 
-        /* Menu 3: Software (Cyan) */
         .nav-item[data-menu="software"]::after { background-color: #22d3ee; }
         .nav-item[data-menu="software"].active {
             color: #ffffff !important;
@@ -144,7 +139,6 @@
         }
         .nav-item[data-menu="software"].active::after { width: 60%; opacity: 1; }
 
-        /* Menu 4: Publications (Purple) */
         .nav-item[data-menu="publications"]::after { background-color: #c084fc; }
         .nav-item[data-menu="publications"].active {
             color: #ffffff !important;
@@ -154,7 +148,6 @@
         }
         .nav-item[data-menu="publications"].active::after { width: 60%; opacity: 1; }
 
-        /* Menu 5: Founder (Rose) */
         .nav-item[data-menu="leadership"]::after { background-color: #fb7185; }
         .nav-item[data-menu="leadership"].active {
             color: #ffffff !important;
@@ -164,20 +157,10 @@
         }
         .nav-item[data-menu="leadership"].active::after { width: 60%; opacity: 1; }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030712;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1e293b;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #334155;
-        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 </head>
 
@@ -208,6 +191,10 @@
             <button id="toggleEditBtn" onclick="toggleEditMode()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-navy-950 border border-amber-500/40 text-amber-300 font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95">
                 <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
                 <span id="toggleEditText">បើករបៀបកែសម្រួល</span>
+            </button>
+            <button onclick="openGitHubModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-sky-600 hover:text-white text-slate-300 text-xs transition-all flex items-center gap-1" title="កំណត់ GitHub Auto-Sync">
+                <i data-lucide="github" class="w-3.5 h-3.5"></i>
+                <span class="hidden md:inline">GitHub Sync</span>
             </button>
             <button onclick="openChangePasswordModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ប្តូរពាក្យសម្ងាត់ Admin">
                 <i data-lucide="key" class="w-3.5 h-3.5"></i>
@@ -243,7 +230,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
             
-            <!-- Brand / Logo Area -->
             <a href="#" class="brand-glow-group flex items-center gap-3.5 group cursor-pointer transition-all duration-300 select-none">
                 <div class="relative flex items-center justify-center">
                     <img src="logo.png" alt="Research Foundation Logo" class="brand-logo-img w-11 h-11 object-contain rounded-xl transition-all duration-300 ease-out shadow-md shadow-amber-500/10" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">
@@ -283,7 +269,6 @@
                 </a>
             </nav>
 
-            <!-- Telegram & Personal Direct Links -->
             <div class="hidden xl:flex items-center gap-2.5">
                 <a href="https://t.me/researchfound" target="_blank" class="px-3 py-1.5 rounded-xl border border-sky-500/30 bg-sky-950/20 hover:bg-sky-500/20 text-sky-300 text-xs font-medium flex items-center gap-1.5 transition-all" title="Telegram Channel">
                     <i data-lucide="megaphone" class="w-3.5 h-3.5 text-sky-400"></i> Channel
@@ -296,7 +281,6 @@
                 </a>
             </div>
 
-            <!-- Mobile Menu Toggle Button -->
             <button id="mobileMenuBtn" class="lg:hidden p-2.5 rounded-xl border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-white active:scale-90 transition-transform" aria-label="Menu">
                 <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
@@ -341,7 +325,6 @@
             មជ្ឈមណ្ឌលផ្ដួចផ្ដើមស្រាវជ្រាវឯករាជ្យ លើកកម្ពស់ជីវបច្ចេកវិទ្យាកសិកម្ម ការកែច្នៃកាកសំណល់អនុផលកសិ-ឧស្សាហកម្ម ការបោះពុម្ពសៀវភៅបច្ចេកទេស និងការអភិវឌ្ឍកម្មវិធីស្ថិតិវិភាគទិន្នន័យស្រាវជ្រាវ។
         </p>
 
-        <!-- Social Proof / Telegram Badges -->
         <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a href="https://t.me/researchfound" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-sky-950/50 border border-sky-500/40 text-sky-300 hover:bg-sky-900/40 transition-colors text-xs font-medium">
                 <i data-lucide="send" class="w-4 h-4 text-sky-400"></i>
@@ -397,9 +380,9 @@
                     </p>
 
                     <ul id="aboutPillars" class="space-y-3 pl-4 border-l-2 border-emerald-500/40 text-xs sm:text-sm text-slate-300">
-                        <li>• <strong class="text-white">ជីវបច្ចេកវិទ្យាកសិកម្ម & ផ្អាប់ជីវសាស្រ្ត (Fermentation Technology)៖</strong> ការស្រាវជ្រាវមីក្រូសារពាង្គកាយដីមានប្រយោជន៍ (ដូចជា <em>Trichoderma spp.</em>, <em>Bacillus spp.</em>) ដើម្បីផលិតជាជីជីវសាស្រ្ត និងភ្នាក់ងារការពារដំណាំធម្មជាតិ (Biocontrol Agents)។</li>
-                        <li>• <strong class="text-white">ការកែច្នៃកាកសំណល់អនុផលកសិ-ឧស្សាហកម្ម (Agro-Industrial Valorization)៖</strong> ការទាញយកតម្លៃបន្ថែមពីសំណល់សម្បកដំឡូងមី អង្កាម និងសំណល់ស្វាយចន្ទី ទៅជាជីកំប៉ុស និងអង់ស៊ីមសរីរាង្គ។</li>
-                        <li>• <strong class="text-white">ស្ថិតិវិទ្យាសាស្ត្រ និងការអភិវឌ្ឍន៍សូហ្វវែរ (Biostatistics & Computation)៖</strong> ការផលិតសៀវភៅសិក្សាស្រាវជ្រាវ និងការអភិវឌ្ឍកម្មវិធីវិភាគទិន្នន័យស្ថិតិគំរូពិសោធន៍ស្របតាមស្តង់ដារបោះពុម្ពអន្តរជាតិ។</li>
+                        <li>• <strong class="text-white">ជីវបច្ចេកវិទ្យាកសិកម្ម & ផ្អាប់ជីវសាស្រ្ត (Fermentation Technology)៖</strong> <span id="aboutP1Text"></span></li>
+                        <li>• <strong class="text-white">ការកែច្នៃកាកសំណល់អនុផលកសិ-ឧស្សាហកម្ម (Agro-Industrial Valorization)៖</strong> <span id="aboutP2Text"></span></li>
+                        <li>• <strong class="text-white">ស្ថិតិវិទ្យាសាស្ត្រ និងការអភិវឌ្ឍន៍សូហ្វវែរ (Biostatistics & Computation)៖</strong> <span id="aboutP3Text"></span></li>
                     </ul>
                 </div>
 
@@ -445,7 +428,6 @@
                         </li>
                     </ul>
 
-                    <!-- Location Pin Highlight -->
                     <div class="p-4 rounded-2xl bg-slate-900/90 border border-emerald-500/30 flex items-center gap-3">
                         <i data-lucide="map-pin" class="w-6 h-6 text-emerald-400 shrink-0"></i>
                         <div class="text-xs">
@@ -477,9 +459,8 @@
             </div>
         </div>
 
-        <!-- Books Dynamic Grid -->
         <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            <!-- Dynamically populated from appData.books -->
+            <!-- Dynamically populated from data -->
         </div>
     </section>
 
@@ -494,7 +475,6 @@
                 <p class="text-slate-400 text-sm mt-1">កម្មវិធីដែលត្រូវបានបង្កើតឡើងយ៉ាងសម្រិតសម្រាំងសម្រាប់អ្នកស្រាវជ្រាវ និងស្ថាប័នកម្ពុជា</p>
             </div>
             <div class="flex flex-wrap items-center gap-2">
-                <!-- Add New Software Button (Admin Only) -->
                 <button class="edit-only hidden px-3.5 py-2 rounded-xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 active:scale-95 shadow-md" onclick="openNewSoftwareModal()">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i> បន្ថែមកម្មវិធីថ្មី
                 </button>
@@ -569,7 +549,6 @@
             </div>
         </div>
 
-        <!-- Dynamic Sub-software / Custom Tools Grid (Expands as more tools are added) -->
         <div>
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-lg font-bold text-white flex items-center gap-2">
@@ -578,7 +557,7 @@
                 <span class="text-xs text-slate-400 font-mono" id="subSoftwareCount"></span>
             </div>
             <div id="subSoftwareContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-                <!-- Dynamically populated from appData.subSoftware -->
+                <!-- Dynamically populated from data -->
             </div>
         </div>
     </section>
@@ -605,7 +584,7 @@
         </div>
 
         <div id="publicationsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Dynamically populated from appData.publications -->
+            <!-- Dynamically populated from data -->
         </div>
     </section>
 
@@ -741,6 +720,47 @@
 </div>
 
 <!-- ==========================================
+     GITHUB AUTO-SYNC SETTINGS MODAL
+============================================== -->
+<div id="githubModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="bg-navy-900 border border-slate-700 w-full max-w-sm rounded-3xl p-6 space-y-4 card-glass shadow-2xl">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h3 class="text-base font-bold text-white flex items-center gap-2">
+                <i data-lucide="github" class="w-5 h-5 text-sky-400"></i> កំណត់ GitHub Auto-Sync
+            </h3>
+            <button onclick="closeGitHubModal()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="space-y-3 text-xs">
+            <div>
+                <label class="block text-slate-400 mb-1">GitHub Owner (Organization/User)</label>
+                <input id="ghOwnerInput" type="text" value="Research-Foundation" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+                <label class="block text-slate-400 mb-1">Repository Name</label>
+                <input id="ghRepoInput" type="text" value="research-foundation" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+                <label class="block text-slate-400 mb-1">Branch</label>
+                <input id="ghBranchInput" type="text" value="main" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+            </div>
+            <div>
+                <label class="block text-slate-400 mb-1">Personal Access Token (PAT)</label>
+                <input id="ghTokenInput" type="password" placeholder="ghp_... ឬ github_pat_..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">
+                <span class="text-[10px] text-slate-500 mt-1 block">Token រក្សាទុកតែលើ Browser របស់អ្នកប៉ុណ្ណោះ គ្មាននរណាមើលឃើញឡើយ។</span>
+            </div>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+            <button onclick="closeGitHubModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">បោះបង់</button>
+            <button onclick="saveGitHubConfig()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold flex items-center gap-1">
+                <i data-lucide="save" class="w-4 h-4"></i> រក្សាទុក
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ==========================================
      CHANGE PASSWORD MODAL
 ============================================== -->
 <div id="changePasswordModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
@@ -791,9 +811,7 @@
             </button>
         </div>
 
-        <div id="modalBody" class="space-y-4 text-xs sm:text-sm">
-            <!-- Dynamically injected form fields -->
-        </div>
+        <div id="modalBody" class="space-y-4 text-xs sm:text-sm"></div>
 
         <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
             <button onclick="closeModal()" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold">
@@ -807,13 +825,10 @@
 </div>
 
 <!-- ==========================================
-     APPLICATION CORE SCRIPTS & CMS ENGINE
+     APPLICATION CORE SCRIPTS & GITHUB CMS ENGINE
 ============================================== -->
 <script>
-    // ---------------------------------------------
-    // DEFAULT DATA & SECURITY CONSTANTS (STORAGE KEY V4 TO AVOID CACHED OVERWRITES)
-    // ---------------------------------------------
-    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V4';
+    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V5';
     const DEFAULT_PASS = "sokra2026";
     const DEFAULT_DATA = {
         about: {
@@ -962,7 +977,6 @@
         }
     };
 
-    // App state
     let appData = {};
     let isAdminLoggedIn = false;
     let isEditMode = false;
@@ -978,36 +992,156 @@
         localStorage.setItem('RF_ADMIN_PASSWORD_V1', newPass);
     }
 
-    function loadAppState() {
-        try {
-            const saved = localStorage.getItem(STORAGE_KEY);
-            if (saved) {
-                appData = JSON.parse(saved);
-                // Ensure subSoftware is an array if migrating
-                if (!Array.isArray(appData.subSoftware)) {
-                    appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
+    // ==========================================
+    // GITHUB SYNC INTEGRATION
+    // ==========================================
+    function getGitHubConfig() {
+        return {
+            owner: localStorage.getItem('GH_OWNER') || 'Research-Foundation',
+            repo: localStorage.getItem('GH_REPO') || 'research-foundation',
+            branch: localStorage.getItem('GH_BRANCH') || 'main',
+            token: localStorage.getItem('GH_TOKEN') || '',
+            path: 'data.json'
+        };
+    }
+
+    async function loadDataFromGitHubOrLocal() {
+        const config = getGitHubConfig();
+        let loaded = false;
+
+        // Try to fetch latest data.json from GitHub
+        if (config.owner && config.repo) {
+            try {
+                const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
+                const response = await fetch(url);
+                if (response.ok) {
+                    const remoteJson = await response.json();
+                    if (remoteJson && remoteJson.books) {
+                        appData = remoteJson;
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+                        loaded = true;
+                    }
                 }
-            } else {
+            } catch (err) {
+                console.warn('Could not fetch data.json from GitHub, falling back to local storage.');
+            }
+        }
+
+        if (!loaded) {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY) || 
+                              localStorage.getItem('RF_APP_DATA_STORAGE_V4') || 
+                              localStorage.getItem('RF_APP_DATA_STORAGE_V3') || 
+                              localStorage.getItem('RF_APP_DATA_STORAGE_V2');
+                if (saved) {
+                    appData = JSON.parse(saved);
+                } else {
+                    appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                }
+            } catch (e) {
                 appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
             }
-        } catch (e) {
-            console.error('Error reading localStorage', e);
-            appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        }
+
+        if (!Array.isArray(appData.subSoftware)) {
+            appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
         }
 
         if (sessionStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
         }
+
+        renderAllSections();
     }
 
-    function saveAppState() {
+    async function saveAppState() {
         try {
             localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-            showToast('បានរក្សាទុកទិន្នន័យដោយជោគជ័យ!');
+            showToast('បានរក្សាទុកក្នុងម៉ាស៊ីនរួចរាល់!');
         } catch (e) {
-            console.error('Storage full or error', e);
-            showToast('បរាជ័យក្នុងការរក្សាទុក!');
+            console.error(e);
         }
+
+        // Auto commit to GitHub if credentials are set
+        const config = getGitHubConfig();
+        if (config.token && config.owner && config.repo) {
+            await commitDataToGitHub();
+        }
+    }
+
+    async function commitDataToGitHub() {
+        const config = getGitHubConfig();
+        if (!config.token) return;
+
+        showToast('កំពុង Commit ទៅកាន់ GitHub...');
+
+        try {
+            const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
+            
+            let fileSha = null;
+            const getFile = await fetch(apiUrl, {
+                headers: {
+                    'Authorization': `Bearer ${config.token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (getFile.ok) {
+                const fileInfo = await getFile.json();
+                fileSha = fileInfo.sha;
+            }
+
+            const jsonString = JSON.stringify(appData, null, 2);
+            const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+            const commitResponse = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${config.token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: `Auto-sync site data [${new Date().toLocaleString()}]`,
+                    content: encodedContent,
+                    sha: fileSha,
+                    branch: config.branch
+                })
+            });
+
+            if (commitResponse.ok) {
+                showToast('✓ បាន Commit ទៅ GitHub ជោគជ័យ! អ្នកទស្សនាទាំងអស់នឹងឃើញភ្លាមៗ');
+            } else {
+                const errData = await commitResponse.json();
+                showToast('បរាជ័យក្នុងការ Commit: ' + (errData.message || 'Error'));
+            }
+        } catch (err) {
+            console.error(err);
+            showToast('Error syncing with GitHub');
+        }
+    }
+
+    function openGitHubModal() {
+        const config = getGitHubConfig();
+        document.getElementById('ghOwnerInput').value = config.owner;
+        document.getElementById('ghRepoInput').value = config.repo;
+        document.getElementById('ghBranchInput').value = config.branch;
+        document.getElementById('ghTokenInput').value = config.token;
+        document.getElementById('githubModal').classList.remove('hidden');
+    }
+
+    function closeGitHubModal() {
+        document.getElementById('githubModal').classList.add('hidden');
+    }
+
+    function saveGitHubConfig() {
+        localStorage.setItem('GH_OWNER', document.getElementById('ghOwnerInput').value.trim());
+        localStorage.setItem('GH_REPO', document.getElementById('ghRepoInput').value.trim());
+        localStorage.setItem('GH_BRANCH', document.getElementById('ghBranchInput').value.trim() || 'main');
+        localStorage.setItem('GH_TOKEN', document.getElementById('ghTokenInput').value.trim());
+        closeGitHubModal();
+        showToast('បានរក្សាទុកការកំណត់ GitHub! កំពុងសាកល្បង Sync...');
+        commitDataToGitHub();
     }
 
     function resetToDefaultData() {
@@ -1015,6 +1149,7 @@
         if (window.confirm("តើអ្នកពិតជាចង់កំណត់ទិន្នន័យដើមឡើងវិញទាំងអស់មែនទេ?")) {
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
             localStorage.removeItem(STORAGE_KEY);
+            saveAppState();
             renderAllSections();
             showToast('បានកំណត់ទិន្នន័យដើមឡើងវិញ!');
         }
@@ -1025,16 +1160,16 @@
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
         const downloadAnchor = document.createElement('a');
         downloadAnchor.setAttribute("href", dataStr);
-        downloadAnchor.setAttribute("download", `research_foundation_data_${Date.now()}.json`);
+        downloadAnchor.setAttribute("download", `data.json`);
         document.body.appendChild(downloadAnchor);
         downloadAnchor.click();
         downloadAnchor.remove();
-        showToast('បានទាញយកឯកសារ JSON រួចរាល់!');
+        showToast('បានទាញយកឯកសារ data.json រួចរាល់!');
     }
 
-    // ---------------------------------------------
+    // ==========================================
     // ADMIN AUTHENTICATION
-    // ---------------------------------------------
+    // ==========================================
     function openLoginModal() {
         document.getElementById('adminPasswordInput').value = '';
         document.getElementById('loginErrorMsg').classList.add('hidden');
@@ -1125,7 +1260,6 @@
         lucide.createIcons();
     }
 
-    // Password change dialog
     function openChangePasswordModal() {
         if (!isAdminLoggedIn) return;
         document.getElementById('oldPassInput').value = '';
@@ -1166,26 +1300,18 @@
         showToast('បានប្តូរលេខកូដសម្ងាត់ដោយជោគជ័យ!');
     }
 
-    // ---------------------------------------------
+    // ==========================================
     // RENDER FUNCTIONS
-    // ---------------------------------------------
+    // ==========================================
     function renderAboutSection() {
         const a = appData.about;
         document.getElementById('aboutTitle').textContent = a.title || "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)";
         document.getElementById('aboutIntro').innerHTML = `<strong class="text-white font-medium">មូលដ្ឋានស្រាវជ្រាវ (Research Foundation)</strong> ${a.intro}`;
-        document.getElementById('aboutLocation').innerHTML = `យើងប្រតិបត្តិការស្រាវជ្រាវសំខាន់ៗនៅ <strong class="text-emerald-400 font-semibold">ខេត្តកំពង់ចាម</strong> និងកិច្ចសហការស្រាវជ្រាវនៅ <strong class="text-emerald-400 font-semibold">រាជធានីភ្នំពេញ</strong> ដោយផ្តោតលើ៖`;
-        
-        const pillars = document.getElementById('aboutPillars');
-        pillars.innerHTML = `
-            <li>• <strong class="text-white">ជីវបច្ចេកវិទ្យាកសិកម្ម & ផ្អាប់ជីវសាស្រ្ត (Fermentation Technology)៖</strong> ${a.p1}</li>
-            <li>• <strong class="text-white">ការកែច្នៃកាកសំណល់អនុផលកសិ-ឧស្សាហកម្ម (Agro-Industrial Valorization)៖</strong> ${a.p2}</li>
-            <li>• <strong class="text-white">ស្ថិតិវិទ្យាសាស្ត្រ និងការអភិវឌ្ឍន៍សូហ្វវែរ (Biostatistics & Computation)៖</strong> ${a.p3}</li>
-        `;
+        document.getElementById('aboutP1Text').textContent = a.p1;
+        document.getElementById('aboutP2Text').textContent = a.p2;
+        document.getElementById('aboutP3Text').textContent = a.p3;
     }
 
-    // ---------------------------------------------
-    // HARMONIZED DIRECT ON-CARD UPLOAD HANDLERS
-    // ---------------------------------------------
     function triggerDirectBookUpload(index) {
         if (!isAdminLoggedIn || !isEditMode) return;
         activeUploadBookIndex = index;
@@ -1199,20 +1325,13 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            appData.books[activeUploadBookIndex].image = e.target.result;
+        compressAndSaveImage(file, (compressedBase64) => {
+            appData.books[activeUploadBookIndex].image = compressedBase64;
             saveAppState();
             renderBooksSection();
             showToast('បានប្តូររូបក្របសៀវភៅរួចរាល់!');
             activeUploadBookIndex = null;
-        };
-        reader.readAsDataURL(file);
+        });
     }
 
     function triggerDirectMainSoftwareUpload() {
@@ -1227,19 +1346,12 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            appData.mainSoftware.image = e.target.result;
+        compressAndSaveImage(file, (compressedBase64) => {
+            appData.mainSoftware.image = compressedBase64;
             saveAppState();
             renderSoftwareSection();
             showToast('បានប្តូររូបភាពកម្មវិធី RF Analyzer រួចរាល់!');
-        };
-        reader.readAsDataURL(file);
+        });
     }
 
     function triggerDirectSubSoftwareUpload(index) {
@@ -1255,20 +1367,13 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            appData.subSoftware[activeUploadSubSoftwareIndex].image = e.target.result;
+        compressAndSaveImage(file, (compressedBase64) => {
+            appData.subSoftware[activeUploadSubSoftwareIndex].image = compressedBase64;
             saveAppState();
             renderSoftwareSection();
             showToast('បានប្តូររូបភាពឧបករណ៍ជំនួយរួចរាល់!');
             activeUploadSubSoftwareIndex = null;
-        };
-        reader.readAsDataURL(file);
+        });
     }
 
     function triggerDirectFounderUpload() {
@@ -1283,24 +1388,14 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            appData.founder.photo = e.target.result;
+        compressAndSaveImage(file, (compressedBase64) => {
+            appData.founder.photo = compressedBase64;
             saveAppState();
             renderFounderSection();
             showToast('បានប្តូររូបថតស្ថាបនិករួចរាល់!');
-        };
-        reader.readAsDataURL(file);
+        });
     }
 
-    // ---------------------------------------------
-    // RENDER: BOOKS SECTION
-    // ---------------------------------------------
     function renderBooksSection() {
         const grid = document.getElementById('booksGrid');
         grid.innerHTML = '';
@@ -1362,9 +1457,6 @@
         lucide.createIcons();
     }
 
-    // ---------------------------------------------
-    // RENDER: SOFTWARE SECTION (Main + Sub-software)
-    // ---------------------------------------------
     function renderSoftwareSection() {
         const ms = appData.mainSoftware;
         document.getElementById('mainSoftwareTag').textContent = ms.tag;
@@ -1388,7 +1480,6 @@
             const defaultTgLink = item.telegramLink || `https://t.me/Sokra25?text=${encodeURIComponent("សួស្តីលោកគ្រូ ខ្ញុំចង់ទិញ " + item.title)}`;
 
             card.innerHTML = `
-                <!-- Admin Edit Controls on Software Card -->
                 <div class="edit-only ${showEditClass} absolute top-3 right-3 z-20 flex items-center gap-1">
                     <button onclick="openEditSubSoftwareModal(${index})" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 transition-colors shadow" title="កែសម្រួល">
                         <i data-lucide="pencil" class="w-3.5 h-3.5"></i>
@@ -1399,7 +1490,6 @@
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Software Image with on-card upload like Books -->
                     <div class="rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-950/80 h-44 flex items-center justify-center p-2 relative group/softcover">
                         <span class="absolute top-3 left-3 text-[10px] bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 px-2.5 py-0.5 rounded-full font-semibold z-10 backdrop-blur-md">
                             ${item.type || 'Software Tool'}
@@ -1438,9 +1528,6 @@
         lucide.createIcons();
     }
 
-    // ---------------------------------------------
-    // RENDER: PUBLICATIONS SECTION
-    // ---------------------------------------------
     function renderPublicationsSection() {
         const grid = document.getElementById('publicationsGrid');
         grid.innerHTML = '';
@@ -1490,9 +1577,6 @@
         lucide.createIcons();
     }
 
-    // ---------------------------------------------
-    // RENDER: FOUNDER SECTION
-    // ---------------------------------------------
     function renderFounderSection() {
         const f = appData.founder;
         document.getElementById('founderName').textContent = f.name;
@@ -1517,9 +1601,9 @@
         updateAdminUI();
     }
 
-    // ---------------------------------------------
-    // AUTO DOI METADATA RESOLVER ENGINE (Crossref API)
-    // ---------------------------------------------
+    // ==========================================
+    // AUTO DOI METADATA RESOLVER ENGINE
+    // ==========================================
     async function fetchDoiMetadata(prefixId = '') {
         const doiInput = document.getElementById(prefixId + 'PubDoi');
         const statusEl = document.getElementById(prefixId + 'DoiFetchStatus');
@@ -1603,9 +1687,9 @@
         }
     }
 
-    // ---------------------------------------------
-    // MODAL DIALOG ENGINE (CMS)
-    // ---------------------------------------------
+    // ==========================================
+    // MODAL CMS ENGINE
+    // ==========================================
     const modal = document.getElementById('editModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
@@ -1634,7 +1718,6 @@
         closeModal();
     }
 
-    // Modal: Edit About Us
     function openEditAboutModal() {
         const a = appData.about;
         const html = `
@@ -1661,7 +1744,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="info" class="w-5 h-5 text-emerald-400"></i> កែសម្រួលអំពីយើង (About Foundation)', html, () => {
+        openModal('<i data-lucide="info" class="w-5 h-5 text-emerald-400"></i> កែសម្រួលអំពីយើង', html, () => {
             appData.about.title = document.getElementById('editAboutTitle').value;
             appData.about.intro = document.getElementById('editAboutIntro').value;
             appData.about.p1 = document.getElementById('editAboutP1').value;
@@ -1672,7 +1755,6 @@
         });
     }
 
-    // Modal: Edit Book
     function openEditBookModal(index) {
         const b = appData.books[index];
         const html = `
@@ -1680,14 +1762,13 @@
                 <div class="p-3.5 rounded-2xl bg-slate-950 border border-amber-500/30 flex items-center gap-4">
                     <img id="editBookPreviewImg" src="${b.image}" alt="Preview" class="w-16 h-20 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
                     <div class="space-y-1.5 flex-1">
-                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពក្របសៀវភៅ (Book Cover Image)</label>
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពក្របសៀវភៅ (Book Cover)</label>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="document.getElementById('modalBookFileInput').click()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5 shadow">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបភាព (Upload File)
                             </button>
                             <input type="file" id="modalBookFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editBookPreviewImg', 'editBookImage')">
                         </div>
-                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
                 </div>
 
@@ -1749,14 +1830,13 @@
                 <div class="p-3.5 rounded-2xl bg-slate-950 border border-amber-500/30 flex items-center gap-4">
                     <img id="newBookPreviewImg" src="${defaultCover}" alt="Preview" class="w-16 h-20 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
                     <div class="space-y-1.5 flex-1">
-                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពក្របសៀវភៅ (Book Cover Image)</label>
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពក្របសៀវភៅ (Book Cover)</label>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="document.getElementById('newModalBookFileInput').click()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5 shadow">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ផ្ទុកឡើងរូបភាព (Upload File)
                             </button>
                             <input type="file" id="newModalBookFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'newBookPreviewImg', 'newBookImage')">
                         </div>
-                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
                 </div>
 
@@ -1772,7 +1852,7 @@
                     </div>
                     <div>
                         <label class="block text-slate-400 mb-1">តម្លៃ ($)</label>
-                        <input id="newBookPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="$10.00 / ក្បាល">
+                        <input id="newBookPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="$15.00 / ក្បាល">
                     </div>
                 </div>
                 <div>
@@ -1794,7 +1874,7 @@
             const newB = {
                 id: 'b_' + Date.now(),
                 badge: document.getElementById('newBookBadge').value || 'សៀវភៅថ្មី',
-                price: document.getElementById('newBookPrice').value || '$10.00 / ក្បាល',
+                price: document.getElementById('newBookPrice').value || '$15.00 / ក្បាល',
                 titleKh: khTitle,
                 titleEn: document.getElementById('newBookTitleEn').value || '',
                 subtitle: '',
@@ -1817,7 +1897,6 @@
         }
     }
 
-    // Modal: Edit Flagship Software
     function openEditMainSoftwareModal() {
         const ms = appData.mainSoftware;
         const html = `
@@ -1832,7 +1911,6 @@
                             </button>
                             <input type="file" id="modalMainSoftwareFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editMainSoftwarePreviewImg', 'editSoftImage')">
                         </div>
-                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
                 </div>
 
@@ -1877,7 +1955,6 @@
         });
     }
 
-    // Modal: Edit Sub-software
     function openEditSubSoftwareModal(index) {
         const item = appData.subSoftware[index];
         const html = `
@@ -1885,7 +1962,7 @@
                 <div class="p-3.5 rounded-2xl bg-slate-950 border border-cyan-500/30 flex items-center gap-4">
                     <img id="editSubSoftwarePreviewImg" src="${item.image || 'https://placehold.co/400x260/0f172a/38bdf8?text=Script'}" alt="Preview" class="w-16 h-12 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
                     <div class="space-y-1.5 flex-1">
-                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពឧបករណ៍ (Tool Screenshot/Icon)</label>
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពឧបករណ៍</label>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="document.getElementById('modalSubSoftwareFileInput').click()" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបភាព (Upload File)
@@ -1919,12 +1996,12 @@
                     <textarea id="editSubSoftDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">${item.desc}</textarea>
                 </div>
                 <div>
-                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់បញ្ជាទិញ Telegram (Link)</label>
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់បញ្ជាទិញ Telegram</label>
                     <input id="editSubSoftTg" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${item.telegramLink || 'https://t.me/Sokra25'}">
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ (Edit Tool)', html, () => {
+        openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ', html, () => {
             appData.subSoftware[index].type = document.getElementById('editSubSoftType').value;
             appData.subSoftware[index].title = document.getElementById('editSubSoftTitle').value;
             appData.subSoftware[index].desc = document.getElementById('editSubSoftDesc').value;
@@ -1936,7 +2013,6 @@
         });
     }
 
-    // Modal: Add New Software/Tool (NEW DYNAMIC FEATURE)
     function openNewSoftwareModal() {
         const defaultThumb = 'https://placehold.co/400x260/0f172a/38bdf8?text=New+Software+Tool';
         const html = `
@@ -1944,14 +2020,13 @@
                 <div class="p-3.5 rounded-2xl bg-slate-950 border border-cyan-500/30 flex items-center gap-4">
                     <img id="newSoftwarePreviewImg" src="${defaultThumb}" alt="Preview" class="w-20 h-14 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
                     <div class="space-y-1.5 flex-1">
-                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពកម្មវិធី / ឧបករណ៍ (Tool Image)</label>
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពកម្មវិធី / ឧបករណ៍</label>
                         <div class="flex items-center gap-2">
                             <button type="button" onclick="document.getElementById('newModalSoftwareFileInput').click()" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ផ្ទុកឡើងរូបភាព (Upload File)
                             </button>
                             <input type="file" id="newModalSoftwareFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'newSoftwarePreviewImg', 'newSoftImage')">
                         </div>
-                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
                 </div>
 
@@ -1963,11 +2038,11 @@
                 <div class="grid grid-cols-2 gap-3">
                     <div>
                         <label class="block text-slate-400 mb-1">ប្រភេទ / Badge</label>
-                        <input id="newSoftType" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. Python Script, Web App, Bot">
+                        <input id="newSoftType" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. Python Script, Web App">
                     </div>
                     <div>
                         <label class="block text-slate-400 mb-1">តម្លៃ ($ / License)</label>
-                        <input id="newSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. $15 / Pack ឬ Custom Order">
+                        <input id="newSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="ឧ. $15 / Pack">
                     </div>
                 </div>
                 <div>
@@ -1976,7 +2051,7 @@
                 </div>
                 <div>
                     <label class="block text-slate-400 mb-1">ការពិពណ៌នា</label>
-                    <textarea id="newSoftDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="សេចក្តីសង្ខេបពីមុខងារ និងអត្ថប្រយោជន៍របស់កម្មវិធី..."></textarea>
+                    <textarea id="newSoftDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" placeholder="សេចក្តីសង្ខេបពីមុខងារ..."></textarea>
                 </div>
                 <div>
                     <label class="block text-slate-400 mb-1">សារកុម្ម៉ង់ Telegram (@Sokra25)</label>
@@ -1984,7 +2059,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-cyan-400"></i> បន្ថែមកម្មវិធី / ឧបករណ៍ថ្មី (Add New Software)', html, () => {
+        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-cyan-400"></i> បន្ថែមកម្មវិធី / ឧបករណ៍ថ្មី', html, () => {
             const title = document.getElementById('newSoftTitle').value.trim() || 'Software Tool';
             const userTgMsg = document.getElementById('newSoftTgMsg').value.trim() || `សួស្តីលោកគ្រូ ខ្ញុំចង់ទិញ ${title}`;
             const newTool = {
@@ -2011,7 +2086,6 @@
         }
     }
 
-    // Modal: Edit Publication (WITH AUTO DOI METADATA FETCHER)
     function openEditPubModal(index) {
         const p = appData.publications[index];
         const html = `
@@ -2025,7 +2099,6 @@
                         </button>
                     </div>
                     <p id="editDoiFetchStatus" class="hidden text-xs mt-1.5"></p>
-                    <span class="text-[10px] text-slate-400 block mt-1">គ្រាន់តែបញ្ចូល DOI រួចចុច Fetch ប្រព័ន្ធនឹងបំពេញ ចំណងជើង អ្នកនិពន្ធ ទស្សនាវដ្តី និងឆ្នាំដោយស្វ័យប្រវត្ត។</span>
                 </div>
 
                 <div class="grid grid-cols-3 gap-3">
@@ -2056,7 +2129,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="newspaper" class="w-5 h-5 text-purple-400"></i> កែសម្រួលអត្ថបទបោះពុម្ព (Edit Publication)', html, () => {
+        openModal('<i data-lucide="newspaper" class="w-5 h-5 text-purple-400"></i> កែសម្រួលអត្ថបទបោះពុម្ព', html, () => {
             appData.publications[index].year = document.getElementById('editPubYear').value;
             appData.publications[index].journal = document.getElementById('editPubJournal').value;
             appData.publications[index].vol = document.getElementById('editPubVol').value;
@@ -2069,7 +2142,6 @@
         });
     }
 
-    // Modal: Add New Publication (WITH AUTO DOI METADATA FETCHER)
     function openNewPubModal() {
         const html = `
             <div class="space-y-3.5">
@@ -2082,7 +2154,6 @@
                         </button>
                     </div>
                     <p id="newDoiFetchStatus" class="hidden text-xs mt-1.5"></p>
-                    <span class="text-[10px] text-slate-400 block mt-1">បញ្ចូលតែ DOI មួយគត់ រួចចុច <strong>Fetch</strong> នោះទិន្នន័យចំណងជើង អ្នកនិពន្ធ និងទស្សនាវដ្តីនឹងបំពេញដោយស្វ័យប្រវត្តិ។</span>
                 </div>
 
                 <div class="grid grid-cols-3 gap-3">
@@ -2113,7 +2184,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-purple-400"></i> បន្ថែមអត្ថបទបោះពុម្ពថ្មី (New Publication)', html, () => {
+        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-purple-400"></i> បន្ថែមអត្ថបទបោះពុម្ពថ្មី', html, () => {
             const newPub = {
                 id: 'p_' + Date.now(),
                 year: document.getElementById('newPubYear').value || '2026',
@@ -2139,7 +2210,6 @@
         }
     }
 
-    // Modal: Edit Founder Profile
     function openEditFounderModal() {
         const f = appData.founder;
         const html = `
@@ -2154,7 +2224,6 @@
                             </button>
                             <input type="file" id="modalFounderFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editFounderPreviewImg', 'editFounderPhoto')">
                         </div>
-                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
                 </div>
 
@@ -2201,7 +2270,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="user" class="w-5 h-5 text-rose-400"></i> កែសម្រួលព័ត៌មានស្ថាបនិក (Founder Profile)', html, () => {
+        openModal('<i data-lucide="user" class="w-5 h-5 text-rose-400"></i> កែសម្រួលព័ត៌មានស្ថាបនិក', html, () => {
             appData.founder.name = document.getElementById('editFounderName').value;
             appData.founder.role = document.getElementById('editFounderRole').value;
             appData.founder.affiliation = document.getElementById('editFounderAffiliation').value;
@@ -2216,27 +2285,47 @@
         });
     }
 
-    // Generic Modal image previewer
-    function previewModalImage(event, previewImgId, inputId) {
-        const file = event.target.files[0];
-        if (!file) return;
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
+    // High performance image compressor to prevent LocalStorage & GitHub quota limits
+    function compressAndSaveImage(file, callback) {
         const reader = new FileReader();
         reader.onload = function(e) {
-            document.getElementById(previewImgId).src = e.target.result;
-            if (inputId) {
-                document.getElementById(inputId).value = e.target.result;
-            }
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const MAX_WIDTH = 800;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > MAX_WIDTH) {
+                    height = Math.round((height * MAX_WIDTH) / width);
+                    width = MAX_WIDTH;
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                callback(compressedBase64);
+            };
+            img.src = e.target.result;
         };
         reader.readAsDataURL(file);
     }
 
-    // ---------------------------------------------
-    // UTILITY HELPERS
-    // ---------------------------------------------
+    function previewModalImage(event, previewImgId, inputId) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        compressAndSaveImage(file, (compressedBase64) => {
+            document.getElementById(previewImgId).src = compressedBase64;
+            if (inputId) {
+                document.getElementById(inputId).value = compressedBase64;
+            }
+        });
+    }
+
     function copyToClipboard(text, customMessage) {
         const textarea = document.createElement('textarea');
         textarea.value = text;
@@ -2249,7 +2338,7 @@
             document.execCommand('copy');
             showToast(customMessage || 'បានចម្លងទៅកាន់ក្ដារតម្បៀតខ្ទាស់!');
         } catch (err) {
-            console.error('Copy fallback failed', err);
+            console.error(err);
         }
         document.body.removeChild(textarea);
     }
@@ -2263,15 +2352,14 @@
         setTimeout(() => {
             toast.classList.add('translate-y-20', 'opacity-0');
             toast.classList.remove('translate-y-0', 'opacity-100');
-        }, 3000);
+        }, 3500);
     }
 
-    // ---------------------------------------------
-    // SCROLLSPY & NAVIGATION INTERACTIONS
-    // ---------------------------------------------
+    // ==========================================
+    // INITIALIZATION & SCROLLSPY
+    // ==========================================
     window.addEventListener('DOMContentLoaded', () => {
-        loadAppState();
-        renderAllSections();
+        loadDataFromGitHubOrLocal();
 
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
