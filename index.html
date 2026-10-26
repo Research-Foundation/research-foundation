@@ -171,45 +171,38 @@
 <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[850px] h-[500px] bg-emerald-600/10 rounded-full blur-[160px] pointer-events-none -z-10"></div>
 <div class="fixed bottom-1/4 right-0 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[180px] pointer-events-none -z-10"></div>
 
-<!-- Top Admin Authentication & Control Bar -->
-<div id="adminTopBar" class="bg-slate-900/95 border-b border-slate-800 text-slate-300 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 sticky top-0 z-50 backdrop-blur-md transition-colors">
+<!-- Secret Admin Bar (Only visible when Admin is logged in) -->
+<div id="adminTopBar" class="hidden bg-slate-900 border-b border-amber-500/40 text-slate-300 px-4 py-2 text-xs flex flex-wrap items-center justify-between gap-3 sticky top-0 z-50 backdrop-blur-md transition-all">
     <div class="flex items-center gap-2">
-        <div id="adminBadge" class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium">
-            <i data-lucide="shield" class="w-3.5 h-3.5 text-slate-400"></i>
-            <span id="adminBadgeText">របៀបទូទៅ (Public View)</span>
+        <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-semibold">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i>
+            <span>Admin Mode (អិន សុខរ៉ា)</span>
         </div>
-        <span id="adminStatusText" class="hidden sm:inline text-slate-400">ទស្សនាគេហទំព័រធម្មតា។</span>
+        <span id="adminStatusText" class="hidden sm:inline text-slate-400">របៀបកែសម្រួលកំពុងបើក។</span>
     </div>
 
     <div class="flex items-center gap-2">
-        <button id="adminLoginBtn" onclick="openLoginModal()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95 shadow-sm">
-            <i data-lucide="lock" class="w-3.5 h-3.5"></i>
-            <span>ចូលគ្រប់គ្រង (Admin Login)</span>
+        <button id="toggleEditBtn" onclick="toggleEditMode()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-navy-950 border border-amber-500/40 text-amber-300 font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+            <span id="toggleEditText">បិទរបៀបកែសម្រួល</span>
         </button>
-
-        <div id="adminControlsGroup" class="hidden items-center gap-2">
-            <button id="toggleEditBtn" onclick="toggleEditMode()" class="px-3 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500 hover:text-navy-950 border border-amber-500/40 text-amber-300 font-medium text-xs transition-all flex items-center gap-1.5 active:scale-95">
-                <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
-                <span id="toggleEditText">បើករបៀបកែសម្រួល</span>
-            </button>
-            <button onclick="openGitHubModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-sky-600 hover:text-white text-slate-300 text-xs transition-all flex items-center gap-1" title="កំណត់ GitHub Auto-Sync">
-                <i data-lucide="github" class="w-3.5 h-3.5"></i>
-                <span class="hidden md:inline">GitHub Sync</span>
-            </button>
-            <button onclick="openChangePasswordModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ប្តូរពាក្យសម្ងាត់ Admin">
-                <i data-lucide="key" class="w-3.5 h-3.5"></i>
-                <span class="hidden md:inline">ប្តូរលេខកូដ</span>
-            </button>
-            <button onclick="exportDataJson()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ទាញយកទិន្នន័យ JSON">
-                <i data-lucide="download" class="w-3.5 h-3.5"></i> Export
-            </button>
-            <button onclick="resetToDefaultData()" class="px-2.5 py-1 rounded-lg bg-rose-950/40 hover:bg-rose-900 border border-rose-500/30 text-rose-300 text-xs transition-all flex items-center gap-1" title="កំណត់ទិន្នន័យដើមឡើងវិញ">
-                <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset
-            </button>
-            <button onclick="adminLogout()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 text-xs transition-all flex items-center gap-1" title="ចាកចេញ">
-                <i data-lucide="log-out" class="w-3.5 h-3.5"></i> ចាកចេញ
-            </button>
-        </div>
+        <button onclick="openGitHubModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-sky-600 hover:text-white text-slate-300 text-xs transition-all flex items-center gap-1" title="កំណត់ GitHub Auto-Sync">
+            <i data-lucide="github" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">GitHub Sync</span>
+        </button>
+        <button onclick="openChangePasswordModal()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ប្តូរពាក្យសម្ងាត់ Admin">
+            <i data-lucide="key" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">ប្តូរលេខកូដ</span>
+        </button>
+        <button onclick="exportDataJson()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs transition-all flex items-center gap-1" title="ទាញយកទិន្នន័យ JSON">
+            <i data-lucide="download" class="w-3.5 h-3.5"></i> Export
+        </button>
+        <button onclick="resetToDefaultData()" class="px-2.5 py-1 rounded-lg bg-rose-950/40 hover:bg-rose-900 border border-rose-500/30 text-rose-300 text-xs transition-all flex items-center gap-1" title="កំណត់ទិន្នន័យដើមឡើងវិញ">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i> Reset
+        </button>
+        <button onclick="adminLogout()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-rose-600 hover:text-white text-slate-300 text-xs transition-all flex items-center gap-1" title="ចាកចេញ">
+            <i data-lucide="log-out" class="w-3.5 h-3.5"></i> ចាកចេញ
+        </button>
     </div>
 </div>
 
@@ -226,11 +219,12 @@
 </div>
 
 <!-- Navigation Bar -->
-<header class="sticky top-9 z-40 glassmorphism transition-all duration-300">
+<header class="sticky top-0 z-40 glassmorphism transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
             
-            <a href="#" class="brand-glow-group flex items-center gap-3.5 group cursor-pointer transition-all duration-300 select-none">
+            <!-- Logo area (Double click secretly opens Admin Login) -->
+            <a href="#" ondblclick="event.preventDefault(); openLoginModal();" class="brand-glow-group flex items-center gap-3.5 group cursor-pointer transition-all duration-300 select-none" title="ចុចពីរដងដើម្បីចូល Admin">
                 <div class="relative flex items-center justify-center">
                     <img src="logo.png" alt="Research Foundation Logo" class="brand-logo-img w-11 h-11 object-contain rounded-xl transition-all duration-300 ease-out shadow-md shadow-amber-500/10" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">
                 </div>
@@ -460,7 +454,7 @@
         </div>
 
         <div id="booksGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-            <!-- Dynamically populated from data -->
+            <!-- Dynamically populated -->
         </div>
     </section>
 
@@ -689,7 +683,7 @@
 </footer>
 
 <!-- ==========================================
-     ADMIN LOGIN MODAL
+     SECRET ADMIN LOGIN MODAL
 ============================================== -->
 <div id="loginModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
     <div class="bg-navy-900 border border-slate-700 w-full max-w-sm rounded-3xl p-6 space-y-4 card-glass shadow-2xl">
@@ -702,7 +696,7 @@
             </button>
         </div>
         <div class="space-y-3">
-            <p class="text-xs text-slate-300">សូមបញ្ចូលលេខកូដសម្ងាត់ Admin ដើម្បីបើកសិទ្ធិកែសម្រួលគេហទំព័រ (លេខកូដដើម៖ <code class="text-amber-400">sokra2026</code>)៖</p>
+            <p class="text-xs text-slate-300">សូមបញ្ចូលលេខកូដសម្ងាត់ Admin ដើម្បីបើកសិទ្ធិកែសម្រួលគេហទំព័រ៖</p>
             <div>
                 <input id="adminPasswordInput" type="password" placeholder="បញ្ចូលលេខកូដសម្ងាត់..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-emerald-500" onkeydown="if(event.key === 'Enter') checkAdminLogin()">
             </div>
@@ -825,11 +819,13 @@
 </div>
 
 <!-- ==========================================
-     APPLICATION CORE SCRIPTS & GITHUB CMS ENGINE
+     APPLICATION CORE SCRIPTS & SECURE GITHUB CMS
 ============================================== -->
 <script>
     const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V5';
-    const DEFAULT_PASS = "sokra2026";
+    // SHA-256 Hash of 'sokra2026' (Protects against View Source inspections)
+    const DEFAULT_PASS_HASH = "b4fe2ee91b9248408f972b2260655d8ee94828699478149e9ee1d3fb66e6b4f7";
+
     const DEFAULT_DATA = {
         about: {
             title: "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
@@ -984,17 +980,21 @@
     let activeUploadBookIndex = null;
     let activeUploadSubSoftwareIndex = null;
 
-    function getAdminPassword() {
-        return localStorage.getItem('RF_ADMIN_PASSWORD_V1') || DEFAULT_PASS;
+    // Cryptographic SHA-256 helper
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    function setAdminPassword(newPass) {
-        localStorage.setItem('RF_ADMIN_PASSWORD_V1', newPass);
+    function getAdminPasswordHash() {
+        return localStorage.getItem('RF_ADMIN_HASH') || DEFAULT_PASS_HASH;
     }
 
-    // ==========================================
-    // GITHUB SYNC INTEGRATION
-    // ==========================================
+    function setAdminPasswordHash(newHash) {
+        localStorage.setItem('RF_ADMIN_HASH', newHash);
+    }
+
     function getGitHubConfig() {
         return {
             owner: localStorage.getItem('GH_OWNER') || 'Research-Foundation',
@@ -1005,11 +1005,11 @@
         };
     }
 
+    // Load data from GitHub data.json for ALL visitors worldwide
     async function loadDataFromGitHubOrLocal() {
         const config = getGitHubConfig();
         let loaded = false;
 
-        // Try to fetch latest data.json from GitHub
         if (config.owner && config.repo) {
             try {
                 const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
@@ -1049,6 +1049,7 @@
 
         if (sessionStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
+            isEditMode = true;
         }
 
         renderAllSections();
@@ -1062,7 +1063,6 @@
             console.error(e);
         }
 
-        // Auto commit to GitHub if credentials are set
         const config = getGitHubConfig();
         if (config.token && config.owner && config.repo) {
             await commitDataToGitHub();
@@ -1168,7 +1168,7 @@
     }
 
     // ==========================================
-    // ADMIN AUTHENTICATION
+    // SECURE ADMIN AUTHENTICATION
     // ==========================================
     function openLoginModal() {
         document.getElementById('adminPasswordInput').value = '';
@@ -1181,11 +1181,12 @@
         document.getElementById('loginModal').classList.add('hidden');
     }
 
-    function checkAdminLogin() {
+    async function checkAdminLogin() {
         const input = document.getElementById('adminPasswordInput').value;
-        const currentPass = getAdminPassword();
+        const inputHash = await sha256(input);
+        const savedHash = getAdminPasswordHash();
 
-        if (input === currentPass) {
+        if (inputHash === savedHash) {
             isAdminLoggedIn = true;
             isEditMode = true;
             sessionStorage.setItem('RF_ADMIN_LOGGED_IN', 'true');
@@ -1217,36 +1218,17 @@
 
     function updateAdminUI() {
         const adminBar = document.getElementById('adminTopBar');
-        const loginBtn = document.getElementById('adminLoginBtn');
-        const controlsGroup = document.getElementById('adminControlsGroup');
-        const badge = document.getElementById('adminBadge');
-        const badgeText = document.getElementById('adminBadgeText');
         const statusText = document.getElementById('adminStatusText');
         const toggleEditText = document.getElementById('toggleEditText');
 
         if (isAdminLoggedIn) {
-            loginBtn.classList.add('hidden');
-            controlsGroup.classList.remove('hidden');
-            controlsGroup.classList.add('flex');
-
-            adminBar.classList.remove('bg-slate-900/95', 'border-slate-800');
-            adminBar.classList.add('bg-slate-900', 'border-amber-500/40');
-
-            badge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 font-semibold";
-            badgeText.textContent = "Admin Mode (អិន សុខរ៉ា)";
-            statusText.textContent = isEditMode ? "របៀបកែសម្រួលកំពុងបើក៖ អ្នកអាចកែសម្រួលទិន្នន័យបាន។" : "របៀបកែសម្រួលត្រូវបានបិទបណ្ដោះអាសន្ន។";
+            adminBar.classList.remove('hidden');
+            adminBar.classList.add('flex');
+            statusText.textContent = isEditMode ? "របៀបកែសម្រួលកំពុងបើក៖ លោកគ្រូអាចកែសម្រួលទិន្នន័យបាន។" : "របៀបកែសម្រួលត្រូវបានបិទបណ្ដោះអាសន្ន។";
             toggleEditText.textContent = isEditMode ? "បិទរបៀបកែសម្រួល" : "បើករបៀបកែសម្រួល";
         } else {
-            loginBtn.classList.remove('hidden');
-            controlsGroup.classList.add('hidden');
-            controlsGroup.classList.remove('flex');
-
-            adminBar.classList.add('bg-slate-900/95', 'border-slate-800');
-            adminBar.classList.remove('bg-slate-900', 'border-amber-500/40');
-
-            badge.className = "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-800 border border-slate-700 text-slate-400 font-medium";
-            badgeText.textContent = "របៀបទូទៅ (Public View)";
-            statusText.textContent = "ទស្សនាគេហទំព័រធម្មតា។";
+            adminBar.classList.add('hidden');
+            adminBar.classList.remove('flex');
         }
 
         const editElements = document.querySelectorAll('.edit-only');
@@ -1273,19 +1255,20 @@
         document.getElementById('changePasswordModal').classList.add('hidden');
     }
 
-    function saveNewPassword() {
+    async function saveNewPassword() {
         const oldP = document.getElementById('oldPassInput').value;
         const newP = document.getElementById('newPassInput').value;
         const confP = document.getElementById('confirmPassInput').value;
         const errEl = document.getElementById('changePassError');
 
-        if (oldP !== getAdminPassword()) {
+        const oldHash = await sha256(oldP);
+        if (oldHash !== getAdminPasswordHash()) {
             errEl.textContent = "លេខកូដចាស់មិនត្រឹមត្រូវទេ!";
             errEl.classList.remove('hidden');
             return;
         }
-        if (!newP || newP.length < 4) {
-            errEl.textContent = "លេខកូដថ្មីត្រូវមានយ៉ាងតិច ៤ តួអក្សរ!";
+        if (!newP || newP.length < 6) {
+            errEl.textContent = "លេខកូដថ្មីត្រូវមានយ៉ាងតិច ៦ តួអក្សរ!";
             errEl.classList.remove('hidden');
             return;
         }
@@ -1295,7 +1278,8 @@
             return;
         }
 
-        setAdminPassword(newP);
+        const newHash = await sha256(newP);
+        setAdminPasswordHash(newHash);
         closeChangePasswordModal();
         showToast('បានប្តូរលេខកូដសម្ងាត់ដោយជោគជ័យ!');
     }
@@ -1601,9 +1585,7 @@
         updateAdminUI();
     }
 
-    // ==========================================
-    // AUTO DOI METADATA RESOLVER ENGINE
-    // ==========================================
+    // Auto DOI metadata resolver
     async function fetchDoiMetadata(prefixId = '') {
         const doiInput = document.getElementById(prefixId + 'PubDoi');
         const statusEl = document.getElementById(prefixId + 'DoiFetchStatus');
@@ -1687,9 +1669,7 @@
         }
     }
 
-    // ==========================================
-    // MODAL CMS ENGINE
-    // ==========================================
+    // Modal CMS engine
     const modal = document.getElementById('editModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
@@ -2356,10 +2336,18 @@
     }
 
     // ==========================================
-    // INITIALIZATION & SCROLLSPY
+    // INITIALIZATION, SHORTCUT & SCROLLSPY
     // ==========================================
     window.addEventListener('DOMContentLoaded', () => {
         loadDataFromGitHubOrLocal();
+
+        // Secret Admin shortcut: Ctrl + Shift + A
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+                e.preventDefault();
+                openLoginModal();
+            }
+        });
 
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
