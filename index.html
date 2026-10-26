@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>មូលដ្ឋានស្រាវជ្រាវ | Research Foundation — អិន សុខរ៉ា</title>
     
     <!-- Favicon -->
@@ -223,7 +226,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20">
             
-            <!-- Logo area (Double click secretly opens Admin Login) -->
+            <!-- Logo area (Double click opens Admin Login) -->
             <a href="#" ondblclick="event.preventDefault(); openLoginModal();" class="brand-glow-group flex items-center gap-3.5 group cursor-pointer transition-all duration-300 select-none">
                 <div class="relative flex items-center justify-center">
                     <img src="logo.png" alt="Research Foundation Logo" class="brand-logo-img w-11 h-11 object-contain rounded-xl transition-all duration-300 ease-out shadow-md shadow-amber-500/10" onerror="this.onerror=null; this.src='https://placehold.co/100x100/0f172a/eab308?text=RF';">
@@ -822,8 +825,6 @@
      APPLICATION CORE SCRIPTS & SECURE GITHUB CMS
 ============================================== -->
 <script>
-    // ប្តូរ Key ទៅ V8 ដើម្បីផ្តាច់ LocalStorage ចាស់ចោល ១០០% លើ Phone & PC
-    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V8';
     const DEFAULT_PASS_HASH = "ecf04b48bd9afc208bc94fa4d1910e2f399c1eef51fe6fb26f51d32497871006";
 
     const DEFAULT_DATA = {
@@ -1005,15 +1006,15 @@
         };
     }
 
-    // ទាញយកទិន្នន័យផ្ទាល់តាម GitHub API (ដើម្បីកម្ចាត់ CDN Cache លើ Phone ១០០%)
+    // Always fetch directly from GitHub API with no caching
     async function loadDataFromGitHubOrLocal() {
         const config = getGitHubConfig();
         let loaded = false;
 
         if (config.owner && config.repo) {
             try {
-                // ១. ហៅតាម GitHub API ផ្ទាល់ (គ្មាន CDN Cache ឡើយ)
-                const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}?ref=${config.branch}&t=${Date.now()}`;
+                // Fetch directly from GitHub REST API (no CDN cache)
+                const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}?ref=${config.branch}&_cb=${Date.now()}`;
                 const apiHeaders = { 'Accept': 'application/vnd.github.v3+json' };
                 if (config.token) {
                     apiHeaders['Authorization'] = `Bearer ${config.token}`;
@@ -1027,52 +1028,40 @@
                         const parsedData = JSON.parse(decodedStr);
                         if (parsedData && parsedData.books) {
                             appData = parsedData;
-                            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
                             loaded = true;
                         }
                     }
                 }
             } catch (err) {
-                console.warn('API Fetch error, trying direct fallback...');
+                console.warn('GitHub API fetch failed, trying direct raw fallback...');
             }
 
-            // ២. Fallback បើ API Rate limit
             if (!loaded) {
                 try {
-                    const rawUrl = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?nocache=${Date.now()}`;
+                    const rawUrl = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?_cb=${Date.now()}`;
                     const resRaw = await fetch(rawUrl, { cache: 'no-store' });
                     if (resRaw.ok) {
                         const rawJson = await resRaw.json();
                         if (rawJson && rawJson.books) {
                             appData = rawJson;
-                            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
                             loaded = true;
                         }
                     }
                 } catch (e) {
-                    console.warn('Fallback failed, reading local.');
+                    console.warn('Raw fallback failed.');
                 }
             }
         }
 
         if (!loaded) {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY);
-                if (saved) {
-                    appData = JSON.parse(saved);
-                } else {
-                    appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-                }
-            } catch (e) {
-                appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-            }
+            appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
         }
 
         if (!Array.isArray(appData.subSoftware)) {
             appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
         }
 
-        if (localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
+        if (sessionStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true' || localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
             isEditMode = (localStorage.getItem('RF_ADMIN_EDIT_MODE') !== 'false');
         }
@@ -1081,19 +1070,13 @@
     }
 
     async function saveAppState() {
-        try {
-            appData.updatedAt = Date.now();
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-            showToast('បានរក្សាទុកក្នុងម៉ាស៊ីនរួចរាល់!');
-        } catch (e) {
-            console.error(e);
-        }
-
+        appData.updatedAt = Date.now();
         const config = getGitHubConfig();
+
         if (config.token && config.owner && config.repo) {
             await commitDataToGitHub();
         } else {
-            alert("⚠️ ការព្រមាន៖ លោកគ្រូមិនទាន់បានកំណត់ Personal Access Token (PAT) នៅឡើយទេ។ ការកែសម្រួលនេះនឹងបង្ហាញតែលើ PC នេះប៉ុណ្ណោះ! សូមចុចប៊ូតុង 'GitHub Sync' ខាងលើ ដើម្បីដាក់ Token ទើបទូរសព្ទអាច Update ដូចគ្នា។");
+            alert("⚠️ ការព្រមាន៖ លោកគ្រូមិនទាន់បានកំណត់ Personal Access Token (PAT) នៅឡើយទេ។ សូមចុចប៊ូតុង 'GitHub Sync' ខាងលើ ដើម្បីដាក់ Token ទើបទូរសព្ទ និងកុំព្យូទ័រទាំងអស់អាច Update ដូចគ្នា។");
         }
     }
 
@@ -1101,7 +1084,7 @@
         const config = getGitHubConfig();
         if (!config.token) return;
 
-        showToast('កំពុង Commit ទៅកាន់ GitHub...');
+        showToast('កំពុងបញ្ជូនទិន្នន័យទៅ GitHub...');
 
         try {
             const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
@@ -1138,10 +1121,11 @@
             });
 
             if (commitResponse.ok) {
-                showToast('✓ បាន Commit ទៅ GitHub ជោគជ័យ! ទូរសព្ទទាំងអស់នឹង update ដូចគ្នាភ្លាមៗ');
+                showToast('✓ បាន Commit ទៅ GitHub ជោគជ័យ! ទូរសព្ទ និង PC ទាំងអស់ Update ដូចគ្នាភ្លាមៗ');
+                renderAllSections();
             } else {
                 const errData = await commitResponse.json();
-                alert('បរាជ័យក្នុងការ Commit ទៅ GitHub៖ ' + (errData.message || 'Token មិនត្រឹមត្រូវ ឬគ្មានសិទ្ធិ'));
+                alert('បរាជ័យក្នុងការ Commit ទៅ GitHub៖ ' + (errData.message || 'Token មិនត្រឹមត្រូវ'));
             }
         } catch (err) {
             console.error(err);
@@ -1176,7 +1160,6 @@
         if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់កំណត់ទិន្នន័យដើមឡើងវិញទាំងអស់មែនទេ?")) {
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-            localStorage.removeItem(STORAGE_KEY);
             saveAppState();
             renderAllSections();
             showToast('បានកំណត់ទិន្នន័យដើមឡើងវិញ!');
@@ -2296,14 +2279,14 @@
         });
     }
 
-    // High performance image compressor to prevent LocalStorage & GitHub quota limits
+    // High performance image compressor to keep payload under GitHub limits
     function compressAndSaveImage(file, callback) {
         const reader = new FileReader();
         reader.onload = function(e) {
             const img = new Image();
             img.onload = function() {
                 const canvas = document.createElement('canvas');
-                const MAX_WIDTH = 800;
+                const MAX_WIDTH = 700;
                 let width = img.width;
                 let height = img.height;
 
@@ -2317,7 +2300,7 @@
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, width, height);
 
-                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
                 callback(compressedBase64);
             };
             img.src = e.target.result;
