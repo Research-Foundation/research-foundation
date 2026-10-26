@@ -822,8 +822,8 @@
      APPLICATION CORE SCRIPTS & SECURE GITHUB CMS
 ============================================== -->
 <script>
-    // ប្តូរ Key ទៅ V7 ដើម្បីជម្រះ LocalStorage ចាស់ចោលស្វ័យប្រវត្តលើ Phone & PC
-    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V7';
+    // ប្តូរ Key ទៅ V8 ដើម្បីផ្តាច់ LocalStorage ចាស់ចោល ១០០% លើ Phone & PC
+    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V8';
     const DEFAULT_PASS_HASH = "ecf04b48bd9afc208bc94fa4d1910e2f399c1eef51fe6fb26f51d32497871006";
 
     const DEFAULT_DATA = {
@@ -1005,37 +1005,57 @@
         };
     }
 
-    // Load data from GitHub API / Raw directly (Single Source of Truth)
+    // ទាញយកទិន្នន័យផ្ទាល់តាម GitHub API (ដើម្បីកម្ចាត់ CDN Cache លើ Phone ១០០%)
     async function loadDataFromGitHubOrLocal() {
         const config = getGitHubConfig();
-        let loadedFromGitHub = false;
+        let loaded = false;
 
         if (config.owner && config.repo) {
             try {
-                // ទាញយកតាមរយៈ Timestamp Bypass cache 100%
-                const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?nocache=${Date.now()}`;
-                const response = await fetch(url, {
-                    cache: 'no-store',
-                    headers: {
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
-                        'Pragma': 'no-cache'
-                    }
-                });
+                // ១. ហៅតាម GitHub API ផ្ទាល់ (គ្មាន CDN Cache ឡើយ)
+                const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}?ref=${config.branch}&t=${Date.now()}`;
+                const apiHeaders = { 'Accept': 'application/vnd.github.v3+json' };
+                if (config.token) {
+                    apiHeaders['Authorization'] = `Bearer ${config.token}`;
+                }
 
-                if (response.ok) {
-                    const remoteJson = await response.json();
-                    if (remoteJson && (remoteJson.books || remoteJson.subSoftware)) {
-                        appData = remoteJson;
-                        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-                        loadedFromGitHub = true;
+                const res = await fetch(apiUrl, { cache: 'no-store', headers: apiHeaders });
+                if (res.ok) {
+                    const fileObj = await res.json();
+                    if (fileObj && fileObj.content) {
+                        const decodedStr = decodeURIComponent(escape(atob(fileObj.content.replace(/\s/g, ''))));
+                        const parsedData = JSON.parse(decodedStr);
+                        if (parsedData && parsedData.books) {
+                            appData = parsedData;
+                            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+                            loaded = true;
+                        }
                     }
                 }
             } catch (err) {
-                console.warn('GitHub fetch bypassed, falling back to local storage.');
+                console.warn('API Fetch error, trying direct fallback...');
+            }
+
+            // ២. Fallback បើ API Rate limit
+            if (!loaded) {
+                try {
+                    const rawUrl = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?nocache=${Date.now()}`;
+                    const resRaw = await fetch(rawUrl, { cache: 'no-store' });
+                    if (resRaw.ok) {
+                        const rawJson = await resRaw.json();
+                        if (rawJson && rawJson.books) {
+                            appData = rawJson;
+                            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+                            loaded = true;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Fallback failed, reading local.');
+                }
             }
         }
 
-        if (!loadedFromGitHub) {
+        if (!loaded) {
             try {
                 const saved = localStorage.getItem(STORAGE_KEY);
                 if (saved) {
@@ -1052,7 +1072,6 @@
             appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
         }
 
-        // Keep admin logged in across page refreshes
         if (localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
             isEditMode = (localStorage.getItem('RF_ADMIN_EDIT_MODE') !== 'false');
@@ -1074,7 +1093,7 @@
         if (config.token && config.owner && config.repo) {
             await commitDataToGitHub();
         } else {
-            alert("⚠️ ការព្រមាន៖ លោកគ្រូមិនទាន់បានកំណត់ GitHub PAT Token ទេ។ ការកែប្រែនេះនឹងបង្ហាញតែលើ PC នេះប៉ុណ្ណោះ! សូមចុចប៊ូតុង 'GitHub Sync' ខាងលើ រួចបញ្ចូល Token ដើម្បីឱ្យទូរសព្ទអាច update ដូចគ្នា។");
+            alert("⚠️ ការព្រមាន៖ លោកគ្រូមិនទាន់បានកំណត់ Personal Access Token (PAT) នៅឡើយទេ។ ការកែសម្រួលនេះនឹងបង្ហាញតែលើ PC នេះប៉ុណ្ណោះ! សូមចុចប៊ូតុង 'GitHub Sync' ខាងលើ ដើម្បីដាក់ Token ទើបទូរសព្ទអាច Update ដូចគ្នា។");
         }
     }
 
@@ -1122,7 +1141,7 @@
                 showToast('✓ បាន Commit ទៅ GitHub ជោគជ័យ! ទូរសព្ទទាំងអស់នឹង update ដូចគ្នាភ្លាមៗ');
             } else {
                 const errData = await commitResponse.json();
-                alert('បរាជ័យក្នុងការ Sync ទៅ GitHub៖ ' + (errData.message || 'Token មិនត្រឹមត្រូវ ឬគ្មានសិទ្ធិ'));
+                alert('បរាជ័យក្នុងការ Commit ទៅ GitHub៖ ' + (errData.message || 'Token មិនត្រឹមត្រូវ ឬគ្មានសិទ្ធិ'));
             }
         } catch (err) {
             console.error(err);
