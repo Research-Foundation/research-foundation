@@ -249,7 +249,7 @@
                     <i data-lucide="book" class="w-4 h-4"></i>
                     <span>សៀវភៅ</span>
                 </a>
-                <a href="#software" data-menu="software" class="nav-item relative px-4 py-2 rounded-xl border border-transparent hover:border-cyan-500/30 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
+                <a href="#software" data-menu="software" class="nav-item relative px-4 py-2 rounded-xl border border-cyan-500/30 hover:text-cyan-300 transition-all duration-200 flex items-center gap-2 active:scale-95">
                     <i data-lucide="laptop" class="w-4 h-4"></i>
                     <span>កម្មវិធី</span>
                 </a>
@@ -1005,41 +1005,48 @@
         };
     }
 
-    // Load data ensuring locally modified changes take priority across refreshes
+    // Load data: ផ្តល់អាទិភាពខ្ពស់បំផុតដល់ GitHub data.json ជានិច្ច
     async function loadDataFromGitHubOrLocal() {
-        let localData = null;
-        try {
-            const saved = localStorage.getItem(STORAGE_KEY) || 
-                          localStorage.getItem('RF_APP_DATA_STORAGE_V5') || 
-                          localStorage.getItem('RF_APP_DATA_STORAGE_V4');
-            if (saved) {
-                localData = JSON.parse(saved);
-            }
-        } catch (e) {
-            console.error('Error reading localStorage:', e);
-        }
-
-        appData = localData || JSON.parse(JSON.stringify(DEFAULT_DATA));
-
         const config = getGitHubConfig();
+        let loadedFromGitHub = false;
+
+        // ១. ព្យាយាមទាញយកទិន្នន័យស្រស់ៗពី GitHub ជាមុនសិន
         if (config.owner && config.repo) {
             try {
                 const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
-                const response = await fetch(url);
+                const response = await fetch(url, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
+
                 if (response.ok) {
                     const remoteJson = await response.json();
                     if (remoteJson && remoteJson.books) {
-                        const remoteTime = remoteJson.updatedAt || 0;
-                        const localTime = appData.updatedAt || 0;
-                        // Only overwrite local if remote has newer content
-                        if (remoteTime > localTime) {
-                            appData = remoteJson;
-                            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-                        }
+                        appData = remoteJson;
+                        // រក្សាទុកចូល LocalStorage លើកុំព្យូទ័រដើម្បីធ្វើបច្ចុប្បន្នភាព
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+                        loadedFromGitHub = true;
                     }
                 }
             } catch (err) {
-                console.warn('GitHub sync check bypassed, using verified local data.');
+                console.warn('មិនអាចទាញយកពី GitHub បានទេ កំពុងប្រើទិន្នន័យក្នុងម៉ាស៊ីន (Offline/Local)...');
+            }
+        }
+
+        // ២. បើគ្មានអ៊ីនធឺណិត ឬទាញយកពី GitHub មិនបាន ទើបប្រើ LocalStorage
+        if (!loadedFromGitHub) {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    appData = JSON.parse(saved);
+                } else {
+                    appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                }
+            } catch (e) {
+                appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
             }
         }
 
@@ -1047,7 +1054,7 @@
             appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
         }
 
-        // Keep admin logged in across page refreshes
+        // រក្សាស្ថានភាព Admin Login ពេល Refresh
         if (localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
             isEditMode = (localStorage.getItem('RF_ADMIN_EDIT_MODE') !== 'false');
