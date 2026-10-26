@@ -1,52 +1,57 @@
 // ==========================================
-// GITHUB AUTO-COMMIT INTEGRATION
+// GITHUB AUTO-COMMIT INTEGRATION (FIXED)
 // ==========================================
 
-// Retrieve GitHub configuration from your private browser storage
+// កំណត់ Default Owner និង Repo ដើម្បីឱ្យ Device ទាំងអស់អាចទាញទិន្នន័យបាន
 function getGitHubConfig() {
     return {
-        owner: localStorage.getItem('GH_OWNER') || '',       // Your GitHub username
-        repo: localStorage.getItem('GH_REPO') || '',         // Your repository name
-        branch: localStorage.getItem('GH_BRANCH') || 'main', // Branch name (main or master)
-        token: localStorage.getItem('GH_TOKEN') || '',       // Your Personal Access Token
+        owner: localStorage.getItem('GH_OWNER') || 'Research-Foundation', // ឈ្មោះ Owner ដើម
+        repo: localStorage.getItem('GH_REPO') || 'research-foundation',     // ឈ្មោះ Repo ដើម
+        branch: localStorage.getItem('GH_BRANCH') || 'main',
+        token: localStorage.getItem('GH_TOKEN') || '',                     // Token ទុកតែលើម៉ាស៊ីន Admin
         path: 'data.json'
     };
 }
 
-// 1. Fetch data.json from GitHub on page load
+// 1. Fetch data.json from GitHub on page load (ដំណើរការគ្រប់ Device ទាំងអស់)
 async function loadDataFromGitHub() {
     const config = getGitHubConfig();
-    if (!config.owner || !config.repo) {
-        // Fallback to local default if GitHub is not configured yet
-        loadAppState();
-        renderAllSections();
-        return;
-    }
+    let loadedSuccessfully = false;
 
     try {
-        // Fetch raw data.json directly from your repository
+        // បន្ថែម timestamp (?t=...) ដើម្បីការពារកុំឱ្យ Browser ចងចាំ Cache ចាស់
         const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
         const response = await fetch(url);
+        
         if (response.ok) {
-            appData = await response.json();
-            // Cache locally as backup
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-        } else {
-            loadAppState();
+            const remoteData = await response.json();
+            // ពិនិត្យមើលថាតើទិន្នន័យពី GitHub ត្រឹមត្រូវ និងមានទិន្នន័យសៀវភៅដែរឬទេ
+            if (remoteData && remoteData.books && remoteData.books.length > 0) {
+                appData = remoteData;
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+                loadedSuccessfully = true;
+            }
         }
     } catch (err) {
-        console.warn('Could not load data.json from GitHub, using local cache:', err);
+        console.warn('មិនអាចទាញយក data.json ពី GitHub បានទេ កំពុងប្រើប្រាស់ Local Cache:', err);
+    }
+
+    // ប្រសិនបើតេស្តទាញយកពី GitHub មិនបាន ទើបឱ្យវាធ្លាក់មកប្រើ Local Cache
+    if (!loadedSuccessfully) {
         loadAppState();
     }
+
     renderAllSections();
 }
 
 // 2. Commit updated data.json to GitHub using GitHub REST API
 async function commitDataToGitHub() {
     const config = getGitHubConfig();
-    if (!config.token || !config.owner || !config.repo) {
-        // If not set up, just save locally
+    
+    // បើគ្មាន Token ទេ គ្រាន់តែ Save ក្នុងម៉ាស៊ីន Admin
+    if (!config.token) {
         saveAppState();
+        showToast('បានរក្សាទុកក្នុងម៉ាស៊ីន (សូមកំណត់ GitHub Token ដើម្បី Sync ទៅ Online)');
         return;
     }
 
@@ -55,7 +60,7 @@ async function commitDataToGitHub() {
     try {
         const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}`;
         
-        // Step A: Get current file SHA (required by GitHub to update an existing file)
+        // Step A: Get current file SHA
         let fileSha = null;
         const getFile = await fetch(apiUrl, {
             headers: {
@@ -69,7 +74,7 @@ async function commitDataToGitHub() {
             fileSha = fileInfo.sha;
         }
 
-        // Step B: Encode data to Base64 (Unicode safe)
+        // Step B: Encode data to Base64 (Unicode safe សម្រាប់ភាសាខ្មែរ)
         const jsonString = JSON.stringify(appData, null, 2);
         const encodedContent = btoa(unescape(encodeURIComponent(jsonString)));
 
@@ -90,8 +95,8 @@ async function commitDataToGitHub() {
         });
 
         if (commitResponse.ok) {
-            saveAppState(); // Also update local storage
-            showToast('✓ បាន Commit ទៅ GitHub រួចរាល់! (Pages នឹង Update ក្នុង 30 វិនាទី)');
+            saveAppState();
+            showToast('✓ បាន Sync ទៅ GitHub រួចរាល់! គ្រប់ Device ទាំងអស់នឹងឃើញរូបភាព');
         } else {
             const errData = await commitResponse.json();
             throw new Error(errData.message || 'Commit failed');
@@ -99,6 +104,6 @@ async function commitDataToGitHub() {
     } catch (err) {
         console.error('GitHub Sync Error:', err);
         showToast('បរាជ័យក្នុងការ Commit ទៅ GitHub: ' + err.message);
-        saveAppState(); // Fallback to local save
+        saveAppState();
     }
 }
