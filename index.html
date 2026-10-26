@@ -187,8 +187,11 @@
     </div>
 </div>
 
-<!-- Hidden File Input for Direct On-Card Book Uploads -->
+<!-- Hidden File Inputs for Direct On-Card Uploads -->
 <input type="file" id="directBookFileInput" class="hidden" accept="image/*" onchange="handleDirectBookCoverUpload(event)">
+<input type="file" id="directMainSoftwareFileInput" class="hidden" accept="image/*" onchange="handleDirectMainSoftwareUpload(event)">
+<input type="file" id="directSubSoftwareFileInput" class="hidden" accept="image/*" onchange="handleDirectSubSoftwareUpload(event)">
+<input type="file" id="directFounderFileInput" class="hidden" accept="image/*" onchange="handleDirectFounderPhotoUpload(event)">
 
 <!-- Toast Alert Notification -->
 <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-slate-900 border border-emerald-500/40 text-emerald-300 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-medium">
@@ -472,14 +475,18 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                        <div id="mainSoftwareImgContainer" class="md:col-span-4 rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-950/60 h-44 flex items-center justify-center p-2 relative group">
-                            <img id="mainSoftwareImg" src="https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0" alt="RF Analyzer Screenshot" class="w-full h-full object-cover rounded-xl shadow-lg">
-                            <button class="edit-only hidden absolute inset-0 bg-slate-950/80 text-cyan-300 text-xs font-medium flex-col items-center justify-center gap-1 group-hover:flex" onclick="document.getElementById('mainSoftwareFileInput').click()">
-                                <i data-lucide="upload" class="w-4 h-4"></i> ប្តូររូបភាព
+                        <!-- Software Image with on-card upload like books -->
+                        <div id="mainSoftwareImgContainer" class="md:col-span-5 rounded-2xl overflow-hidden border border-cyan-500/20 bg-slate-950/80 h-52 flex items-center justify-center p-2 relative group/soft">
+                            <img id="mainSoftwareImg" src="https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0" alt="RF Analyzer Screenshot" class="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover/soft:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0';">
+                            
+                            <!-- Hover upload button (Admin only, hidden when logged out) -->
+                            <button class="edit-only hidden absolute inset-0 bg-slate-950/85 text-cyan-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/soft:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectMainSoftwareUpload()">
+                                <i data-lucide="upload" class="w-5 h-5 text-cyan-400"></i>
+                                <span>ប្តូររូបភាពកម្មវិធី (Upload Image)</span>
                             </button>
-                            <input type="file" id="mainSoftwareFileInput" class="hidden" accept="image/*" onchange="uploadMainSoftwareImage(event)">
                         </div>
-                        <div class="md:col-span-8 space-y-2">
+
+                        <div class="md:col-span-7 space-y-2">
                             <h3 id="mainSoftwareTitle" class="text-2xl sm:text-3xl font-bold text-white leading-tight">
                                 Research Foundation Analyzer v6.0 (RF Analyzer)
                             </h3>
@@ -570,21 +577,22 @@
             <div class="p-8 sm:p-12 rounded-3xl border border-slate-800 card-glass text-center space-y-6 relative">
                 
                 <!-- Quick Edit Button for Founder -->
-                <button class="edit-only hidden absolute top-6 right-6 px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5" onclick="openEditFounderModal()">
+                <button class="edit-only hidden absolute top-6 right-6 px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/40 text-rose-300 hover:bg-rose-500 hover:text-navy-950 text-xs font-semibold transition-all flex items-center gap-1.5 shadow" onclick="openEditFounderModal()">
                     <i data-lucide="pencil" class="w-3.5 h-3.5"></i> កែសម្រួលព័ត៌មានស្ថាបនិក
                 </button>
 
-                <!-- Avatar with image upload -->
-                <div class="relative w-32 h-32 mx-auto group">
-                    <div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-teal-400 p-1 flex items-center justify-center shadow-xl overflow-hidden">
-                        <img id="founderPhoto" src="https://placehold.co/200x200/0f172a/ffffff?text=In+Sokra" alt="In Sokra" class="w-full h-full object-cover rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/200x200/0f172a/ffffff?text=IS';">
+                <!-- Avatar with image upload following books pattern -->
+                <div class="relative w-36 h-36 mx-auto group/founder">
+                    <div class="w-full h-full rounded-full bg-gradient-to-tr from-amber-400 via-rose-500 to-teal-400 p-1 flex items-center justify-center shadow-xl overflow-hidden bg-slate-900">
+                        <img id="founderPhoto" src="https://placehold.co/300x300/0a0f1d/eab308?text=In+Sokra" alt="In Sokra" class="w-full h-full object-cover rounded-full transition-transform duration-300 group-hover/founder:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/300x300/0a0f1d/eab308?text=IS';">
                     </div>
-                    <span class="absolute bottom-1 right-2 w-5 h-5 bg-rose-500 border-2 border-navy-950 rounded-full" title="Active"></span>
+                    <span class="absolute bottom-1 right-2 w-5 h-5 bg-rose-500 border-2 border-navy-950 rounded-full z-10" title="Active"></span>
 
-                    <button class="edit-only hidden absolute inset-0 bg-navy-950/80 rounded-full text-white text-xs font-medium flex-col items-center justify-center gap-1 group-hover:flex" onclick="document.getElementById('founderPhotoInput').click()">
-                        <i data-lucide="camera" class="w-5 h-5 text-amber-400"></i> ប្តូររូបថត
+                    <!-- Direct on-avatar hover upload overlay (Admin only, hidden when logged out) -->
+                    <button class="edit-only hidden absolute inset-0 rounded-full bg-navy-950/85 text-amber-300 text-xs font-medium flex flex-col items-center justify-center gap-1 opacity-0 group-hover/founder:opacity-100 transition-opacity backdrop-blur-sm shadow-xl" onclick="triggerDirectFounderUpload()">
+                        <i data-lucide="camera" class="w-5 h-5 text-amber-400"></i>
+                        <span class="text-[11px]">ប្តូររូបថត</span>
                     </button>
-                    <input type="file" id="founderPhotoInput" class="hidden" accept="image/*" onchange="uploadFounderPhoto(event)">
                 </div>
 
                 <div>
@@ -804,7 +812,7 @@
                 subtitle: "Foundation of Biotechnology",
                 desc: "ប្រវត្តិបច្ចេកវិទ្យាជីៈ, សែន និងក្រុមសែន, បច្ចេកវិទ្យាសែន, បច្ចេកវិទ្យាជីវៈមីក្រូជីវសាស្ត្រ,បច្ចេកវិទ្យាល្បើង",
                 price: "$10.00 / ក្បាល",
-                image: "https://placehold.co/400x560/164e63/22d3ee?text=IMRAD+Scientific+Writing",
+                image: "https://placehold.co/400x560/164e63/22d3ee?text=Foundation+Biotech",
                 telegramMsg: "សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ មូលដ្ឋានគ្រឹះបច្ចេកវិទ្យាជីវ ($10)"
             }
         ],
@@ -823,6 +831,7 @@
                 title: "Biometrics Data Pipeline Script",
                 desc: "កញ្ចប់កូដ Python ស្វ័យប្រវត្តសម្រាប់សម្អាតទិន្នន័យកសិកម្ម គណនាស្ថិតិពហុអថេរ (Multivariate PCA) និងគូរក្រាហ្វិកសម្រាប់ដាក់ក្នុងសារណាស្រាវជ្រាវ។",
                 price: "$15 / Pack",
+                image: "https://placehold.co/400x260/0f172a/38bdf8?text=Biometrics+Script",
                 telegramLink: "https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់ទិញកញ្ចប់%20Biometrics%20Data%20Pipeline"
             },
             {
@@ -831,6 +840,7 @@
                 title: "Research Data Auto-Bot",
                 desc: "ប្រព័ន្ធ Telegram Bot ស្វ័យប្រវត្តិសម្រាប់ការទាញយកតារាងស្ថិតិ និងការគ្រប់គ្រងការចែករំលែកឯកសារស្រាវជ្រាវប្រកបដោយសុវត្ថិភាព។",
                 price: "Custom Order",
+                image: "https://placehold.co/400x260/0f172a/22d3ee?text=Research+Auto+Bot",
                 telegramLink: "https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់សាកសួរពីសេវាកម្ម%20Telegram%20Research%20Bot"
             }
         ],
@@ -915,6 +925,7 @@
     let isEditMode = false;
     let currentModalAction = null;
     let activeUploadBookIndex = null;
+    let activeUploadSubSoftwareIndex = null;
 
     // Load admin password & persistent data
     function getAdminPassword() {
@@ -1058,7 +1069,7 @@
             statusText.textContent = "ទស្សនាគេហទំព័រធម្មតា។";
         }
 
-        // Toggle edit-only elements on the page
+        // Toggle edit-only elements across page
         const editElements = document.querySelectorAll('.edit-only');
         editElements.forEach(el => {
             if (isAdminLoggedIn && isEditMode) {
@@ -1129,10 +1140,12 @@
     }
 
     // ---------------------------------------------
-    // DIRECT ON-CARD BOOK UPLOAD (Mirroring Software upload)
+    // HARMONIZED DIRECT ON-CARD UPLOAD HANDLERS
     // ---------------------------------------------
+
+    // 1. Books Direct Upload
     function triggerDirectBookUpload(index) {
-        if (!isAdminLoggedIn) return;
+        if (!isAdminLoggedIn || !isEditMode) return;
         activeUploadBookIndex = index;
         const fileInput = document.getElementById('directBookFileInput');
         fileInput.value = '';
@@ -1160,6 +1173,95 @@
         reader.readAsDataURL(file);
     }
 
+    // 2. Main Software Direct Upload
+    function triggerDirectMainSoftwareUpload() {
+        if (!isAdminLoggedIn || !isEditMode) return;
+        const fileInput = document.getElementById('directMainSoftwareFileInput');
+        fileInput.value = '';
+        fileInput.click();
+    }
+
+    function handleDirectMainSoftwareUpload(event) {
+        if (!isAdminLoggedIn) return;
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            appData.mainSoftware.image = e.target.result;
+            saveAppState();
+            renderSoftwareSection();
+            showToast('បានប្តូររូបភាពកម្មវិធី RF Analyzer រួចរាល់!');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 3. Sub Software Direct Upload
+    function triggerDirectSubSoftwareUpload(index) {
+        if (!isAdminLoggedIn || !isEditMode) return;
+        activeUploadSubSoftwareIndex = index;
+        const fileInput = document.getElementById('directSubSoftwareFileInput');
+        fileInput.value = '';
+        fileInput.click();
+    }
+
+    function handleDirectSubSoftwareUpload(event) {
+        if (activeUploadSubSoftwareIndex === null || !isAdminLoggedIn) return;
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            appData.subSoftware[activeUploadSubSoftwareIndex].image = e.target.result;
+            saveAppState();
+            renderSoftwareSection();
+            showToast('បានប្តូររូបភាពឧបករណ៍ជំនួយរួចរាល់!');
+            activeUploadSubSoftwareIndex = null;
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // 4. Founder Direct Upload
+    function triggerDirectFounderUpload() {
+        if (!isAdminLoggedIn || !isEditMode) return;
+        const fileInput = document.getElementById('directFounderFileInput');
+        fileInput.value = '';
+        fileInput.click();
+    }
+
+    function handleDirectFounderPhotoUpload(event) {
+        if (!isAdminLoggedIn) return;
+        const file = event.target.files[0];
+        if (!file) return;
+
+        if (file.size > 3 * 1024 * 1024) {
+            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            appData.founder.photo = e.target.result;
+            saveAppState();
+            renderFounderSection();
+            showToast('បានប្តូររូបថតស្ថាបនិករួចរាល់!');
+        };
+        reader.readAsDataURL(file);
+    }
+
+    // ---------------------------------------------
+    // RENDER: BOOKS SECTION
+    // ---------------------------------------------
     function renderBooksSection() {
         const grid = document.getElementById('booksGrid');
         grid.innerHTML = '';
@@ -1185,7 +1287,7 @@
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Book Cover Display (Engineered just like Software Screenshot Container) -->
+                    <!-- Book Cover Container -->
                     <div class="rounded-2xl overflow-hidden border border-amber-500/20 bg-slate-950/80 h-72 flex items-center justify-center p-2 relative group/cover">
                         <span class="absolute top-3 left-3 text-[10px] bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2.5 py-0.5 rounded-full font-semibold z-10 backdrop-blur-md">
                             ${book.badge || 'សៀវភៅ'}
@@ -1193,8 +1295,8 @@
                         
                         <img src="${book.image}" alt="${book.titleKh}" class="w-full h-full object-contain rounded-xl shadow-lg transition-transform duration-300 group-hover/cover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x560/0a2540/38bdf8?text=Book+Cover';">
                         
-                        <!-- Overlay in edit mode: exactly like Software block upload button -->
-                        <button class="edit-only ${showEditClass} absolute inset-0 bg-slate-950/80 text-amber-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/cover:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectBookUpload(${index})">
+                        <!-- Overlay button (Admin only, hidden when logged out) -->
+                        <button class="edit-only ${showEditClass} absolute inset-0 bg-slate-950/85 text-amber-300 text-xs font-medium flex flex-col items-center justify-center gap-1.5 opacity-0 group-hover/cover:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectBookUpload(${index})">
                             <i data-lucide="upload" class="w-5 h-5 text-amber-400"></i>
                             <span>ប្តូររូបក្របសៀវភៅ (Upload Cover)</span>
                         </button>
@@ -1225,6 +1327,9 @@
         lucide.createIcons();
     }
 
+    // ---------------------------------------------
+    // RENDER: SOFTWARE SECTION
+    // ---------------------------------------------
     function renderSoftwareSection() {
         const ms = appData.mainSoftware;
         document.getElementById('mainSoftwareTag').textContent = ms.tag;
@@ -1243,16 +1348,28 @@
 
         appData.subSoftware.forEach((item, index) => {
             const card = document.createElement('div');
-            card.className = "p-6 rounded-3xl border border-slate-800 card-glass space-y-4 relative";
+            card.className = "p-6 rounded-3xl border border-slate-800 card-glass space-y-4 relative group/subsoft";
             card.innerHTML = `
-                <div class="edit-only ${showEditClass} absolute top-3 right-3 flex items-center gap-1">
-                    <button onclick="openEditSubSoftwareModal(${index})" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 transition-colors">
+                <div class="edit-only ${showEditClass} absolute top-3 right-3 z-10 flex items-center gap-1">
+                    <button onclick="openEditSubSoftwareModal(${index})" class="p-1.5 rounded-lg bg-cyan-500/20 text-cyan-300 hover:bg-cyan-500 hover:text-navy-950 transition-colors shadow">
                         <i data-lucide="pencil" class="w-3 h-3"></i>
                     </button>
                 </div>
+
+                <!-- Sub-software preview with upload overlay mirroring books -->
+                <div class="rounded-xl overflow-hidden border border-cyan-500/20 bg-slate-950/70 h-28 flex items-center justify-center p-2 relative group/subcover">
+                    <img src="${item.image || 'https://placehold.co/400x260/0f172a/38bdf8?text=' + encodeURIComponent(item.title)}" alt="${item.title}" class="w-full h-full object-contain rounded-lg transition-transform duration-300 group-hover/subcover:scale-105" onerror="this.onerror=null; this.src='https://placehold.co/400x260/0f172a/38bdf8?text=Script';">
+                    
+                    <!-- Overlay button (Admin only, hidden when logged out) -->
+                    <button class="edit-only ${showEditClass} absolute inset-0 bg-slate-950/85 text-cyan-300 text-[11px] font-medium flex flex-col items-center justify-center gap-1 opacity-0 group-hover/subcover:opacity-100 transition-opacity backdrop-blur-sm" onclick="triggerDirectSubSoftwareUpload(${index})">
+                        <i data-lucide="upload" class="w-4 h-4 text-cyan-400"></i>
+                        <span>ប្តូររូបភាព</span>
+                    </button>
+                </div>
+
                 <div class="flex items-center justify-between">
                     <span class="text-xs text-amber-400 font-mono">${item.type}</span>
-                    <i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i>
+                    <i data-lucide="terminal" class="w-4 h-4 text-cyan-400"></i>
                 </div>
                 <h4 class="text-base font-bold text-white">${item.title}</h4>
                 <p class="text-xs text-slate-400 leading-relaxed font-light">${item.desc}</p>
@@ -1268,6 +1385,9 @@
         lucide.createIcons();
     }
 
+    // ---------------------------------------------
+    // RENDER: PUBLICATIONS SECTION
+    // ---------------------------------------------
     function renderPublicationsSection() {
         const grid = document.getElementById('publicationsGrid');
         grid.innerHTML = '';
@@ -1318,13 +1438,16 @@
         lucide.createIcons();
     }
 
+    // ---------------------------------------------
+    // RENDER: FOUNDER SECTION
+    // ---------------------------------------------
     function renderFounderSection() {
         const f = appData.founder;
         document.getElementById('founderName').textContent = f.name;
         document.getElementById('founderRole').textContent = f.role;
         document.getElementById('founderAffiliation').textContent = f.affiliation;
         document.getElementById('founderBio').textContent = f.bio;
-        document.getElementById('founderPhoto').src = f.photo || 'https://placehold.co/200x200/0f172a/ffffff?text=IS';
+        document.getElementById('founderPhoto').src = f.photo || 'https://placehold.co/300x300/0a0f1d/eab308?text=IS';
         
         document.getElementById('linkScholar').href = f.scholar;
         document.getElementById('linkOrcid').href = f.orcid;
@@ -1411,7 +1534,7 @@
         });
     }
 
-    // Modal: Edit Book (With Direct Upload + URL Input + Live Preview)
+    // Modal: Edit Book (With Direct Upload + Live Preview)
     function openEditBookModal(index) {
         const b = appData.books[index];
         const html = `
@@ -1424,9 +1547,9 @@
                             <button type="button" onclick="document.getElementById('modalBookFileInput').click()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5 shadow">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបភាព (Upload File)
                             </button>
-                            <input type="file" id="modalBookFileInput" class="hidden" accept="image/*" onchange="previewModalBookImage(event)">
+                            <input type="file" id="modalBookFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editBookPreviewImg', 'editBookImage')">
                         </div>
-                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន (PNG, JPG) ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
+                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
                 </div>
 
@@ -1481,21 +1604,6 @@
         });
     }
 
-    function previewModalBookImage(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('editBookPreviewImg').src = e.target.result;
-            document.getElementById('editBookImage').value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-
     function openNewBookModal() {
         const defaultCover = 'https://placehold.co/400x560/0a2540/38bdf8?text=New+Book+Cover';
         const html = `
@@ -1508,7 +1616,7 @@
                             <button type="button" onclick="document.getElementById('newModalBookFileInput').click()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-navy-950 font-bold text-xs flex items-center gap-1.5 shadow">
                                 <i data-lucide="upload" class="w-3.5 h-3.5"></i> ផ្ទុកឡើងរូបភាព (Upload File)
                             </button>
-                            <input type="file" id="newModalBookFileInput" class="hidden" accept="image/*" onchange="previewNewModalBookImage(event)">
+                            <input type="file" id="newModalBookFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'newBookPreviewImg', 'newBookImage')">
                         </div>
                         <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
                     </div>
@@ -1562,21 +1670,6 @@
         });
     }
 
-    function previewNewModalBookImage(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            document.getElementById('newBookPreviewImg').src = e.target.result;
-            document.getElementById('newBookImage').value = e.target.result;
-        };
-        reader.readAsDataURL(file);
-    }
-
     function deleteBook(index) {
         if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់លុបសៀវភៅនេះមែនទេ?")) {
@@ -1586,18 +1679,39 @@
         }
     }
 
-    // Modal: Edit Flagship Software
+    // Modal: Edit Flagship Software (Harmonized with direct upload + preview)
     function openEditMainSoftwareModal() {
         const ms = appData.mainSoftware;
         const html = `
-            <div class="space-y-3">
-                <div>
-                    <label class="block text-slate-400 mb-1">Tag / Version</label>
-                    <input id="editSoftTag" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.tag}">
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-slate-950 border border-cyan-500/30 flex items-center gap-4">
+                    <img id="editMainSoftwarePreviewImg" src="${ms.image || 'https://placehold.co/600x400/082f49/38bdf8?text=RF+Analyzer+v6.0'}" alt="Preview" class="w-20 h-16 object-cover rounded-lg border border-slate-800 bg-slate-900 shadow">
+                    <div class="space-y-1.5 flex-1">
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពកម្មវិធី (Software Screenshot)</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="document.getElementById('modalMainSoftwareFileInput').click()" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបភាព (Upload File)
+                            </button>
+                            <input type="file" id="modalMainSoftwareFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editMainSoftwarePreviewImg', 'editSoftImage')">
+                        </div>
+                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
+                    </div>
                 </div>
+
                 <div>
-                    <label class="block text-slate-400 mb-1">Subtitle / Status</label>
-                    <input id="editSoftSub" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.subtitle}">
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់រូបភាព (Image URL)</label>
+                    <input id="editSoftImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${ms.image || ''}" oninput="document.getElementById('editMainSoftwarePreviewImg').src = this.value">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Tag / Version</label>
+                        <input id="editSoftTag" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.tag}">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Subtitle / Status</label>
+                        <input id="editSoftSub" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.subtitle}">
+                    </div>
                 </div>
                 <div>
                     <label class="block text-slate-400 mb-1">ឈ្មោះកម្មវិធី</label>
@@ -1610,10 +1724,6 @@
                 <div>
                     <label class="block text-slate-400 mb-1">តម្លៃអាជ្ញាប័ណ្ណ</label>
                     <input id="editSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.price}">
-                </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">រូបភាព Screenshot (URL)</label>
-                    <input id="editSoftImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${ms.image || ''}">
                 </div>
             </div>
         `;
@@ -1629,14 +1739,38 @@
         });
     }
 
-    // Modal: Edit Sub-software
+    // Modal: Edit Sub-software (With upload + preview)
     function openEditSubSoftwareModal(index) {
         const item = appData.subSoftware[index];
         const html = `
-            <div class="space-y-3">
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-slate-950 border border-cyan-500/30 flex items-center gap-4">
+                    <img id="editSubSoftwarePreviewImg" src="${item.image || 'https://placehold.co/400x260/0f172a/38bdf8?text=Script'}" alt="Preview" class="w-16 h-12 object-contain rounded-lg border border-slate-800 bg-slate-900 shadow">
+                    <div class="space-y-1.5 flex-1">
+                        <label class="block text-slate-300 font-semibold text-xs">រូបភាពឧបករណ៍ (Tool Screenshot/Icon)</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="document.getElementById('modalSubSoftwareFileInput').click()" class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs flex items-center gap-1.5 shadow">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបភាព (Upload File)
+                            </button>
+                            <input type="file" id="modalSubSoftwareFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editSubSoftwarePreviewImg', 'editSubSoftImage')">
+                        </div>
+                    </div>
+                </div>
+
                 <div>
-                    <label class="block text-slate-400 mb-1">ប្រភេទ</label>
-                    <input id="editSubSoftType" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.type}">
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់រូបភាព (Image URL)</label>
+                    <input id="editSubSoftImage" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${item.image || ''}" oninput="document.getElementById('editSubSoftwarePreviewImg').src = this.value">
+                </div>
+
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-400 mb-1">ប្រភេទ</label>
+                        <input id="editSubSoftType" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.type}">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">តម្លៃ</label>
+                        <input id="editSubSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.price}">
+                    </div>
                 </div>
                 <div>
                     <label class="block text-slate-400 mb-1">ឈ្មោះឧបករណ៍</label>
@@ -1646,10 +1780,6 @@
                     <label class="block text-slate-400 mb-1">ការពិពណ៌នា</label>
                     <textarea id="editSubSoftDesc" rows="3" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white">${item.desc}</textarea>
                 </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">តម្លៃ</label>
-                    <input id="editSubSoftPrice" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${item.price}">
-                </div>
             </div>
         `;
         openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ', html, () => {
@@ -1657,6 +1787,7 @@
             appData.subSoftware[index].title = document.getElementById('editSubSoftTitle').value;
             appData.subSoftware[index].desc = document.getElementById('editSubSoftDesc').value;
             appData.subSoftware[index].price = document.getElementById('editSubSoftPrice').value;
+            appData.subSoftware[index].image = document.getElementById('editSubSoftImage').value;
             saveAppState();
             renderSoftwareSection();
         });
@@ -1773,11 +1904,30 @@
         }
     }
 
-    // Modal: Edit Founder Profile
+    // Modal: Edit Founder Profile (Harmonized with direct upload + preview)
     function openEditFounderModal() {
         const f = appData.founder;
         const html = `
-            <div class="space-y-3">
+            <div class="space-y-4">
+                <div class="p-3.5 rounded-2xl bg-slate-950 border border-rose-500/30 flex items-center gap-4">
+                    <img id="editFounderPreviewImg" src="${f.photo || 'https://placehold.co/300x300/0a0f1d/eab308?text=IS'}" alt="Preview" class="w-16 h-16 rounded-full object-cover border-2 border-rose-500/40 shadow">
+                    <div class="space-y-1.5 flex-1">
+                        <label class="block text-slate-300 font-semibold text-xs">រូបថតស្ថាបនិក (Founder Avatar)</label>
+                        <div class="flex items-center gap-2">
+                            <button type="button" onclick="document.getElementById('modalFounderFileInput').click()" class="px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 shadow">
+                                <i data-lucide="upload" class="w-3.5 h-3.5"></i> ប្តូររូបថត (Upload Photo)
+                            </button>
+                            <input type="file" id="modalFounderFileInput" class="hidden" accept="image/*" onchange="previewModalImage(event, 'editFounderPreviewImg', 'editFounderPhoto')">
+                        </div>
+                        <p class="text-[11px] text-slate-400">ជ្រើសរើសរូបភាពពីម៉ាស៊ីន ឬបញ្ចូលតំណ URL ខាងក្រោម</p>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1">តំណភ្ជាប់រូបថត (Photo URL)</label>
+                    <input id="editFounderPhoto" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono text-xs" value="${f.photo || ''}" oninput="document.getElementById('editFounderPreviewImg').src = this.value">
+                </div>
+
                 <div>
                     <label class="block text-slate-400 mb-1">ឈ្មោះ</label>
                     <input id="editFounderName" type="text" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white" value="${f.name}">
@@ -1825,50 +1975,26 @@
             appData.founder.orcid = document.getElementById('editFounderOrcid').value;
             appData.founder.telegram = document.getElementById('editFounderTg').value;
             appData.founder.email = document.getElementById('editFounderEmail').value;
+            appData.founder.photo = document.getElementById('editFounderPhoto').value;
             saveAppState();
             renderFounderSection();
         });
     }
 
-    // ---------------------------------------------
-    // IMAGE UPLOAD HANDLERS (Base64 FileReader)
-    // ---------------------------------------------
-    function uploadMainSoftwareImage(event) {
-        if (!isAdminLoggedIn) return;
+    // Generic Modal image previewer
+    function previewModalImage(event, previewImgId, inputId) {
         const file = event.target.files[0];
         if (!file) return;
-
         if (file.size > 3 * 1024 * 1024) {
             showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
             return;
         }
-
         const reader = new FileReader();
         reader.onload = function(e) {
-            appData.mainSoftware.image = e.target.result;
-            saveAppState();
-            renderSoftwareSection();
-            showToast('បានប្តូររូបភាពកម្មវិធី RF Analyzer រួចរាល់!');
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function uploadFounderPhoto(event) {
-        if (!isAdminLoggedIn) return;
-        const file = event.target.files[0];
-        if (!file) return;
-
-        if (file.size > 3 * 1024 * 1024) {
-            showToast('ទំហំរូបភាពធំជាង 3MB! សូមជ្រើសរើសរូបតូចជាងនេះ។');
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            appData.founder.photo = e.target.result;
-            saveAppState();
-            renderFounderSection();
-            showToast('បានប្តូររូបថតស្ថាបនិករួចរាល់!');
+            document.getElementById(previewImgId).src = e.target.result;
+            if (inputId) {
+                document.getElementById(inputId).value = e.target.result;
+            }
         };
         reader.readAsDataURL(file);
     }
