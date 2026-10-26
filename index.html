@@ -822,11 +822,11 @@
      APPLICATION CORE SCRIPTS & SECURE GITHUB CMS
 ============================================== -->
 <script>
-    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V5';
-    // SHA-256 hash of the admin password (the plain password is never stored in this file)
+    const STORAGE_KEY = 'RF_APP_DATA_STORAGE_V6';
     const DEFAULT_PASS_HASH = "ecf04b48bd9afc208bc94fa4d1910e2f399c1eef51fe6fb26f51d32497871006";
 
     const DEFAULT_DATA = {
+        updatedAt: 1,
         about: {
             title: "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
             intro: "មូលដ្ឋានស្រាវជ្រាវ (Research Foundation) គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។",
@@ -1005,11 +1005,23 @@
         };
     }
 
-    // Load data from GitHub data.json for ALL visitors worldwide
+    // Load data ensuring locally modified changes take priority across refreshes
     async function loadDataFromGitHubOrLocal() {
-        const config = getGitHubConfig();
-        let loaded = false;
+        let localData = null;
+        try {
+            const saved = localStorage.getItem(STORAGE_KEY) || 
+                          localStorage.getItem('RF_APP_DATA_STORAGE_V5') || 
+                          localStorage.getItem('RF_APP_DATA_STORAGE_V4');
+            if (saved) {
+                localData = JSON.parse(saved);
+            }
+        } catch (e) {
+            console.error('Error reading localStorage:', e);
+        }
 
+        appData = localData || JSON.parse(JSON.stringify(DEFAULT_DATA));
+
+        const config = getGitHubConfig();
         if (config.owner && config.repo) {
             try {
                 const url = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?t=${Date.now()}`;
@@ -1017,29 +1029,17 @@
                 if (response.ok) {
                     const remoteJson = await response.json();
                     if (remoteJson && remoteJson.books) {
-                        appData = remoteJson;
-                        localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
-                        loaded = true;
+                        const remoteTime = remoteJson.updatedAt || 0;
+                        const localTime = appData.updatedAt || 0;
+                        // Only overwrite local if remote has newer content
+                        if (remoteTime > localTime) {
+                            appData = remoteJson;
+                            localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+                        }
                     }
                 }
             } catch (err) {
-                console.warn('Could not fetch data.json from GitHub, falling back to local storage.');
-            }
-        }
-
-        if (!loaded) {
-            try {
-                const saved = localStorage.getItem(STORAGE_KEY) || 
-                              localStorage.getItem('RF_APP_DATA_STORAGE_V4') || 
-                              localStorage.getItem('RF_APP_DATA_STORAGE_V3') || 
-                              localStorage.getItem('RF_APP_DATA_STORAGE_V2');
-                if (saved) {
-                    appData = JSON.parse(saved);
-                } else {
-                    appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-                }
-            } catch (e) {
-                appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+                console.warn('GitHub sync check bypassed, using verified local data.');
             }
         }
 
@@ -1047,9 +1047,10 @@
             appData.subSoftware = JSON.parse(JSON.stringify(DEFAULT_DATA.subSoftware));
         }
 
-        if (sessionStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
+        // Keep admin logged in across page refreshes
+        if (localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
-            isEditMode = true;
+            isEditMode = (localStorage.getItem('RF_ADMIN_EDIT_MODE') !== 'false');
         }
 
         renderAllSections();
@@ -1057,6 +1058,7 @@
 
     async function saveAppState() {
         try {
+            appData.updatedAt = Date.now();
             localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
             showToast('បានរក្សាទុកក្នុងម៉ាស៊ីនរួចរាល់!');
         } catch (e) {
@@ -1189,7 +1191,8 @@
         if (inputHash === savedHash) {
             isAdminLoggedIn = true;
             isEditMode = true;
-            sessionStorage.setItem('RF_ADMIN_LOGGED_IN', 'true');
+            localStorage.setItem('RF_ADMIN_LOGGED_IN', 'true');
+            localStorage.setItem('RF_ADMIN_EDIT_MODE', 'true');
             closeLoginModal();
             updateAdminUI();
             renderAllSections();
@@ -1202,7 +1205,8 @@
     function adminLogout() {
         isAdminLoggedIn = false;
         isEditMode = false;
-        sessionStorage.removeItem('RF_ADMIN_LOGGED_IN');
+        localStorage.removeItem('RF_ADMIN_LOGGED_IN');
+        localStorage.removeItem('RF_ADMIN_EDIT_MODE');
         updateAdminUI();
         renderAllSections();
         showToast('បានចាកចេញពីគណនី Admin!');
@@ -1211,6 +1215,7 @@
     function toggleEditMode() {
         if (!isAdminLoggedIn) return;
         isEditMode = !isEditMode;
+        localStorage.setItem('RF_ADMIN_EDIT_MODE', isEditMode ? 'true' : 'false');
         updateAdminUI();
         renderAllSections();
         showToast(isEditMode ? 'បានបើករបៀបកែសម្រួល!' : 'បានបិទរបៀបកែសម្រួល!');
@@ -2341,7 +2346,7 @@
     window.addEventListener('DOMContentLoaded', () => {
         loadDataFromGitHubOrLocal();
 
-        // Admin shortcut
+        // Admin shortcut (Ctrl + Shift + A)
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
                 e.preventDefault();
