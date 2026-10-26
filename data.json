@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793002046236,
+  "updatedAt": 1793002055788,
   "about": {
     "title": "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
     "intro": "មូលដ្ឋានស្រាវជ្រាវ (Research Foundation) គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។",
@@ -60,15 +60,6 @@
       "price": "$15 / Pack",
       "image": "https://placehold.co/400x260/0f172a/38bdf8?text=Biometrics+Script",
       "telegramLink": "https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់ទិញកញ្ចប់%20Biometrics%20Data%20Pipeline"
-    },
-    {
-      "id": "s2",
-      "type": "Automation Bot",
-      "title": "Research Data Auto-Bot",
-      "desc": "ប្រព័ន្ធ Telegram Bot ស្វ័យប្រវត្តិសម្រាប់ការទាញយកតារាងស្ថិតិ និងការគ្រប់គ្រងការចែករំលែកឯកសារស្រាវជ្រាវប្រកបដោយសុវត្ថិភាព។",
-      "price": "Custom Order",
-      "image": "https://placehold.co/400x260/0f172a/22d3ee?text=Research+Auto+Bot",
-      "telegramLink": "https://t.me/Sokra25?text=សួស្តីលោកគ្រូ%20ខ្ញុំចង់សាកសួរពីសេវាកម្ម%20Telegram%20Research%20Bot"
     }
   ],
   "publications": [
