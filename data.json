@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793063450570,
+  "updatedAt": 1793063560401,
   "about": {
     "title": "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
     "intro": "មូលដ្ឋានស្រាវជ្រាវ (Research Foundation) គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។",
@@ -62,7 +62,18 @@
       "telegramLink": "https://t.me/Sokra25?text=%E1%9E%9F%E1%9E%BD%E1%9E%9F%E1%9F%92%E1%9E%8F%E1%9E%B8%E1%9E%9B%E1%9F%84%E1%9E%80%E1%9E%82%E1%9F%92%E1%9E%9A%E1%9E%BC%20%E1%9E%81%E1%9F%92%E1%9E%89%E1%9E%BB%E1%9F%86%E1%9E%85%E1%9E%84%E1%9F%8B%E1%9E%91%E1%9E%B7%E1%9E%89%20in%20progress"
     }
   ],
-  "publications": [],
+  "publications": [
+    {
+      "id": "p_1793063560401",
+      "year": "2020",
+      "journal": "Applied Microbiology and Biotechnology",
+      "vol": "Vol. 104, No. 22, pp. 9565-9579",
+      "title": "Combining metabolic engineering and evolutionary adaptation in Klebsiella oxytoca KMS004 to significantly improve optically pure D-(−)-lactic acid yield and specific productivity in low nutrient medium",
+      "authors": "S In, P Khunnonkwao, N Wong, C Phosiran, SS Jantama, K Jantama",
+      "doi": "https://doi.org/10.1007/s00253-020-10933-0",
+      "scholarUrl": "https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en"
+    }
+  ],
   "founder": {
     "name": "លោក អិន សុខរ៉ា (In Sokra)",
     "role": "Founder & Principal Investigator (PI) • M.Sc. in Biotechnology",
