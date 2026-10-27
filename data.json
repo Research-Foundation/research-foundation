@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793063829393,
+  "updatedAt": 1793063882017,
   "about": {
     "title": "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
     "intro": "មូលដ្ឋានស្រាវជ្រាវ (Research Foundation) គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។",
@@ -63,6 +63,16 @@
     }
   ],
   "publications": [
+    {
+      "id": "p_1793063882017",
+      "year": "2025",
+      "journal": "Asian Journal of Research in Agriculture and Forestry",
+      "vol": "Vol. 11, No. 4, pp. 156-167",
+      "title": "Comparative Analysis of Bamboo Growth and Carbon Sequestration Across Major Forest Types in Cambodia",
+      "authors": "H Sarun, P Sorpheara, S Sopheak, H Meta, C Molikoy, I Sokra",
+      "doi": "https://doi.org/10.9734/ajraf/2025/v11i4453",
+      "scholarUrl": "https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en"
+    },
     {
       "id": "p_1793063829393",
       "year": "2025",
