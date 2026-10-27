@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793064504296,
+  "updatedAt": 1793064526863,
   "about": {
     "title": "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
     "intro": "មូលដ្ឋានស្រាវជ្រាវ (Research Foundation) គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។",
@@ -63,6 +63,16 @@
     }
   ],
   "publications": [
+    {
+      "id": "p_1793064526863",
+      "year": "2026",
+      "journal": "Journal of Central European Agriculture",
+      "vol": "Vol. 27, No. 3, pp. 736-747",
+      "title": "Effects of postharvest treatments and storage temperatures on shelf-life extension of Keo Romeat mango (Mangifera indica L.)",
+      "authors": "I Sokra, S SOMALY, H SARUN, C MOLIKOY, H META, D WULANDARI",
+      "doi": "https://doi.org/10.5513/JCEA01/27.3.5051",
+      "scholarUrl": "https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en"
+    },
     {
       "id": "p_1793064504296",
       "year": "2026",
