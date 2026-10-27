@@ -1,5 +1,5 @@
 {
-  "updatedAt": 1793064413271,
+  "updatedAt": 1793064428368,
   "about": {
     "title": "អំពីមូលដ្ឋានស្រាវជ្រាវ (Research Foundation)",
     "intro": "មូលដ្ឋានស្រាវជ្រាវ (Research Foundation) គឺជាអង្គភាពផ្តួចផ្តើម និងស្រាវជ្រាវវិទ្យាសាស្ត្រកម្រិតខ្ពស់មួយនៅកម្ពុជា ដែលត្រូវបានបង្កើតឡើងក្នុងគោលបំណងផ្សារភ្ជាប់រវាងទ្រឹស្តីវិទ្យាសាស្ត្រពិសោធន៍ ការអនុវត្តលើទីវាលកសិកម្ម និងបច្ចេកវិទ្យាវិភាគទិន្នន័យទំនើប។",
@@ -63,6 +63,16 @@
     }
   ],
   "publications": [
+    {
+      "id": "p_1793064428368",
+      "year": "2026",
+      "journal": "Asain Journal of Development and  Innovation Studies",
+      "vol": "Vol. 1, No. 2, pp. 23-30",
+      "title": "Effect of corn starch on the chemical properties and sensory attributes of tamarind sauce",
+      "authors": "I Sokra, H Sarun, S Somaly",
+      "doi": "https://doi.org/10.71026/ajdis.01.02.003",
+      "scholarUrl": "https://scholar.google.com/citations?user=-gn6Ri8AAAAJ&hl=en"
+    },
     {
       "id": "p_1793064391960",
       "year": "2025",
