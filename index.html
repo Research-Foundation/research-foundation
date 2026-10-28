@@ -231,7 +231,7 @@
     <span id="toast-message">បានរក្សាទុកដោយជោគជ័យ!</span>
 </div>
 
-<!-- TIDY NAVIGATION BAR (Strict Single-Line & Non-Wrapping) -->
+<!-- TIDY NAVIGATION BAR -->
 <header class="sticky top-0 z-40 glassmorphism transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-20 gap-4">
@@ -252,7 +252,7 @@
                 </div>
             </a>
 
-            <!-- 5 Menus Desktop Navigation (Tidy, Spaced, Strictly single line) -->
+            <!-- 5 Menus Desktop Navigation -->
             <nav id="desktopMenu" class="hidden lg:flex items-center gap-1 p-1 rounded-2xl bg-slate-900/80 border border-slate-800/80 text-xs sm:text-sm font-medium text-slate-300 shadow-inner shrink-0">
                 <a href="#about" data-menu="about" class="nav-item px-3.5 py-1.5 rounded-xl border border-transparent hover:border-emerald-500/30 hover:text-emerald-300 transition-all flex items-center gap-1.5 whitespace-nowrap">
                     <i data-lucide="info" class="w-3.5 h-3.5"></i>
@@ -276,7 +276,7 @@
                 </a>
             </nav>
 
-            <!-- Tidy Action Bar (Non-wrapping & Compact) -->
+            <!-- Tidy Action Bar -->
             <div class="hidden xl:flex items-center gap-2 shrink-0">
                 <a href="mailto:contact@researchfoundation.top" class="p-2 rounded-xl border border-emerald-500/40 bg-emerald-950/30 hover:bg-emerald-500/20 text-emerald-300 text-xs font-semibold flex items-center justify-center transition-all shadow-sm" title="Email: contact@researchfoundation.top">
                     <i data-lucide="mail" class="w-4 h-4 text-emerald-400"></i>
@@ -515,7 +515,7 @@
                         Flagship Software • Version 6.0 Stable
                     </span>
                     <span id="mainSoftwareSubtitle" class="text-xs text-amber-400 font-semibold">
-                        ផ្ទៀងផ្ទាត់សុក្រឹតភាព ១០០% ធៀបនឹង Python,  Sas, GraphPad Prism, Excel
+                        ផ្ទៀងផ្ទាត់សុក្រឹតភាព ១០០% ធៀបនឹង Python, Sas, GraphPad Prism, Excel
                     </span>
                 </div>
 
@@ -963,7 +963,7 @@
     </div>
 </div>
 
-<!-- SCRIPT LOGIC (RESTORES DATA ACCURATELY) -->
+<!-- SCRIPT LOGIC (RELIABLE TIMESTAMP-BASED CACHING & SYNC) -->
 <script>
     const PRIMARY_PASS_HASH = "8295b9a8cfd6f85ff53a3fc263cebe0ea238e8cb4fa99723ec0832442cf82dbf"; // Sokra@2026
     const BACKUP_PASS_HASH = "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9"; // admin123
@@ -1147,27 +1147,37 @@
         };
     }
 
-    // RELIABLE DATA FETCHING: GitHub API -> Local data.json -> localStorage -> Fallback
+    // RELIABLE DATA FETCHING: Compares updatedAt timestamps
     async function loadDataFromGitHubOrLocal() {
         const config = getGitHubConfig();
-        let loaded = false;
+        let remoteData = null;
+        let cachedData = null;
 
-        // Try relative local data.json first (Fastest & most consistent)
+        // 1. Read cached working copy from localStorage
+        const cached = localStorage.getItem('RF_SITE_DATA');
+        if (cached) {
+            try {
+                cachedData = JSON.parse(cached);
+            } catch (e) {
+                console.error('Failed to parse cached localStorage data', e);
+            }
+        }
+
+        // 2. Fetch static local data.json
         try {
             const localRes = await fetch(`./data.json?_cb=${Date.now()}`, { cache: 'no-store' });
             if (localRes.ok) {
                 const localJson = await localRes.json();
                 if (localJson && localJson.books) {
-                    appData = localJson;
-                    loaded = true;
+                    remoteData = localJson;
                 }
             }
         } catch (e) {
             console.warn('Local data.json not loaded, falling back to GitHub API...');
         }
 
-        // Fallback to GitHub API if not loaded yet
-        if (!loaded && config.owner && config.repo) {
+        // 3. Fallback to GitHub API if data.json was not found
+        if (!remoteData && config.owner && config.repo) {
             try {
                 const apiUrl = `https://api.github.com/repos/${config.owner}/${config.repo}/contents/${config.path}?ref=${config.branch}&_cb=${Date.now()}`;
                 const apiHeaders = { 'Accept': 'application/vnd.github.v3+json' };
@@ -1178,51 +1188,33 @@
                     const fileObj = await res.json();
                     if (fileObj && fileObj.content) {
                         const decodedStr = decodeURIComponent(escape(atob(fileObj.content.replace(/\s/g, ''))));
-                        const parsedData = JSON.parse(decodedStr);
-                        if (parsedData && parsedData.books) {
-                            appData = parsedData;
-                            loaded = true;
-                        }
+                        remoteData = JSON.parse(decodedStr);
                     }
                 }
             } catch (err) {
-                console.warn('GitHub API fetch failed, trying direct raw fallback...');
-            }
-
-            if (!loaded) {
-                try {
-                    const rawUrl = `https://raw.githubusercontent.com/${config.owner}/${config.repo}/${config.branch}/${config.path}?_cb=${Date.now()}`;
-                    const resRaw = await fetch(rawUrl, { cache: 'no-store' });
-                    if (resRaw.ok) {
-                        const rawJson = await resRaw.json();
-                        if (rawJson && rawJson.books) {
-                            appData = rawJson;
-                            loaded = true;
-                        }
-                    }
-                } catch (e) {
-                    console.warn('Raw fallback failed.');
-                }
+                console.warn('GitHub API fetch failed.');
             }
         }
 
-        // If all remote files fail, use local cached copy or DEFAULT_DATA
-        if (!loaded) {
-            const cached = localStorage.getItem('RF_SITE_DATA');
-            if (cached) {
-                try {
-                    appData = JSON.parse(cached);
-                    loaded = true;
-                } catch(e) {}
-            }
-        }
-
-        if (!loaded) {
+        // 4. Decide state: Compare timestamp updatedAt
+        if (cachedData && remoteData) {
+            const cachedTime = cachedData.updatedAt || 0;
+            const remoteTime = remoteData.updatedAt || 0;
+            appData = (cachedTime >= remoteTime) ? cachedData : remoteData;
+        } else if (cachedData) {
+            appData = cachedData;
+        } else if (remoteData) {
+            appData = remoteData;
+        } else {
             appData = JSON.parse(JSON.stringify(DEFAULT_DATA));
         }
 
-        // Cache local working state
-        localStorage.setItem('RF_SITE_DATA', JSON.stringify(appData));
+        // Safe caching
+        try {
+            localStorage.setItem('RF_SITE_DATA', JSON.stringify(appData));
+        } catch (e) {
+            console.warn('LocalStorage limit exceeded, caching skipped.');
+        }
 
         if (sessionStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true' || localStorage.getItem('RF_ADMIN_LOGGED_IN') === 'true') {
             isAdminLoggedIn = true;
@@ -1234,13 +1226,19 @@
 
     async function saveAppState() {
         appData.updatedAt = Date.now();
-        localStorage.setItem('RF_SITE_DATA', JSON.stringify(appData));
-        const config = getGitHubConfig();
+        
+        try {
+            localStorage.setItem('RF_SITE_DATA', JSON.stringify(appData));
+        } catch (err) {
+            console.warn('Storage quota exceeded. Base64 images may be large.', err);
+            showToast('⚠️ រូបភាពធំពេកសម្រាប់ Browser ប៉ុន្តែកំពុងព្យាយាម Sync ទៅ GitHub...');
+        }
 
+        const config = getGitHubConfig();
         if (config.token && config.owner && config.repo) {
             await commitDataToGitHub();
         } else {
-            alert("⚠️ ការព្រមាន៖ លោកគ្រូមិនទាន់បានកំណត់ Personal Access Token (PAT) នៅឡើយទេ។ សូមចុចប៊ូតុង 'GitHub Sync' ខាងលើ ដើម្បីដាក់ Token ទើបទូរសព្ទ និងកុំព្យូទ័រទាំងអស់អាច Update ដូចគ្នា។");
+            showToast('✓ បានរក្សាទុកក្នុង Browser!');
         }
     }
 
@@ -1501,9 +1499,9 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        compressAndSaveImage(file, (compressedBase64) => {
+        compressAndSaveImage(file, async (compressedBase64) => {
             appData.books[activeUploadBookIndex].image = compressedBase64;
-            saveAppState();
+            await saveAppState();
             renderBooksSection();
             showToast('បានប្តូររូបក្របសៀវភៅរួចរាល់!');
             activeUploadBookIndex = null;
@@ -1522,9 +1520,9 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        compressAndSaveImage(file, (compressedBase64) => {
+        compressAndSaveImage(file, async (compressedBase64) => {
             appData.mainSoftware.image = compressedBase64;
-            saveAppState();
+            await saveAppState();
             renderSoftwareSection();
             showToast('បានប្តូររូបភាពកម្មវិធី RF Analyzer រួចរាល់!');
         });
@@ -1543,9 +1541,9 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        compressAndSaveImage(file, (compressedBase64) => {
+        compressAndSaveImage(file, async (compressedBase64) => {
             appData.subSoftware[activeUploadSubSoftwareIndex].image = compressedBase64;
-            saveAppState();
+            await saveAppState();
             renderSoftwareSection();
             showToast('បានប្តូររូបភាពឧបករណ៍ជំនួយរួចរាល់!');
             activeUploadSubSoftwareIndex = null;
@@ -1564,9 +1562,9 @@
         const file = event.target.files[0];
         if (!file) return;
 
-        compressAndSaveImage(file, (compressedBase64) => {
+        compressAndSaveImage(file, async (compressedBase64) => {
             appData.founder.photo = compressedBase64;
-            saveAppState();
+            await saveAppState();
             renderFounderSection();
             showToast('បានប្តូររូបថតស្ថាបនិករួចរាល់!');
         });
@@ -1910,9 +1908,9 @@
         currentModalAction = null;
     }
 
-    function saveModalChanges() {
+    async function saveModalChanges() {
         if (typeof currentModalAction === 'function') {
-            currentModalAction();
+            await currentModalAction();
         }
         closeModal();
     }
@@ -1943,13 +1941,13 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="info" class="w-5 h-5 text-emerald-400"></i> កែសម្រួលអំពីយើង', html, () => {
+        openModal('<i data-lucide="info" class="w-5 h-5 text-emerald-400"></i> កែសម្រួលអំពីយើង', html, async () => {
             appData.about.title = document.getElementById('editAboutTitle').value;
             appData.about.intro = document.getElementById('editAboutIntro').value;
             appData.about.p1 = document.getElementById('editAboutP1').value;
             appData.about.p2 = document.getElementById('editAboutP2').value;
             appData.about.p3 = document.getElementById('editAboutP3').value;
-            saveAppState();
+            await saveAppState();
             renderAboutSection();
         });
     }
@@ -2008,7 +2006,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i> កែសម្រួលព័ត៌មានសៀវភៅ', html, () => {
+        openModal('<i data-lucide="book-open" class="w-5 h-5 text-amber-400"></i> កែសម្រួលព័ត៌មានសៀវភៅ', html, async () => {
             appData.books[index].badge = document.getElementById('editBookBadge').value;
             appData.books[index].price = document.getElementById('editBookPrice').value;
             appData.books[index].titleKh = document.getElementById('editBookTitleKh').value;
@@ -2017,7 +2015,7 @@
             appData.books[index].desc = document.getElementById('editBookDesc').value;
             appData.books[index].telegramMsg = document.getElementById('editBookTgMsg').value;
             appData.books[index].image = document.getElementById('editBookImage').value;
-            saveAppState();
+            await saveAppState();
             renderBooksSection();
         });
     }
@@ -2068,7 +2066,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-amber-400"></i> បន្ថែមសៀវភៅថ្មី', html, () => {
+        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-amber-400"></i> បន្ថែមសៀវភៅថ្មី', html, async () => {
             const khTitle = document.getElementById('newBookTitleKh').value || 'សៀវភៅស្រាវជ្រាវ';
             const newB = {
                 id: 'b_' + Date.now(),
@@ -2082,16 +2080,16 @@
                 telegramMsg: `សួស្តីលោកគ្រូ ខ្ញុំចង់បញ្ជាទិញសៀវភៅ ${khTitle}`
             };
             appData.books.push(newB);
-            saveAppState();
+            await saveAppState();
             renderBooksSection();
         });
     }
 
-    function deleteBook(index) {
+    async function deleteBook(index) {
         if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់លុបសៀវភៅនេះមែនទេ?")) {
             appData.books.splice(index, 1);
-            saveAppState();
+            await saveAppState();
             renderBooksSection();
         }
     }
@@ -2142,14 +2140,14 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលកម្មវិធី RF Analyzer v6.0', html, () => {
+        openModal('<i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលកម្មវិធី RF Analyzer v6.0', html, async () => {
             appData.mainSoftware.tag = document.getElementById('editSoftTag').value;
             appData.mainSoftware.subtitle = document.getElementById('editSoftSub').value;
             appData.mainSoftware.title = document.getElementById('editSoftTitle').value;
             appData.mainSoftware.desc = document.getElementById('editSoftDesc').value;
             appData.mainSoftware.price = document.getElementById('editSoftPrice').value;
             appData.mainSoftware.image = document.getElementById('editSoftImage').value;
-            saveAppState();
+            await saveAppState();
             renderSoftwareSection();
         });
     }
@@ -2200,14 +2198,14 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ', html, () => {
+        openModal('<i data-lucide="terminal" class="w-5 h-5 text-cyan-400"></i> កែសម្រួលឧបករណ៍ជំនួយ', html, async () => {
             appData.subSoftware[index].type = document.getElementById('editSubSoftType').value;
             appData.subSoftware[index].title = document.getElementById('editSubSoftTitle').value;
             appData.subSoftware[index].desc = document.getElementById('editSubSoftDesc').value;
             appData.subSoftware[index].price = document.getElementById('editSubSoftPrice').value;
             appData.subSoftware[index].image = document.getElementById('editSubSoftImage').value;
             appData.subSoftware[index].telegramLink = document.getElementById('editSubSoftTg').value;
-            saveAppState();
+            await saveAppState();
             renderSoftwareSection();
         });
     }
@@ -2258,7 +2256,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-cyan-400"></i> បន្ថែមកម្មវិធី / ឧបករណ៍ថ្មី', html, () => {
+        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-cyan-400"></i> បន្ថែមកម្មវិធី / ឧបករណ៍ថ្មី', html, async () => {
             const title = document.getElementById('newSoftTitle').value.trim() || 'Software Tool';
             const userTgMsg = document.getElementById('newSoftTgMsg').value.trim() || `សួស្តីលោកគ្រូ ខ្ញុំចង់ទិញ ${title}`;
             const newTool = {
@@ -2271,16 +2269,16 @@
                 telegramLink: `https://t.me/Sokra25?text=${encodeURIComponent(userTgMsg)}`
             };
             appData.subSoftware.push(newTool);
-            saveAppState();
+            await saveAppState();
             renderSoftwareSection();
         });
     }
 
-    function deleteSubSoftware(index) {
+    async function deleteSubSoftware(index) {
         if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់លុបកម្មវិធី/ឧបករណ៍នេះមែនទេ?")) {
             appData.subSoftware.splice(index, 1);
-            saveAppState();
+            await saveAppState();
             renderSoftwareSection();
         }
     }
@@ -2328,7 +2326,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="newspaper" class="w-5 h-5 text-purple-400"></i> កែសម្រួលអត្ថបទបោះពុម្ព', html, () => {
+        openModal('<i data-lucide="newspaper" class="w-5 h-5 text-purple-400"></i> កែសម្រួលអត្ថបទបោះពុម្ព', html, async () => {
             appData.publications[index].year = document.getElementById('editPubYear').value;
             appData.publications[index].journal = document.getElementById('editPubJournal').value;
             appData.publications[index].vol = document.getElementById('editPubVol').value;
@@ -2336,7 +2334,7 @@
             appData.publications[index].authors = document.getElementById('editPubAuthors').value;
             appData.publications[index].doi = document.getElementById('editPubDoi').value;
             appData.publications[index].scholarUrl = document.getElementById('editPubScholar').value;
-            saveAppState();
+            await saveAppState();
             renderPublicationsSection();
         });
     }
@@ -2383,7 +2381,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-purple-400"></i> បន្ថែមអត្ថបទបោះពុម្ពថ្មី', html, () => {
+        openModal('<i data-lucide="plus-circle" class="w-5 h-5 text-purple-400"></i> បន្ថែមអត្ថបទបោះពុម្ពថ្មី', html, async () => {
             const newPub = {
                 id: 'p_' + Date.now(),
                 year: document.getElementById('newPubYear').value || '2026',
@@ -2395,16 +2393,16 @@
                 scholarUrl: document.getElementById('newPubScholar').value || 'https://scholar.google.com'
             };
             appData.publications.unshift(newPub);
-            saveAppState();
+            await saveAppState();
             renderPublicationsSection();
         });
     }
 
-    function deletePublication(index) {
+    async function deletePublication(index) {
         if (!isAdminLoggedIn) return;
         if (window.confirm("តើអ្នកពិតជាចង់លុបអត្ថបទនេះមែនទេ?")) {
             appData.publications.splice(index, 1);
-            saveAppState();
+            await saveAppState();
             renderPublicationsSection();
         }
     }
@@ -2469,7 +2467,7 @@
                 </div>
             </div>
         `;
-        openModal('<i data-lucide="user" class="w-5 h-5 text-rose-400"></i> កែសម្រួលព័ត៌មានស្ថាបនិក', html, () => {
+        openModal('<i data-lucide="user" class="w-5 h-5 text-rose-400"></i> កែសម្រួលព័ត៌មានស្ថាបនិក', html, async () => {
             appData.founder.name = document.getElementById('editFounderName').value;
             appData.founder.role = document.getElementById('editFounderRole').value;
             appData.founder.affiliation = document.getElementById('editFounderAffiliation').value;
@@ -2479,7 +2477,7 @@
             appData.founder.telegram = document.getElementById('editFounderTg').value;
             appData.founder.email = document.getElementById('editFounderEmail').value;
             appData.founder.photo = document.getElementById('editFounderPhoto').value;
-            saveAppState();
+            await saveAppState();
             renderFounderSection();
         });
     }
